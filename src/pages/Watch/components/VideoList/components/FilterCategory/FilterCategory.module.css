@@ -1,0 +1,22 @@
+.wrapper {
+    width: 100%;
+    overflow: hidden;
+    background-color: #ccc;
+}
+.list {
+    display: flex;
+    transition: all 0.3s linear;
+}
+.item {
+    padding: 7px 12px;
+    font-size: 1.4rem;
+    background-color: #000;
+    color: #fff;
+    border-radius: 7px;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+.item + .item {
+    margin-left: 10px;
+}

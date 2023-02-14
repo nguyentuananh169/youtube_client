@@ -1,0 +1,47 @@
+.filterContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.filterContainer .count {
+    font-size: 1.4rem;
+}
+.filterContainer .filter {
+    font-size: 1.4rem;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+.filterContainer .filter svg {
+    font-size: 20px;
+    margin-right: 10px;
+}
+.filterContainer .filter .menu {
+    position: absolute;
+    background-color: #fff;
+    top: calc(100% + 20px);
+    left: 0;
+    padding: 10px 0;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 7px;
+    transform-origin: left top;
+    transform: scale(0);
+    transition: all 0.3s ease;
+    opacity: 0;
+    z-index: 1;
+}
+.filterContainer .filter.showMenu .menu {
+    transform: scale(1);
+    opacity: 1;
+}
+.filterContainer .filter .menu ul li {
+    padding: 15px 18px;
+    white-space: nowrap;
+    list-style: none;
+}
+.filterContainer .filter .menu ul li.active {
+    background-color: #e5e5e5;
+}

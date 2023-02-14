@@ -1,0 +1,99 @@
+.formContainer {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+}
+.avatar {
+    width: 55px;
+}
+.avatar img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.formContainer.lv2 .avatar {
+    width: 39px;
+}
+.formContainer.lv2 .avatar img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.form {
+    flex: 1;
+}
+.form form {
+    width: 100%;
+}
+.form form .textarea {
+    width: 100%;
+    position: relative;
+}
+.form form .textarea textarea {
+    width: 100%;
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid#ccc;
+    padding: 7px 0;
+    resize: none;
+    overflow: hidden;
+}
+.form form .textarea::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #000;
+    bottom: 2px;
+    z-index: 1000;
+    left: 50%;
+    transition: all 0.3s linear;
+}
+.form form .textarea.focus::before {
+    width: 100%;
+    left: 0;
+}
+.bottomRow {
+    width: 100%;
+    margin-top: 10px;
+    display: none;
+    justify-content: space-between;
+}
+.bottomRow.show {
+    display: flex;
+}
+.bottomRow .icon button {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    border: none;
+    background-color: #f2f2f2;
+}
+.bottomRow .icon button:hover {
+    background-color: #e5e5e5;
+}
+.bottomRow .actions button {
+    padding: 10px 17px;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+}
+.bottomRow .actions button + button {
+    margin-left: 10px;
+}
+.bottomRow .actions button:first-child {
+    background-color: transparent;
+}
+.bottomRow .actions button:first-child:hover {
+    background-color: #e5e5e5;
+}
+.bottomRow .actions button:last-child {
+    background-color: #e5e5e5;
+}
+.bottomRow .actions.active button:last-child {
+    background-color: #065fd4;
+    color: #fff;
+}

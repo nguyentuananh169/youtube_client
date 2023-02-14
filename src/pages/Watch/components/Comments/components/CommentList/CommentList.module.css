@@ -1,0 +1,105 @@
+.commentContainer {
+    width: 100%;
+    margin-top: 25px;
+}
+.itemList {
+    width: 100%;
+    display: flex;
+}
+.itemList + .itemList {
+    margin-top: 20px;
+}
+.itemList.itemLv2 {
+    margin-top: 20px;
+}
+.avatar {
+    width: 56px;
+}
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.itemList.itemLv2 .avatar {
+    width: 40px;
+}
+.itemList.itemLv2 .avatar img {
+    width: 24px;
+    height: 24px;
+}
+.info {
+    flex: 1;
+}
+.name,
+.content {
+    font-size: 1.4rem;
+}
+.name span {
+    display: inline-block;
+    margin-left: 5px;
+    color: #606060;
+    font-size: 1.3rem;
+}
+.content {
+    margin-top: 7px;
+    line-height: 2rem;
+}
+.actions {
+    width: 100%;
+    margin-top: 7px;
+    display: flex;
+    align-items: center;
+}
+.actions .btn {
+    display: flex;
+    align-items: center;
+}
+.actions .btn span {
+    font-size: 1.3rem;
+    color: #606060;
+}
+.actions .btn + .btn {
+    margin-left: 5px;
+}
+.actions .btn:not(.reply) button {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 1.9rem;
+    font-weight: 400;
+    background-color: transparent;
+    border: none;
+}
+.actions .btn:not(.reply) button:hover {
+    background-color: #e5e5e5;
+}
+.actions .btn.reply button {
+    padding: 7px 12px;
+    border-radius: 20px;
+    background-color: transparent;
+    border: none;
+}
+.actions .btn.reply button:hover {
+    background-color: #e5e5e5;
+}
+.btnMore {
+    margin-top: 5px;
+}
+.btnMore button {
+    background-color: transparent;
+    padding: 9px 13px;
+    border: none;
+    color: #065fd4;
+    font-weight: 500;
+    font-size: 1.4rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+.btnMore button svg {
+    margin-right: 10px;
+}
+.btnMore button:hover {
+    background-color: rgba(62, 166, 255, 0.3);
+}

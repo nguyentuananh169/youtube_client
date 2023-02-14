@@ -1,0 +1,46 @@
+.wrapper {
+    padding: 10px 0;
+    min-width: 250px;
+    max-height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.item {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.item.header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+.icon {
+    font-size: 17px;
+    width: 35px;
+    text-align: center;
+}
+.icon.children {
+    opacity: 0;
+}
+.icon.children.active {
+    opacity: 1;
+}
+.title {
+    padding-right: 10px;
+    font-size: 1.4rem;
+}
+.value {
+    font-size: 1.2rem;
+    padding: 0 10px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex: 1;
+}
+.iconNext {
+    font-size: 21px;
+    line-height: 0;
+}

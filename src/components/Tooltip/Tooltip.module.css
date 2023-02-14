@@ -1,0 +1,17 @@
+.tooltip {
+    position: absolute;
+    background-color: rgba(110, 110, 110, 0.9);
+    padding: 10px;
+    border-radius: 7px;
+    font-size: 1.3rem;
+    animation: a1 0.2s ease-in;
+    color: #fefafa;
+}
+@keyframes a1 {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

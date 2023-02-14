@@ -1,0 +1,82 @@
+.owner {
+    width: 50%;
+}
+
+.owner {
+    display: flex;
+    align-items: center;
+}
+.ownerInfo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-right: 25px;
+}
+.avatar {
+    width: 52px;
+}
+.avatar img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.info {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.info .name {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.info .name .text {
+    flex: 1;
+    position: relative;
+}
+.info .name .text div:first-child,
+.info .name .icon div:first-child {
+    display: none;
+}
+.info .name .text:hover div:first-child,
+.info .name .icon:hover div:first-child {
+    display: block;
+}
+.info .name .text a {
+    display: inline-block;
+    max-width: 170px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 1.6rem;
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+}
+.info .name .icon {
+    width: 20px;
+    position: relative;
+    color: #606060;
+    font-size: 1.2rem;
+}
+.subscriber {
+    margin-top: 5px;
+    font-size: 1.3rem;
+    color: #606060;
+}
+.subscribeButton button {
+    width: 82px;
+    height: 36px;
+    outline: none;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.4rem;
+    border-radius: 20px;
+}
+.subscribeButton button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}

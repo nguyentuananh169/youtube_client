@@ -1,0 +1,138 @@
+.wrapper {
+    width: calc(25% - 16px);
+    transition: transform 0.3s ease;
+    border-radius: 10px 10px 0 0;
+    background-color: #fff;
+    position: relative;
+}
+.wrapper.scale {
+    transform: scale(1.2);
+    z-index: 100;
+}
+.wrapper a {
+    text-decoration: none;
+}
+.thumbnail {
+    width: 100%;
+    padding-top: 53%;
+    background-color: #ccc;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.thumbnail .note {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #000;
+    z-index: 1;
+    display: none;
+}
+.wrapper:not(.scale) .thumbnail:hover .note {
+    display: block;
+}
+.thumbnail img,
+.thumbnail .video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+    object-position: center;
+}
+.thumbnail img {
+    z-index: 1;
+}
+.thumbnail .video {
+    z-index: -1;
+}
+.wrapper.scale img {
+    z-index: -1;
+}
+.wrapper.scale .video {
+    z-index: 1;
+}
+.details {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+}
+.avatar {
+    width: 53px;
+}
+.avatar img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+.meta {
+    flex: 1;
+}
+.title {
+    width: 100%;
+    display: flex;
+}
+.title .text {
+    flex: 1;
+    font-size: 1.4rem;
+    color: #000;
+}
+.title .icon {
+    width: 40px;
+    text-align: center;
+    opacity: 0;
+}
+.wrapper:hover .title .icon {
+    opacity: 1;
+}
+.nameChannel {
+    margin-top: 12px;
+    font-size: 1.3rem;
+    color: #606060;
+}
+.metaLine {
+    margin-top: 5px;
+    font-size: 1.3rem;
+    color: #606060;
+}
+.buttons {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 100%;
+    padding: 12px 10px;
+    display: none;
+    background-color: #fff;
+    border-radius: 0 0 10px 10px;
+}
+.wrapper.scale .buttons {
+    display: block;
+}
+.btn2 {
+    margin-top: 7px;
+}
+.buttons button {
+    width: 100%;
+    padding: 5px;
+    border: 0;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f2f2f2;
+    font-size: 1.2rem;
+    color: #000;
+}
+.buttons button:hover {
+    background-color: #e5e5e5;
+}
+.buttons button .text {
+    display: inline-block;
+    margin-left: 10px;
+}

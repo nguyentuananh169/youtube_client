@@ -1,0 +1,100 @@
+.actions {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    height: 36px;
+}
+.btn + .btn {
+    margin-left: 10px;
+}
+.btn button {
+    height: 100%;
+    outline: none;
+    background-color: #f2f2f2;
+    padding: 0 15px;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    border: none;
+    font-weight: 400;
+}
+.btn button:hover {
+    background-color: #d8d5d5;
+}
+.btnActions {
+    position: relative;
+}
+.btnActions button {
+    aspect-ratio: 1/1;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+}
+.btn.share button {
+    border-radius: 20px;
+    position: relative;
+}
+.btn.share button div:first-child {
+    display: none;
+}
+.btn.share button:hover div:first-child {
+    display: block;
+}
+.btn svg {
+    margin-right: 5px;
+    font-size: 1.7rem;
+}
+.btn.likeDislike {
+    display: flex;
+}
+.btn.likeDislike button:first-child {
+    border-radius: 20px 0 0 20px;
+    position: relative;
+}
+.btn.likeDislike button:last-child {
+    border-radius: 0 20px 20px 0;
+    position: relative;
+}
+.btn.likeDislike button:last-child::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 70%;
+    left: 0;
+    background-color: #ccc;
+    top: 15%;
+}
+.btn.likeDislike button div:first-child {
+    display: none;
+}
+.btn.likeDislike button:hover div:first-child {
+    display: block;
+}
+.menuActions {
+    width: 200px;
+    position: absolute;
+    left: 100%;
+    bottom: 0;
+    background-color: #fff;
+    border-radius: 7px;
+    box-shadow: 0 0 2px #ddd;
+    overflow: hidden;
+    display: none;
+}
+.menuActions.active {
+    display: block;
+}
+.menuActions ul li {
+    white-space: nowrap;
+    font-size: 1.4rem;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.menuActions ul li:hover {
+    background-color: #d8d5d5;
+}
+.menuActions ul li span {
+    padding-left: 10px;
+}

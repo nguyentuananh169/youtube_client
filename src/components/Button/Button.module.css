@@ -1,0 +1,24 @@
+.wrapper {
+    outline: none;
+    cursor: pointer;
+    border: 1px solid#ccc;
+}
+.loading i {
+    animation: turn 2s linear infinite;
+}
+.loading,
+.disabled {
+    cursor: no-drop;
+    user-select: none;
+}
+.disabled {
+    opacity: 0.5;
+}
+@keyframes turn {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

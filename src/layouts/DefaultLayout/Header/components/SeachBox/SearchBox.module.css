@@ -1,0 +1,172 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    max-width: 728px;
+    padding-left: 32px;
+}
+.searchBox {
+    display: flex;
+    flex: 1;
+}
+.btnIcon {
+    font-size: 17px;
+}
+.form {
+    width: 100%;
+    height: 40px;
+    position: relative;
+    border: 1px solid#d3d3d3;
+    border-right: none;
+    display: flex;
+    align-items: center;
+    border-radius: 20px 0 0 20px;
+    margin-left: 40px;
+}
+.form.active {
+    border: 1px solid#4285f4;
+    margin-left: 0;
+}
+.form .iconSearch {
+    line-height: 0;
+    padding: 0 0 0 16px;
+    display: none;
+}
+.form.active .iconSearch {
+    display: inline-block;
+}
+.form input {
+    display: flex;
+    flex: 1;
+    flex-basis: 728px;
+    position: relative;
+    padding: 0 16px;
+    outline: none;
+    border: none;
+    font-size: 1.6rem;
+}
+.keyboard {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-right: 7px;
+    display: flex;
+}
+.close {
+    height: 100%;
+    aspect-ratio: 1/1;
+    background-color: transparent;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+}
+.close.active {
+    display: flex;
+}
+.close.active:hover {
+    background-color: rgba(229, 229, 229, 0.7);
+}
+.dropdown {
+    position: absolute;
+    width: 100%;
+    top: calc(100% + 5px);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px #ccc;
+    padding: 16px 0;
+    display: none;
+}
+.dropdown.active {
+    display: block;
+}
+.dropdown ul {
+    list-style: none;
+    width: 100%;
+}
+.dropdown ul li {
+    width: 100%;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+}
+.dropdown ul li:hover {
+    background-color: #e5e5e5;
+}
+.dropdown ul li a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex: 1;
+    text-decoration: none;
+    color: #000;
+}
+.dropdown ul li a .btnIcon {
+    line-height: 0;
+}
+.dropdown ul li a .text {
+    font-size: 1.5rem;
+    margin-left: 16px;
+    font-weight: 500;
+}
+.dropdown ul li .delete {
+    display: inline-block;
+    width: 22px;
+    color: #36c;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.dropdown ul li .delete:hover {
+    text-decoration: underline;
+}
+.submitBtn {
+    width: 75px;
+    position: relative;
+}
+.submitBtn:hover .tooltip {
+    display: block;
+    left: 0;
+}
+.submitBtn button {
+    width: 100%;
+    height: 100%;
+    background-color: #f8f8f8;
+    border-radius: 0 20px 20px 0;
+    border: 1px solid#d3d3d3;
+    font-size: 17px;
+    line-height: 0;
+}
+.submitBtn button:hover {
+    background-color: #f0f0f0;
+}
+.voiceBtn {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    position: relative;
+}
+.voiceBtn button {
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+    border-radius: 50%;
+    border: none;
+    font-size: 17px;
+}
+.voiceBtn button:hover {
+    background-color: #e5e5e5;
+}
+.tooltip {
+    position: absolute;
+    white-space: nowrap;
+    top: calc(100% + 15px);
+    left: -46px;
+    display: none;
+}
+.voiceBtn:hover .tooltip {
+    display: block;
+}

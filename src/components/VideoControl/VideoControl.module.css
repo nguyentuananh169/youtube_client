@@ -1,0 +1,183 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+}
+/* controls */
+.videoControls {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    padding: 0 10px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+    opacity: 0;
+}
+.wrapper:hover .videoControls,
+.videoControls.active {
+    opacity: 1;
+}
+/* time line */
+.timeLineContainer {
+    width: 100%;
+    height: 7px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.timeLine {
+    --width1: 0;
+    --width2: 0;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(249, 249, 249, 0.4);
+    position: relative;
+}
+.timeLineContainer:hover .timeLine {
+    height: 100%;
+}
+.timeLine::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: var(--width1);
+    background-color: #d3d3d3;
+    z-index: -1;
+}
+.timeLine::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: var(--width2);
+    background-color: red;
+    z-index: 1;
+}
+.indicator {
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    left: calc(var(--width2) - 2px);
+    background-color: red;
+    opacity: 0;
+    transform: scale(1);
+    transition: transform 0.1s ease-in-out;
+}
+.timeLine:hover .indicator {
+    opacity: 1;
+    transform: scale(2);
+}
+/* controls */
+.controls {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.controlsLeft,
+.controlsRight {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+.controlsLeft .btn,
+.controlsRight .btn {
+    font-size: 25px;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+}
+.volumeLine {
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.volumeLine input {
+    width: 0;
+    height: 5px;
+    margin-right: 10px;
+    outline: none;
+    border: none;
+    transform: scale(0);
+    transition: all 0.3s ease-in-out;
+}
+.volumeContainer {
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.volumeContainer:hover .volumeLine input {
+    width: 50px;
+    transform: scale(1);
+}
+.controlsLeft .text,
+.controlsLeft .title {
+    color: #fff;
+    font-size: 1.3rem;
+    white-space: nowrap;
+}
+.controls .title {
+    flex: 1;
+    position: relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-left: 10px;
+}
+.controlsRight {
+    display: flex;
+    justify-content: flex-end;
+}
+/* tooltip */
+.tooltip {
+    position: absolute;
+    width: auto;
+    padding: 5px 7px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 7px;
+    bottom: calc(100% + 10px);
+    font-size: 1.3rem;
+    white-space: nowrap;
+    display: none;
+    overflow: hidden;
+}
+.setting .tooltip {
+    padding: 0;
+}
+.controlsLeft .btn:hover .tooltip,
+.controlsRight .btn:hover:not(.setting) .tooltip {
+    display: block;
+}
+.controlsRight .setting.active .tooltip {
+    display: block;
+}
+.setting > svg {
+    transition: all 0.3s ease;
+}
+.setting.active > svg {
+    transform: rotate(33deg);
+}
+.controlsLeft .btn .tooltip {
+    left: 0;
+}
+.controlsRight .btn .tooltip {
+    right: 0;
+}

@@ -1,0 +1,51 @@
+.wrapper {
+    flex: 1;
+    max-width: 225px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 10px;
+    position: relative;
+}
+.btn:hover {
+    background-color: #e5e5e5;
+}
+.btn:hover .tooltip {
+    display: block;
+}
+.user {
+    width: 64px;
+    height: 32px;
+    padding: 0 6px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.user img {
+    width: 32px;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    cursor: pointer;
+}
+.tooltip {
+    position: absolute;
+    white-space: nowrap;
+    top: calc(100% + 14px);
+    display: none;
+}
+.notification .tooltip {
+    left: -16px;
+}
