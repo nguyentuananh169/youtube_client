@@ -1,23 +1,28 @@
 .wrapper {
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
     min-height: 400px;
     display: flex;
+    padding: 0 20px;
 }
 /*  */
 .main {
     width: 100%;
-    max-width: 770px;
-    padding: 20px 20px 0 20px;
+    padding: 20px 20px 0 0;
 }
 .video {
     width: 100%;
-    aspect-ratio: 1/0.55;
+    aspect-ratio: 16/9;
 }
 /*  */
 .videoList {
     flex: 1;
+    min-width: 400px;
     padding: 20px 20px 0 0;
     position: relative;
+}
+@media only screen and (min-width: 1200px) {
+    .wrapper {
+        padding: 0 50px;
+    }
 }

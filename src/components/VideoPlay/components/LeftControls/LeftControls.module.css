@@ -1,0 +1,63 @@
+.wrapper {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+.wrapper .btn {
+    font-size: 25px;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+}
+.volumeLine {
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.volumeLine input {
+    width: 0;
+    height: 5px;
+    margin-right: 10px;
+    outline: none;
+    border: none;
+    transform: scale(0);
+    transition: all 0.3s ease-in-out;
+}
+.volumeContainer {
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.volumeContainer:hover .volumeLine input {
+    width: 50px;
+    transform: scale(1);
+}
+.wrapper .text,
+.wrapper .title {
+    color: #fff;
+    font-size: 1.3rem;
+    white-space: nowrap;
+}
+.wrapper .title {
+    flex: 1;
+    position: relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-left: 10px;
+}
+/* tooltip */
+.tooltip div:first-child {
+    display: none;
+}
+.tooltip:hover div:first-child {
+    display: block;
+}

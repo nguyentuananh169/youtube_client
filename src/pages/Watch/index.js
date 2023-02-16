@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import VideoControl from '../../components/VideoControl';
+import VideoPlay from '../../components/VideoPlay';
 import Comments from './components/Comments';
 import Metadata from './components/Metadata';
 import VideoList from './components/VideoList';
@@ -9,7 +9,7 @@ function Watch() {
         <div className={clsx(styles.wrapper)}>
             <div className={clsx(styles.main)}>
                 <div className={clsx(styles.video)}>
-                    <VideoControl controls />
+                    <VideoPlay controls />
                 </div>
                 <div className={clsx(styles.metadata)}>
                     <Metadata />

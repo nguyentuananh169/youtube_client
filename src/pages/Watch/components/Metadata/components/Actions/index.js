@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { BiLike, BiDislike } from 'react-icons/bi';
+import { BiLike, BiDislike, BiCut } from 'react-icons/bi';
 import { RiShareForwardLine } from 'react-icons/ri';
 import { BsThreeDots } from 'react-icons/bs';
 import clsx from 'clsx';
+import useClickOutSide from '../../../../../../hook/useClickOutSide';
 import Button from '../../../../../../components/Button';
 import Tooltip from '../../../../../../components/Tooltip';
 import MenuActions from './MenuActions';
 import styles from './Actions.module.css';
 function Actions() {
-    const [isActiveMenu, setActiveMenu] = useState(false);
+    const [elementRef, isShow, setShow] = useClickOutSide(false);
     return (
         <div className={clsx(styles.actions)}>
             <div className={clsx(styles.btn, styles.likeDislike)}>
@@ -50,9 +50,22 @@ function Actions() {
                     <span>Chia sẻ</span>
                 </Button>
             </div>
-            <div className={clsx(styles.btn, styles.btnActions)}>
-                <MenuActions isActiveMenu={isActiveMenu} />
-                <Button onClick={() => setActiveMenu(!isActiveMenu)}>
+            <div className={clsx(styles.btn, styles.share)}>
+                <Button>
+                    <Tooltip
+                        content="Tạo đoạn video"
+                        customStyle={{
+                            top: 'calc(100% + 20px)',
+                            whiteSpace: 'nowrap',
+                        }}
+                    />
+                    <BiCut />
+                    <span>Tạo đoạn video</span>
+                </Button>
+            </div>
+            <div ref={elementRef} className={clsx(styles.btn, styles.btnActions)}>
+                {isShow && <MenuActions />}
+                <Button onClick={() => setShow(!isShow)}>
                     <BsThreeDots />
                 </Button>
             </div>

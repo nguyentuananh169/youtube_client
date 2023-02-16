@@ -1,13 +1,10 @@
 .owner {
-    width: 50%;
-}
-
-.owner {
+    width: auto;
     display: flex;
     align-items: center;
 }
 .ownerInfo {
-    width: 100%;
+    width: auto;
     display: flex;
     align-items: center;
     padding-right: 25px;
@@ -35,7 +32,7 @@
     align-items: center;
 }
 .info .name .text {
-    flex: 1;
+    max-width: 170px;
     position: relative;
 }
 .info .name .text div:first-child,
@@ -48,7 +45,7 @@
 }
 .info .name .text a {
     display: inline-block;
-    max-width: 170px;
+    width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -58,8 +55,10 @@
     font-weight: 500;
 }
 .info .name .icon {
-    width: 20px;
+    flex: 1;
+    min-width: 20px;
     position: relative;
+    margin-left: 5px;
     color: #606060;
     font-size: 1.2rem;
 }

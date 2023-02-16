@@ -16,7 +16,7 @@ function Owner({ avatar, name, subscriber, isOfficial = false }) {
                         <div className={clsx(styles.text)}>
                             <Tooltip
                                 content={name}
-                                customStyle={{ bottom: 'calc(100% + 20px )' }}
+                                customStyle={{ bottom: 'calc(100% + 20px )', whiteSpace: 'nowrap' }}
                             />
                             <Link to={'/channel/@nta'}>{name}</Link>
                         </div>

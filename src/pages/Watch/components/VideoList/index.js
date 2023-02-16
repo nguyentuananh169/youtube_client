@@ -16,7 +16,6 @@ function VideoList() {
                 <ItemList />
                 <ItemList />
                 <ItemList />
-                <ItemList />
             </div>
         </div>
     );

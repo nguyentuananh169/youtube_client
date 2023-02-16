@@ -1,5 +1,5 @@
 .actions {
-    width: 50%;
+    width: auto;
     display: flex;
     justify-content: flex-end;
     height: 36px;
@@ -73,16 +73,13 @@
 .menuActions {
     width: 200px;
     position: absolute;
-    left: 100%;
-    bottom: 0;
+    left: 0;
+    top: 100%;
     background-color: #fff;
     border-radius: 7px;
-    box-shadow: 0 0 2px #ddd;
+    box-shadow: 0 0 5px #ccc;
     overflow: hidden;
-    display: none;
-}
-.menuActions.active {
-    display: block;
+    z-index: 1;
 }
 .menuActions ul li {
     white-space: nowrap;

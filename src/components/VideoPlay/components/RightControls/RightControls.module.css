@@ -1,0 +1,36 @@
+.wrapper {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.wrapper .btn {
+    font-size: 25px;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+}
+/* tooltip */
+.tooltip div:first-child {
+    display: none;
+}
+.tooltip:hover div:first-child {
+    display: block;
+}
+/* menu setting */
+.menuSetting {
+    position: absolute;
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 7px;
+    bottom: calc(100% + 10px);
+    font-size: 1.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+}

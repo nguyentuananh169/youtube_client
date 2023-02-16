@@ -1,0 +1,51 @@
+.timeLineContainer {
+    width: 100%;
+    height: 7px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.timeLine {
+    width: 100%;
+    height: 4px;
+    background-color: rgba(249, 249, 249, 0.4);
+    position: relative;
+}
+.timeLineContainer:hover .timeLine {
+    height: 100%;
+}
+.timeLine::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: var(--widthTimeLineVideo1);
+    background-color: #d3d3d3;
+    z-index: -1;
+}
+.timeLine::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: var(--widthTimeLineVideo2);
+    background-color: red;
+    z-index: 1;
+}
+.indicator {
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    left: calc(var(--widthTimeLineVideo2) - 2px);
+    background-color: red;
+    opacity: 0;
+    transform: scale(1);
+    transition: transform 0.1s ease-in-out;
+}
+.timeLine:hover .indicator {
+    opacity: 1;
+    transform: scale(2);
+}

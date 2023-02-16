@@ -33,6 +33,7 @@ function VideoControl({ controls }) {
     const volumeRef = useRef(null);
     const currentTimeRef = useRef(null);
     const totalTimeRef = useRef(null);
+    const settingElRef = useRef(null);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -80,6 +81,17 @@ function VideoControl({ controls }) {
                 document.body.style.userSelect = 'auto';
                 document.removeEventListener('mousemove', handleClickTimeLine);
             });
+        };
+    }, []);
+    useEffect(() => {
+        const handleClickOutSide = (e) => {
+            if (!settingElRef.current.contains(e.target)) {
+                setActiveSetting(false);
+            }
+        };
+        document.addEventListener('click', handleClickOutSide);
+        return () => {
+            document.removeEventListener('click', handleClickOutSide);
         };
     }, []);
     const formatNumber = (number) => {
@@ -244,6 +256,7 @@ function VideoControl({ controls }) {
         videoRef.current.playbackRate = speed;
         setPlaySpeed(speed);
     };
+
     return (
         <div className={clsx(styles.wrapper)} ref={wrapperRef}>
             <div className={clsx(styles.videoControls, { [styles.active]: !isPlay })}>
@@ -315,6 +328,7 @@ function VideoControl({ controls }) {
                                 <RiClosedCaptioningLine />
                             </div>
                             <div
+                                ref={settingElRef}
                                 className={clsx(styles.btn, styles.setting, {
                                     [styles.active]: activeSetting,
                                 })}
@@ -366,7 +380,6 @@ function VideoControl({ controls }) {
                     </div>
                 )}
             </div>
-
             <video
                 onClick={handlePlayVideo}
                 className={clsx(styles.video)}

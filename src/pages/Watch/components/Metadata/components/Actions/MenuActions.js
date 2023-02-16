@@ -1,13 +1,12 @@
 import { TfiDownload } from 'react-icons/tfi';
 import { AiOutlineHeart } from 'react-icons/ai';
-import { BiCut } from 'react-icons/bi';
 import { BsSave } from 'react-icons/bs';
 import { MdOutlinedFlag } from 'react-icons/md';
 import clsx from 'clsx';
 import styles from './Actions.module.css';
-function MenuActions({ isActiveMenu }) {
+function MenuActions() {
     return (
-        <div className={clsx(styles.menuActions, { [styles.active]: isActiveMenu })}>
+        <div className={clsx(styles.menuActions)}>
             <ul>
                 <li>
                     <TfiDownload />
@@ -16,10 +15,6 @@ function MenuActions({ isActiveMenu }) {
                 <li>
                     <AiOutlineHeart />
                     <span>Cảm ơn</span>
-                </li>
-                <li>
-                    <BiCut />
-                    <span>Tạo đoạn video</span>
                 </li>
                 <li>
                     <BsSave />
