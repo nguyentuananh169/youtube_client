@@ -4,10 +4,10 @@ import clsx from 'clsx';
 import styles from './Menu.module.css';
 import Button from '../../../../../components/Button';
 import logo from '../../../../../assets/img/logo.png';
-function Menu() {
+function Menu({ handleToggleGuide }) {
     return (
         <div className={clsx(styles.wrapper)}>
-            <div className={clsx(styles.bars)}>
+            <div className={clsx(styles.bars)} onClick={handleToggleGuide}>
                 <Button>
                     <FaBars />
                 </Button>

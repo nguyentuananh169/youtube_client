@@ -38,7 +38,7 @@ import { ImPlay } from 'react-icons/im';
 import HeaderMenu from '../Header/components/Menu';
 import Menu from './Components/Menu';
 import styles from './Left.module.css';
-function Left({ isHideNavbar }) {
+function Left({ isToggleGuide, guideType, handleToggleGuide }) {
     const dataMenu = [
         {
             title: null,
@@ -49,6 +49,7 @@ function Left({ isHideNavbar }) {
                     icon1: <AiOutlineHome />,
                     icon2: <AiFillHome />,
                     type: null,
+                    isVisible: true,
                 },
                 {
                     path: '/shorts',
@@ -56,6 +57,7 @@ function Left({ isHideNavbar }) {
                     icon1: <MdOutlinePlayLesson />,
                     icon2: <MdPlayLesson />,
                     type: null,
+                    isVisible: true,
                 },
                 {
                     path: '/subscriptions',
@@ -63,6 +65,7 @@ function Left({ isHideNavbar }) {
                     icon1: <BsCollectionPlay />,
                     icon2: <BsCollectionPlayFill />,
                     type: null,
+                    isVisible: true,
                 },
             ],
         },
@@ -75,6 +78,7 @@ function Left({ isHideNavbar }) {
                     icon1: <MdOutlineVideoLibrary />,
                     icon2: <MdVideoLibrary />,
                     type: null,
+                    isVisible: true,
                 },
                 {
                     path: '/history',
@@ -250,33 +254,54 @@ function Left({ isHideNavbar }) {
             ],
         },
     ];
+
     return (
-        <div className={clsx(styles.wrapper, { [styles.hide]: isHideNavbar })}>
-            <div className={clsx(styles.main)}>
-                <div className={clsx(styles.headerMenu)}>
-                    <HeaderMenu />
+        <>
+            <div
+                className={clsx(styles.overlay, { [styles.toggle]: isToggleGuide })}
+                data-type={guideType}
+                onClick={handleToggleGuide}
+            ></div>
+            <div
+                className={clsx(styles.wrapper, {
+                    [styles.toggle]: isToggleGuide,
+                })}
+                data-type={guideType}
+            >
+                <div className={clsx(styles.main)}>
+                    <div className={clsx(styles.headerMenu, styles.show)}>
+                        <HeaderMenu handleToggleGuide={handleToggleGuide} />
+                    </div>
+                </div>
+                <div className={clsx(styles.menu)}>
+                    <Menu data={dataMenu} isToggleGuide={isToggleGuide} guideType={guideType} />
+                    <div
+                        className={clsx(styles.footerMenu, {
+                            [styles.hidden]: isToggleGuide,
+                        })}
+                    >
+                        <Link to={'/'}>Giới thiệu</Link>
+                        <Link to={'/'}>Báo chí</Link>
+                        <Link to={'/'}>Bản quyền</Link>
+                        <Link to={'/'}>Liên hệ với chúng tôi</Link>
+                        <Link to={'/'}>Người sáng tạo</Link>
+                        <Link to={'/'}>Quảng cáo</Link>
+                        <Link to={'/'}>Nhà phát triển</Link>
+                    </div>
+                    <div
+                        className={clsx(styles.footerMenu, {
+                            [styles.hidden]: isToggleGuide,
+                        })}
+                    >
+                        <Link to={'/'}>Điều khoản</Link>
+                        <Link to={'/'}>Quyền riêng tư</Link>
+                        <Link to={'/'}>Chính sách và an toàn</Link>
+                        <Link to={'/'}>Cách YouTube hoạt động</Link>
+                        <Link to={'/'}>Thử các tính năng mới</Link>
+                    </div>
                 </div>
             </div>
-            <div className={clsx(styles.menu)}>
-                <Menu data={dataMenu} />
-                <div className={clsx(styles.footerMenu)}>
-                    <Link to={'/'}>Giới thiệu</Link>
-                    <Link to={'/'}>Báo chí</Link>
-                    <Link to={'/'}>Bản quyền</Link>
-                    <Link to={'/'}>Liên hệ với chúng tôi</Link>
-                    <Link to={'/'}>Người sáng tạo</Link>
-                    <Link to={'/'}>Quảng cáo</Link>
-                    <Link to={'/'}>Nhà phát triển</Link>
-                </div>
-                <div className={clsx(styles.footerMenu)}>
-                    <Link to={'/'}>Điều khoản</Link>
-                    <Link to={'/'}>Quyền riêng tư</Link>
-                    <Link to={'/'}>Chính sách và an toàn</Link>
-                    <Link to={'/'}>Cách YouTube hoạt động</Link>
-                    <Link to={'/'}>Thử các tính năng mới</Link>
-                </div>
-            </div>
-        </div>
+        </>
     );
 }
 

@@ -1,9 +1,9 @@
 .pos {
     position: fixed;
-    width: calc(100vw - 292px);
-    left: 262px;
+    width: calc(100vw - 310px);
+    left: 250;
     top: 56px;
-    padding: 10px 0;
+    padding: 5px 0;
     background-color: #fff;
     z-index: 99;
 }

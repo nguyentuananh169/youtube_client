@@ -23,10 +23,10 @@
     align-items: center;
     text-decoration: none;
     color: #0f0f0f;
-    padding: 10px 12px;
+    padding: 7px 12px;
     border-radius: 7px;
 }
-.wrapper ul li a.active,
+.wrapper ul:not(.hidden) li a.active,
 .wrapper ul li a:hover {
     background-color: rgba(230, 230, 230, 0.5);
 }
@@ -69,4 +69,40 @@
     border-radius: 50%;
     background-color: #065fd4;
     margin-left: 7px;
+}
+/* mini */
+.wrapper[data-type='full'].toggle ul h3.title,
+.wrapper[data-type='mini'] ul h3.title {
+    display: none;
+}
+
+.wrapper[data-type='full'].toggle ul,
+.wrapper[data-type='mini']:not(.toggle) ul {
+    border-top: none;
+    padding: 0;
+}
+.wrapper[data-type='full'].toggle ul li:not(.visible),
+.wrapper[data-type='mini']:not(.toggle) ul li:not(.visible) {
+    display: none;
+}
+
+.wrapper[data-type='full'].toggle ul li a,
+.wrapper[data-type='mini']:not(.toggle) ul li a {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding: 0;
+    width: 64px;
+    height: 74px;
+}
+.wrapper[data-type='full'].toggle ul li a span.icon,
+.wrapper[data-type='mini']:not(.toggle) ul li a span.icon {
+    margin-right: 0;
+}
+.wrapper[data-type='full'].toggle ul li a span.text,
+.wrapper[data-type='mini']:not(.toggle) ul li a span.text {
+    font-size: 1rem;
+    font-weight: 400;
+    flex: none;
 }

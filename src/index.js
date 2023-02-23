@@ -4,16 +4,23 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from './App';
 import GlobalStyles from './components/GlobalStyles';
+import ScrollTop from './components/ScrollTop';
 import reportWebVitals from './reportWebVitals';
+import store from './store';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <React.StrictMode>
-    <Router>
-        <GlobalStyles>
-            <App />
-        </GlobalStyles>
-    </Router>,
+    <Provider store={store}>
+        <Router>
+            <GlobalStyles>
+                <ScrollTop>
+                    <App />
+                </ScrollTop>
+            </GlobalStyles>
+        </Router>
+    </Provider>,
     // </React.StrictMode>,
 );
 

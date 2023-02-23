@@ -73,8 +73,6 @@ function VideoPlay({ controls }) {
     const nextTimeRef = useRef(null);
     const prevRef = useRef(null);
     const nextRef = useRef(null);
-    console.log('render');
-    console.log(dataSetting);
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (
@@ -270,7 +268,7 @@ function VideoPlay({ controls }) {
     return (
         <div ref={wrapperRef} className={clsx(styles.wrapper)}>
             <div ref={atPlayVideoRef} className={clsx(styles.animation, styles.atPlayVideo)}>
-                {isPlay ? <BsFillPlayFill color="#fff" /> : <BsFillPauseFill color="#fff" />}
+                {isPlay ? <BsFillPauseFill color="#fff" /> : <BsFillPlayFill color="#fff" />}
             </div>
             <div ref={prevTimeRef} className={clsx(styles.animation, styles.prevTime)}>
                 <div className={clsx(styles.icons)}>

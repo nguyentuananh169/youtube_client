@@ -3,32 +3,7 @@ import { RiHistoryFill } from 'react-icons/ri';
 import { TfiSearch } from 'react-icons/tfi';
 import { Link } from 'react-router-dom';
 import styles from './SearchBox.module.css';
-function ResultSearch() {
-    const dataList = {
-        type: 'history',
-        data: [
-            {
-                id: '1',
-                text: 'Nội dung tìm kiếm 1',
-            },
-            {
-                id: '2',
-                text: 'Nội dung tìm kiếm 2',
-            },
-            {
-                id: '3',
-                text: 'Nội dung tìm kiếm 3',
-            },
-            {
-                id: '4',
-                text: 'Nội dung tìm kiếm 4',
-            },
-            {
-                id: '5',
-                text: 'Nội dung tìm kiếm 5',
-            },
-        ],
-    };
+function ResultSearch({ dataList }) {
     return (
         <ul>
             {dataList.data.map((item) => (

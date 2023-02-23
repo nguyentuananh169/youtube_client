@@ -1,14 +1,17 @@
-import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
+import clsx from 'clsx';
 import styles from './Menu.module.css';
-function Menu({ data }) {
+function Menu({ data, isToggleGuide, guideType }) {
     return (
-        <div className={clsx(styles.wrapper)}>
+        <div
+            className={clsx(styles.wrapper, { [styles.toggle]: isToggleGuide })}
+            data-type={guideType}
+        >
             {data.map((item, index) => (
                 <ul key={index}>
-                    {item.title && <h3>{item.title}</h3>}
+                    {item.title && <h3 className={clsx(styles.title)}>{item.title}</h3>}
                     {item.menu.map((item2, index2) => (
-                        <li key={index2}>
+                        <li key={index2} className={clsx({ [styles.visible]: item2.isVisible })}>
                             <NavLink
                                 to={item2.path}
                                 className={(nav) => clsx({ [styles.active]: nav.isActive })}
