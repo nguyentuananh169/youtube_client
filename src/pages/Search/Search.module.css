@@ -1,0 +1,15 @@
+.wrapper {
+    width: 100%;
+    max-width: 1096px;
+    margin: 0 auto;
+}
+.filter {
+    width: 100%;
+}
+.title {
+    margin: 26px 0;
+}
+.title h3 {
+    font-size: 1.6rem;
+    font-weight: 500;
+}

@@ -1,0 +1,30 @@
+.wrapper {
+    position: absolute;
+    width: 0;
+    height: 4px;
+    background-color: rgb(104, 103, 103);
+    bottom: 0;
+    left: 0;
+}
+.wrapper[data-loading='pending'] {
+    animation: an1 2s linear forwards;
+}
+.wrapper[data-loading='success'] {
+    animation: an2 0.2s linear;
+}
+@keyframes an1 {
+    from {
+        width: 0;
+    }
+    to {
+        width: 95%;
+    }
+}
+@keyframes an2 {
+    from {
+        width: 95%;
+    }
+    to {
+        width: 100%;
+    }
+}

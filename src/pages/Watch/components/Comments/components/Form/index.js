@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { CgSmileMouthOpen } from 'react-icons/cg';
+import { BsEmojiSmile } from 'react-icons/bs';
 import clsx from 'clsx';
 import Button from '../../../../../../components/Button';
 import styles from './Form.module.css';
@@ -14,18 +14,20 @@ function Form({ lv2 = false }) {
     const handleRemove = () => {
         setValueForm('');
         setShowBottom(false);
+        const textareaElement = textareaRef.current;
+        textareaElement.style.height = '31px';
     };
-    const handleResizeTextarea = (e) => {
-        const textareaElement = e.target;
+    const handleResizeTextarea = () => {
+        const textareaElement = textareaRef.current;
         textareaElement.style.height = '1px';
         textareaElement.style.height = 16 + textareaElement.scrollHeight + 'px';
     };
     return (
         <div className={clsx(styles.formContainer, { [styles.lv2]: lv2 })}>
-            <div className={clsx(styles.avatar)}>
-                <img src="https://yt3.ggpht.com/ytc/AMLnZu-ddZ6DjEiKxlFdV8KFvnyYzu2CVqosHFbZmg=s88-c-k-c0x00ffffff-no-rj-mo" />
-            </div>
             <div className={clsx(styles.form)}>
+                <div className={clsx(styles.avatar)}>
+                    <img src="https://yt3.ggpht.com/ytc/AMLnZu-ddZ6DjEiKxlFdV8KFvnyYzu2CVqosHFbZmg=s88-c-k-c0x00ffffff-no-rj-mo" />
+                </div>
                 <form onSubmit={handleSubmit}>
                     <div className={clsx(styles.textarea, { [styles.focus]: isFocus })}>
                         <textarea
@@ -44,7 +46,7 @@ function Form({ lv2 = false }) {
                     <div className={clsx(styles.bottomRow, { [styles.show]: isShowBottom })}>
                         <div className={clsx(styles.icon)}>
                             <Button>
-                                <CgSmileMouthOpen />
+                                <BsEmojiSmile />
                             </Button>
                         </div>
                         <div className={clsx(styles.actions, { [styles.active]: valueForm })}>

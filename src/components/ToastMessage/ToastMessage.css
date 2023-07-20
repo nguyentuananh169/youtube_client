@@ -1,0 +1,9 @@
+#toastMessage {
+    width: auto;
+    height: auto;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999999;
+    transition: all 0.3s linear;
+}

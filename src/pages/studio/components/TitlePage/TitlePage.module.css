@@ -1,0 +1,9 @@
+.wrapper {
+    width: 100%;
+    padding: 23px 32px;
+}
+.wrapper h3 {
+    font-size: 2.2rem;
+    color: #0d0d0d;
+    font-weight: 500;
+}

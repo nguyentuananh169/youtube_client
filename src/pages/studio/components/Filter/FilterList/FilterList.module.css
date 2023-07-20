@@ -1,0 +1,41 @@
+.itemBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    margin: 4px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+}
+.itemBtn:hover {
+    background-color: #ccc;
+}
+.itemBtn .text {
+    position: relative;
+    color: #0d0d0d;
+    font-size: 1.3rem;
+}
+.itemBtn .text span {
+    display: inline-block;
+    max-width: 290px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.itemBtn .remove {
+    position: relative;
+    margin-left: 10px;
+    margin-bottom: -3px;
+}
+.itemBtn .text [data-class='tooltip'],
+.itemBtn .remove [data-class='tooltip'] {
+    display: none;
+}
+.itemBtn .text:hover [data-class='tooltip'],
+.itemBtn .remove:hover [data-class='tooltip'] {
+    display: block;
+}

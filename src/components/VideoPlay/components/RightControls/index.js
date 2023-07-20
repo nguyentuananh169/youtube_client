@@ -10,20 +10,38 @@ import styles from './RightControls.module.css';
 import Tooltip from '../../../Tooltip';
 import MenuSetting from './MenuSetting';
 function RightControls({
+    isPreview,
+    size,
+    videoEl,
     dataSetting,
-    isFullscreen,
-    playSpeed,
+    menuSetting,
     handleClickFullscreen,
-    handleChangeSpeed,
+    handleChangeDataSetting,
 }) {
     const [elementRef, isShow, setShow] = useClickOutSide(false);
     return (
-        <div className={clsx(styles.wrapper)}>
-            <div className={clsx(styles.btn, styles.caption, styles.tooltip)}>
+        <div
+            className={clsx(styles.wrapper, {
+                [styles.preview]: isPreview,
+                [styles[size]]: size,
+            })}
+        >
+            <div
+                className={clsx(styles.btn, styles.subtitle, styles.tooltip, {
+                    [styles.active]: dataSetting.subtitle,
+                })}
+                onClick={() =>
+                    handleChangeDataSetting(
+                        'subtitle',
+                        !dataSetting.subtitle,
+                        !dataSetting.subtitle ? 'Bật' : 'Tắt',
+                    )
+                }
+            >
                 <Tooltip
                     content={'Phụ đề (c)'}
                     customStyle={{
-                        left: '-40%',
+                        right: '0%',
                         whiteSpace: 'nowrap',
                         bottom: 'calc(100% + 10px)',
                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
@@ -45,9 +63,10 @@ function RightControls({
                 >
                     {isShow && (
                         <MenuSetting
-                            items={dataSetting}
-                            playSpeed={playSpeed}
-                            handleChangeSpeed={handleChangeSpeed}
+                            videoEl={videoEl}
+                            items={menuSetting}
+                            dataSetting={dataSetting}
+                            handleChangeDataSetting={handleChangeDataSetting}
                         />
                     )}
                 </div>
@@ -85,7 +104,11 @@ function RightControls({
                 onClick={handleClickFullscreen}
             >
                 <Tooltip
-                    content="Thát khỏi chế độ toàn màn hình (f)"
+                    content={`${
+                        dataSetting.isFullscreen
+                            ? 'Thát khỏi chế độ toàn màn hình (f)'
+                            : 'Mở chế độ toàn màn hình (f)'
+                    }`}
                     customStyle={{
                         right: '0',
                         whiteSpace: 'nowrap',
@@ -93,7 +116,7 @@ function RightControls({
                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
                     }}
                 />
-                {isFullscreen ? <BiExitFullscreen /> : <BiFullscreen />}
+                {dataSetting.isFullscreen ? <BiExitFullscreen /> : <BiFullscreen />}
             </div>
         </div>
     );

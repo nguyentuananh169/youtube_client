@@ -4,10 +4,13 @@
     align-items: center;
     justify-content: flex-end;
 }
+.wrapper.preview {
+    display: none;
+}
 .wrapper .btn {
     font-size: 25px;
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,6 +18,24 @@
     color: #fff;
     font-weight: 400;
     position: relative;
+}
+.btn.subtitle {
+    position: relative;
+}
+.btn.subtitle::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background-color: red;
+    border-radius: 5px;
+    left: 50%;
+    bottom: 5px;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s linear;
+}
+.btn.subtitle.active::before {
+    width: 60%;
 }
 /* tooltip */
 .tooltip div:first-child {
@@ -33,4 +54,26 @@
     font-size: 1.3rem;
     white-space: nowrap;
     overflow: hidden;
+}
+/* size medium */
+.wrapper.medium .btn {
+    font-size: 20px;
+    width: 30px;
+}
+.wrapper.medium .btn.movie,
+.wrapper.medium .btn.rectangle {
+    display: none;
+}
+/* size small */
+.wrapper.small {
+    height: 40px;
+    padding-right: 8px;
+}
+.wrapper.small .btn:not(.fullscreen) {
+    display: none;
+}
+.wrapper.small .btn.fullscreen {
+    width: auto;
+    height: auto;
+    flex-shrink: 0;
 }

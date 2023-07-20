@@ -1,0 +1,9 @@
+.wrapper tr th [data-class='tooltip'] {
+    visibility: hidden;
+}
+.wrapper tr th:hover [data-class='tooltip'] {
+    visibility: visible;
+}
+.wrapper tr th.main {
+    min-width: 382px;
+}

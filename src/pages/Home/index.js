@@ -1,9 +1,9 @@
-import FilterCategory from './Components/FilterCategory';
+import Category from './Components/Category';
 import ListVideo from './Components/ListVideo';
 function Home() {
     return (
         <>
-            <FilterCategory />
+            <Category />
             <ListVideo />
         </>
     );

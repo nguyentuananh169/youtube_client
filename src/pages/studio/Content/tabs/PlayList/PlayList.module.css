@@ -1,0 +1,9 @@
+.body tr th [data-class='tooltip'] {
+    visibility: hidden;
+}
+.body tr th:hover [data-class='tooltip'] {
+    visibility: visible;
+}
+.body tr th.main {
+    min-width: 382px;
+}

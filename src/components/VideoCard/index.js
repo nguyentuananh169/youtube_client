@@ -1,69 +1,211 @@
-import clsx from 'clsx';
+import { BsSave, BsClock, BsDownload, BsDot, BsCheckCircleFill } from 'react-icons/bs';
+import { HiOutlineBan, HiOutlineFlag } from 'react-icons/hi';
+import { RiHistoryFill, RiPlayList2Fill } from 'react-icons/ri';
+
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Button from '../Button';
-import VideoControl from '../VideoControl';
+import { Link, useLocation } from 'react-router-dom';
+import clsx from 'clsx';
+import useClickOutSide from '../../hook/useClickOutSide';
+import VideoPlay from '../VideoPlay';
+import Tooltip from '../Tooltip';
+import MenuFixed from '../MenuFixed';
+import DotMenu from '../DotMenu';
 import styles from './VideoCard.module.css';
-function VideoCard({ ...classes }) {
-    const [isHover, setIsHover] = useState(false);
-    const timeoutRef = useRef(null);
-    const handleMouseOver = () => {
-        timeoutRef.current = setTimeout(() => {
-            setIsHover(true);
-        }, 1500);
+function VideoCard({
+    width,
+    row = false,
+    rowOwner = false,
+    hidenOwner = false,
+    hidenBtnIcon = false,
+    isPreview = false,
+    showDes = false,
+}) {
+    const menuList = [
+        {
+            icon: <BsSave size={17} />,
+            text: 'Thêm vào danh sách chờ',
+        },
+        {
+            icon: <BsClock size={17} />,
+            text: 'Lưu vào danh sách xem sau',
+        },
+        {
+            icon: <BsDownload size={17} />,
+            text: 'Tải xuống',
+        },
+        {
+            icon: <HiOutlineBan size={17} />,
+            text: 'Không quan tâm',
+            customStyle: {
+                borderTop: '1px solid #e6e6e6',
+            },
+        },
+        {
+            icon: <HiOutlineBan size={17} />,
+            text: 'Không đề xuất kênh này',
+        },
+        {
+            icon: <HiOutlineFlag size={17} />,
+            text: 'Báo cáo vi phạm',
+        },
+    ];
+    const [isPlayVideo, setPlayVideo] = useState(false);
+    const [isMuteVolume, setIsVolume] = useState(true);
+    const [elementRef, isShow, setShow] = useClickOutSide();
+    const { pathname } = useLocation();
+    const timeOutRef = useRef(null);
+    const handleShowMenu = (e) => {
+        e.preventDefault();
+        setShow(!isShow);
     };
-    const handleMouseOutThumbnail = () => {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
+    const handlePlay = () => {
+        setPlayVideo(true);
+    };
+    const handleMouseLeave = () => {
+        if (isPreview) {
+            if (timeOutRef.current) {
+                clearTimeout(timeOutRef.current);
+                setPlayVideo(false);
+            }
         }
     };
-    const handleMouseOut = () => {
-        setIsHover(false);
+    const handleMouseOver = () => {
+        if (isPreview) {
+            if (timeOutRef.current) {
+                clearTimeout(timeOutRef.current);
+            }
+            timeOutRef.current = setTimeout(() => {
+                handlePlay();
+            }, 2000);
+        }
+    };
+    const handleChangeVolume = () => {
+        setIsVolume(!isMuteVolume);
     };
     return (
-        <div
-            className={clsx(styles.wrapper, { [styles.scale]: isHover })}
-            style={{ ...classes }}
-            onMouseLeave={handleMouseOut}
-        >
-            <Link to={`/watch/22`}>
-                <div
-                    className={clsx(styles.thumbnail)}
-                    onMouseOver={handleMouseOver}
-                    onMouseOut={handleMouseOutThumbnail}
-                >
-                    <span className={clsx(styles.note)}>Tiếp tục di chuột để phát</span>
-                    <img src="https://i.ytimg.com/vi/6HR4pEcXoQw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD5KLku323I-jikbM6fOwVRs8DA1g" />
-                    <div className={clsx(styles.video)}>{isHover && <VideoControl />}</div>
-                </div>
-                <div className={clsx(styles.details)}>
-                    <div className={clsx(styles.avatar)}>
-                        <img src="https://yt3.ggpht.com/ytc/AMLnZu9KlwLL0Yzzr-tZwKG265BQXjq_wNRSFCCR96zduQ=s68-c-k-c0x00ffffff-no-rj" />
+        <div className={clsx(styles.videoCard, { [styles.row]: row, [styles.preview]: isPreview })}>
+            <Link className={clsx(styles.link)} to="/watch/22"></Link>
+            <div
+                className={clsx(styles.img, { [styles.preview]: isPlayVideo })}
+                style={{ width }}
+                onMouseOver={handleMouseOver}
+                onMouseLeave={handleMouseLeave}
+            >
+                <Link className={clsx(styles.link)} to="/watch/22"></Link>
+                {isPlayVideo ? (
+                    <VideoPlay
+                        isPreview
+                        isMuteVoLumePreview={isMuteVolume}
+                        autoPlay
+                        muted={isMuteVolume}
+                        handleChangeVolumePreview={handleChangeVolume}
+                    />
+                ) : (
+                    <>
+                        <img src="https://tse4.mm.bing.net/th?id=OIP.oDuqR6J22VPG70LDIHufZwHaEK&pid=Api&P=0&h=180" />
+                        <div className={clsx(styles.duration)}>11:00:00</div>
+                        {isPreview && (
+                            <div className={clsx(styles.tooltip)}>Tiếp tục di chuột để phát</div>
+                        )}
+                        {!isPreview && !hidenBtnIcon && (
+                            <>
+                                <div className={clsx(styles.btnIcon)}>
+                                    <div className={clsx(styles.icon)}>
+                                        <RiHistoryFill size={20} color="#fff" />
+                                        <p className={clsx(styles.text, styles.text1)}>Xem sau</p>
+                                    </div>
+                                </div>
+                                <div className={clsx(styles.btnIcon)}>
+                                    <div className={clsx(styles.icon)}>
+                                        <RiPlayList2Fill size={20} color="#fff" />
+                                        <p className={clsx(styles.text, styles.text2)}>
+                                            Thêm vào danh sách chờ
+                                        </p>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </>
+                )}
+            </div>
+            <div className={clsx(styles.details)}>
+                {pathname === '/' && (
+                    <div className={clsx(styles.channel)}>
+                        <Link to="/channel/@nguyentuananh/home">
+                            <img src="https://yt3.ggpht.com/sRhKv0BM8jaNEWohgVcxv4bengflseeCPUtzINiGe_grG2CPZXIriR5ytxvZlxOVv8LEgV9-J_M=s88-c-k-c0x00ffffff-no-rj" />
+                        </Link>
                     </div>
-                    <div className={clsx(styles.meta)}>
-                        <div className={clsx(styles.title)}>
-                            <p className={clsx(styles.text)}>Messi & Ronaldo - Wavin' Flag.</p>
-                            <span className={clsx(styles.icon, 'material-symbols-outlined')}>
-                                more_vert
-                            </span>
+                )}
+                <div className={clsx(styles.info)}>
+                    <div className={clsx(styles.title)}>
+                        Top 20 Bài Hát Hot Nhất Trên TikTok 2023 💘 Nhạc Remix Hot Trend Được Sử
+                        Dụng Nhiều Nhất TikTok 2023
+                    </div>
+                    <div
+                        className={clsx(styles.ownerContainer, {
+                            [styles.location]: pathname.includes('/search'),
+                            [styles.row]: rowOwner,
+                        })}
+                    >
+                        {!hidenOwner && (
+                            <div className={clsx(styles.owner)}>
+                                {pathname.includes('/search') && (
+                                    <Link
+                                        className={clsx(styles.zIndex)}
+                                        to="/channel/@nguyentuananh"
+                                    >
+                                        <img src="https://yt3.ggpht.com/2PdJLlJXOqRV-41XvN6fS-wdAlkFmf69bjbebYZstYo2pBBOBTNVXhw-GqPtb9cfEMowsDXctA=s68-c-k-c0x00ffffff-no-rj" />
+                                    </Link>
+                                )}
+                                <Link
+                                    to="/channel/@nguyentuananh/home"
+                                    className={clsx(styles.zIndex, styles.name)}
+                                >
+                                    <div className={clsx(styles.text)}>
+                                        <span>Ni Tac - 冯提莫 Feng Timo</span>
+                                        <Tooltip
+                                            content="Nguyễn Tuấn Anh"
+                                            customStyle={{
+                                                left: '0',
+                                                bottom: 'calc(100% + 28px)',
+                                                whiteSpace: 'nowrap',
+                                            }}
+                                        />
+                                    </div>
+                                    <div className={clsx(styles.icon)}>
+                                        <Tooltip
+                                            content="Đã xác minh"
+                                            customStyle={{
+                                                left: '50%',
+                                                bottom: 'calc(100% + 10px)',
+                                                transform: 'translate(-50%, -50%)',
+                                                whiteSpace: 'nowrap',
+                                            }}
+                                        />
+                                        <BsCheckCircleFill />
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
+                        <div className={clsx(styles.time)}>
+                            502 N lượt xem <BsDot /> 3 năm trước
                         </div>
-                        <p className={clsx(styles.nameChannel)}>Arogal</p>
-                        <p className={clsx(styles.metaLine)}>4,1 Tr lượt xem • 3 năm trước</p>
                     </div>
+                    {showDes && (
+                        <div className={clsx(styles.des)}>
+                            Đăng kí kênh A Pháo TV tại đây: http://pesc.pw/FAUWS ▻ Đăng kí kênh
+                            Giàng A Pháo tại đây: http://pesc.pw/DZK9K ▻ Facebook
+                        </div>
+                    )}
                 </div>
-            </Link>
-            <div className={clsx(styles.buttons)}>
-                <div className={clsx(styles.btn1)}>
-                    <Button>
-                        <span className="material-symbols-outlined">schedule</span>
-                        <span className={clsx(styles.text)}>Xem trước</span>
-                    </Button>
-                </div>
-                <div className={clsx(styles.btn2)}>
-                    <Button>
-                        <span className="material-symbols-outlined">playlist_play</span>
-                        <span className={clsx(styles.text)}>Thêm vào danh sách chờ</span>
-                    </Button>
+
+                <div
+                    ref={elementRef}
+                    className={clsx(styles.dotMenu, { [styles.active]: isShow })}
+                    onClick={handleShowMenu}
+                >
+                    <DotMenu />
+                    {isShow && <MenuFixed isDisableScroll={isShow} menulist={menuList} />}
                 </div>
             </div>
         </div>

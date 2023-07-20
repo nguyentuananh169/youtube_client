@@ -1,0 +1,45 @@
+.wrapper {
+    position: fixed;
+    animation: op 0.2s ease;
+    z-index: 999;
+    min-width: 267px;
+}
+@keyframes op {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+/* menu */
+.menu {
+    background-color: #fff;
+    box-shadow: 0 0 4px #ccc;
+    padding: 10px 0;
+    border-radius: 7px;
+    z-index: 9;
+}
+.menu li {
+    list-style: none;
+}
+.menu .item {
+    font-size: 1.4rem;
+    padding: 7px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.menu .item svg {
+    font-size: 18px;
+}
+.menu .item span {
+    display: inline-block;
+    margin-left: 10px;
+}
+.menu .item:hover {
+    background-color: #f2f2f2;
+}
+.menu .item.mgt {
+    border-top: 1px solid#d8d8d8;
+}

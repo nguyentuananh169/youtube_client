@@ -1,0 +1,110 @@
+.wrapper {
+    width: 100%;
+}
+.container {
+    max-width: 1070px;
+    margin: 0 auto;
+    display: flex;
+    padding: 24px 0 40px 0;
+}
+.img {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 24px;
+}
+.img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.owner {
+    flex: 1;
+    margin-top: 16px;
+}
+.name {
+    display: flex;
+    align-items: center;
+}
+.name strong {
+    font-size: 2.4rem;
+    font-weight: 400;
+    position: relative;
+}
+.name strong div {
+    display: none;
+}
+.name strong:hover div {
+    display: block;
+}
+.name svg {
+    margin-left: 10px;
+    color: #606060;
+}
+.meta {
+    font-size: 1.4rem;
+    color: #606060;
+    margin-top: 12px;
+}
+.meta > * + * {
+    margin-left: 10px;
+}
+.about {
+    width: fit-content;
+    max-width: 500px;
+    margin-top: 10px;
+    padding-right: 15px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    position: relative;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* số dòng hiển thị */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.about a {
+    color: #606060;
+}
+.about svg {
+    position: absolute;
+    right: 0;
+    top: -2px;
+}
+.btn1 {
+    margin-left: 10px;
+    display: none;
+}
+.btn2 {
+    margin-top: 16px;
+}
+.btn1 button,
+.btn2 button {
+    width: 83px;
+    height: 37px;
+    border-radius: 18px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 500;
+    background-color: rgba(0, 0, 0, 1);
+    color: #fff;
+}
+.btn1 button:hover,
+.btn2 button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+@media only screen and (max-width: 550px) {
+    .img {
+        display: none;
+    }
+    .btn1 {
+        display: block;
+    }
+    .btn2 {
+        display: none;
+    }
+}

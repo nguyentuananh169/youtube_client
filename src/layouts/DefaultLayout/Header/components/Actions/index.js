@@ -1,14 +1,24 @@
 import clsx from 'clsx';
-import styles from './Actions.module.css';
+import useStore from '../../../../../hook/useStore';
 import Notification from './Notification';
-import User from './User';
+import UserMenu from '../../../../../components/UserMenu';
 import VideoCall from './VideoCall';
+import styles from './Actions.module.css';
+import Login from './Login';
 function Actions() {
+    const [state] = useStore();
+    const { isLogin } = state;
     return (
         <div className={clsx(styles.wrapper)}>
-            <VideoCall />
-            <Notification />
-            <User />
+            {isLogin ? (
+                <>
+                    <VideoCall />
+                    <Notification />
+                    <UserMenu />
+                </>
+            ) : (
+                <Login />
+            )}
         </div>
     );
 }

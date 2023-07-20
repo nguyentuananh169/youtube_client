@@ -1,13 +1,64 @@
 .wrapper {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 16/9;
     position: relative;
+}
+.nextVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 52px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wrapper.small .nextVideo {
+    bottom: 0;
+}
+.volume {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 8px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1;
+}
+.volume:hover {
+    background-color: #000;
+}
+.volume > div {
+    display: none;
+}
+.volume:hover > div {
+    display: block;
+}
+@keyframes hide {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        z-index: -1;
+    }
 }
 .video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     position: relative;
+}
+.wrapper.fullscreen {
+    background-color: #000;
+    display: flex;
+    align-items: center;
+}
+.wrapper.fullscreen .video {
+    width: 100%;
+    aspect-ratio: 16/9;
 }
 /* controls */
 .controls {
@@ -17,13 +68,24 @@
     bottom: 0;
     z-index: 1;
     padding: 0 10px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
-    /* opacity: 0; */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.3s linear;
+}
+.controls.hidden {
+    display: none;
+}
+.wrapper:hover .controls,
+.wrapper.pauseVideo .controls {
+    opacity: 1;
 }
 .controls .actions {
     width: 100%;
     display: flex;
     align-items: center;
+}
+.wrapper.small .animation {
+    display: none;
 }
 .animation {
     position: absolute;
@@ -41,7 +103,7 @@
     display: flex;
 }
 .animation.atPlayVideo {
-    top: calc(50% - 53px);
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     animation: animation 0.5s ease forwards;
@@ -50,7 +112,7 @@
 .animation.prevTime {
     width: 80px;
     height: 80px;
-    top: calc(50% - 53px);
+    top: 50%;
     left: 20%;
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.5);
@@ -73,7 +135,7 @@
 .animation.nextTime {
     width: 80px;
     height: 80px;
-    top: calc(50% - 53px);
+    top: 50%;
     left: 80%;
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.5);
@@ -99,11 +161,10 @@
 @keyframes animation {
     from {
         opacity: 1;
-        transform: scale(1);
     }
     to {
         opacity: 0;
-        transform: scale(2);
+        transform: translate(-50%, -50%) scale(2);
     }
 }
 @keyframes animation2 {
@@ -116,4 +177,42 @@
     100% {
         color: rgba(255, 255, 255, 0.5);
     }
+}
+/* preview */
+.wrapper.preview .controls {
+    height: 40px;
+    background-color: transparent;
+}
+/* size medium */
+.wrapper.medium .animation {
+    font-size: 15px;
+}
+.wrapper.medium .animation.atPlayVideo {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+}
+.wrapper.medium .animation.prevTime,
+.wrapper.medium .animation.nextTime {
+    width: 60px;
+    height: 60px;
+}
+.wrapper.medium .animation.prevTime span,
+.wrapper.medium .animation.nextTime span {
+    font-size: 1.1rem;
+}
+/* mobile controls */
+/* .mobileControls {
+    display: none;
+    opacity: 0;
+    transition: all 0.3s ease;
+} */
+/* size small */
+/* .wrapper.small:hover .mobileControls,
+.wrapper.small.pauseVideo .mobileControls {
+    display: block;
+    opacity: 1;
+} */
+.wrapper.small .actions {
+    padding-bottom: 20px;
 }

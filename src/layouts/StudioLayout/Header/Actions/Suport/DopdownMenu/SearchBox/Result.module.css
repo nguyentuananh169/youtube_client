@@ -1,0 +1,62 @@
+.result {
+    width: 100%;
+    height: 330px;
+    overflow-y: auto;
+}
+.result ul {
+    width: 100%;
+}
+.result ul li {
+    width: 100%;
+    list-style: none;
+}
+.result ul li:not(.title) {
+    cursor: pointer;
+}
+.result ul li.title {
+    padding: 15px;
+    cursor: auto;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+.result ul li:not(.title):hover {
+    background-color: #efefef;
+}
+.result ul li a {
+    display: block;
+    width: 100%;
+    padding: 8px 15px;
+    font-size: 1.4rem;
+    font-weight: 400;
+    display: flex;
+    align-items: flex-start;
+    color: #000;
+}
+.result ul li a .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #ecf3fe;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.result ul li a .content {
+    flex: 1;
+}
+.result ul li a .content span {
+    color: #1f1f1f;
+    line-height: 2.4rem;
+    font-size: 1.6rem;
+}
+.result ul li a .content p {
+    font-size: 1.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.9rem;
+    color: #565a58;
+}

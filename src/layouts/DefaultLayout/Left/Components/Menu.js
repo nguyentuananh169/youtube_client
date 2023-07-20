@@ -1,11 +1,18 @@
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
+import useStore from '../../../../hook/useStore';
+import DotMenu from '../../../../components/DotMenu';
 import styles from './Menu.module.css';
-function Menu({ data, isToggleGuide, guideType }) {
+import { setIsToggleNavBar } from '../../../../store/actions';
+function Menu({ isMobile, data }) {
+    const [state, dispatch] = useStore();
+    const { isToggleNavbar } = state;
     return (
         <div
-            className={clsx(styles.wrapper, { [styles.toggle]: isToggleGuide })}
-            data-type={guideType}
+            className={clsx(styles.wrapper, {
+                [styles.toggle]: isToggleNavbar,
+                [styles.mobile]: isMobile,
+            })}
         >
             {data.map((item, index) => (
                 <ul key={index}>
@@ -39,6 +46,9 @@ function Menu({ data, isToggleGuide, guideType }) {
                     ))}
                 </ul>
             ))}
+            <div className={clsx(styles.moreBtn)} onClick={() => dispatch(setIsToggleNavBar())}>
+                <DotMenu />
+            </div>
         </div>
     );
 }

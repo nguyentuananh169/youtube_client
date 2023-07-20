@@ -1,0 +1,128 @@
+.wrapper {
+    width: 100%;
+}
+.header {
+    margin-top: 20px;
+}
+.header span {
+    font-size: 1.6rem;
+}
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -5px;
+    margin-top: 20px;
+}
+.card {
+    margin-left: 5px;
+    position: relative;
+    margin-bottom: 20px;
+}
+.img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.total,
+.playAll {
+    position: absolute;
+}
+.total {
+    right: 0;
+    top: 0;
+    width: 40%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+.total span {
+    color: #fff;
+    font-size: 1.5rem;
+}
+.total svg {
+    margin-top: 10px;
+    color: #fff;
+}
+.playAll {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+.card:hover .playAll {
+    display: flex;
+}
+.playAll span {
+    color: #fff;
+    font-size: 1.4rem;
+}
+.playAll svg {
+    margin-right: 5px;
+}
+.title {
+    margin-top: 10px;
+}
+.title strong {
+    color: #000;
+    font-size: 1.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* số dòng hiển thị */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.time {
+    margin-top: 12px;
+}
+.time span {
+    font-size: 1.2rem;
+    color: #696969;
+}
+.more {
+    margin-top: 7px;
+}
+.more strong {
+    font-size: 1.3rem;
+    color: #696969;
+}
+@media only screen and (min-width: 1020px) {
+    .card {
+        width: calc(20% - 5px);
+    }
+}
+@media only screen and (min-width: 900px) and (max-width: 1020px) {
+    .card {
+        width: calc(25% - 5px);
+    }
+}
+@media only screen and (min-width: 620px) and (max-width: 900px) {
+    .card {
+        width: calc(33.333% - 5px);
+    }
+}
+@media only screen and (min-width: 400px) and (max-width: 620px) {
+    .card {
+        width: calc(50% - 5px);
+    }
+}
+@media only screen and (max-width: 400px) {
+    .card {
+        width: calc(100% - 5px);
+    }
+}

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './ItemList.module.css';
 import MenuDot from './MenuDot';
 import useClickOutSide from '../../../../../../hook/useClickOutSide';
-function ItemList() {
+function ItemList({ search = false }) {
     const [elementRef, isShow, setShow] = useClickOutSide();
     const handleShowMenu = () => {
         setShow(!isShow);

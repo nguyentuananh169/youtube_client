@@ -9,4 +9,13 @@
     z-index: 998;
     padding: 0 16px;
     background-color: #fff;
+    transition: top 0.3s linear;
+}
+@media only screen and (max-width: 768px) {
+    .header {
+        box-shadow: 0 0 3px 1px #ccc;
+    }
+    .header.hidden {
+        top: -60px;
+    }
 }

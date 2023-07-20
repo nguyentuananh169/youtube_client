@@ -1,14 +1,12 @@
-import { BiLike, BiDislike, BiCut } from 'react-icons/bi';
+import { BiLike, BiDislike } from 'react-icons/bi';
 import { RiShareForwardLine } from 'react-icons/ri';
-import { BsThreeDots } from 'react-icons/bs';
+import { TfiDownload } from 'react-icons/tfi';
+
 import clsx from 'clsx';
-import useClickOutSide from '../../../../../../hook/useClickOutSide';
 import Button from '../../../../../../components/Button';
 import Tooltip from '../../../../../../components/Tooltip';
-import MenuActions from './MenuActions';
 import styles from './Actions.module.css';
 function Actions() {
-    const [elementRef, isShow, setShow] = useClickOutSide(false);
     return (
         <div className={clsx(styles.actions)}>
             <div className={clsx(styles.btn, styles.likeDislike)}>
@@ -53,20 +51,14 @@ function Actions() {
             <div className={clsx(styles.btn, styles.share)}>
                 <Button>
                     <Tooltip
-                        content="Tạo đoạn video"
+                        content={'Chia sẻ'}
                         customStyle={{
                             top: 'calc(100% + 20px)',
                             whiteSpace: 'nowrap',
                         }}
                     />
-                    <BiCut />
-                    <span>Tạo đoạn video</span>
-                </Button>
-            </div>
-            <div ref={elementRef} className={clsx(styles.btn, styles.btnActions)}>
-                {isShow && <MenuActions />}
-                <Button onClick={() => setShow(!isShow)}>
-                    <BsThreeDots />
+                    <TfiDownload />
+                    <span>Tải xuống</span>
                 </Button>
             </div>
         </div>

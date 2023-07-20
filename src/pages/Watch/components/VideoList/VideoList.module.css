@@ -1,6 +1,16 @@
-.wrapper {
+.wrapper,
+.videoList:not(.videoColumn),
+.videoList:not(.videoColumn) .card {
     width: 100%;
 }
-.videoList {
-    width: 100%;
+.videoList.videoColumn {
+    margin-left: -5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.videoList .card {
+    margin-top: 10px;
+}
+.videoList.videoColumn .card {
+    margin-left: 5px;
 }

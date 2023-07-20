@@ -5,8 +5,8 @@
 }
 .wrapper .btn {
     font-size: 25px;
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,6 +14,7 @@
     color: #fff;
     font-weight: 400;
     position: relative;
+    flex-shrink: 0;
 }
 .volumeLine {
     width: auto;
@@ -46,18 +47,42 @@
     font-size: 1.3rem;
     white-space: nowrap;
 }
-.wrapper .title {
-    flex: 1;
-    position: relative;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    margin-left: 10px;
-}
 /* tooltip */
 .tooltip div:first-child {
     display: none;
 }
 .tooltip:hover div:first-child {
     display: block;
+}
+/* preview - size small*/
+.wrapper.preview {
+    width: 100%;
+    flex-direction: row-reverse;
+    margin-top: 10px;
+}
+.wrapper.preview .play,
+.wrapper.preview .skip,
+.wrapper.preview .volumeContainer .volumeLine,
+.wrapper.preview .volumeContainer .volume {
+    display: none;
+}
+.wrapper.preview .text {
+    position: absolute;
+    bottom: 16px;
+    left: 10px;
+}
+/* size mediun */
+.wrapper.medium .btn {
+    font-size: 20px;
+    width: 30px;
+}
+/* size small */
+.wrapper.small {
+    padding-left: 10px;
+}
+.wrapper.small .btn {
+    display: none;
+}
+.wrapper.small .volumeContainer {
+    display: none;
 }

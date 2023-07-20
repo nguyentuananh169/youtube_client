@@ -1,0 +1,108 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    margin-top: 40px;
+}
+.info {
+    flex: 1;
+    margin-right: 95px;
+}
+.title {
+    display: inline-block;
+    font-size: 1.6rem;
+}
+.des {
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 20px;
+}
+.des .content {
+    font-size: 1.4rem;
+}
+.des .content,
+.detail .content {
+    margin-top: 20px;
+}
+.des .content p {
+    line-height: 18px;
+}
+.detail {
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 20px;
+}
+.detail .title {
+    margin-top: 20px;
+}
+.detail table td {
+    font-size: 1.2rem;
+    color: #606060;
+    padding: 7px 0;
+}
+.detail table td + td {
+    padding-left: 22px;
+}
+.detail table td button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    padding: 10px 12px;
+    background-color: #e6e6e6;
+    border-radius: 20px;
+    font-weight: 550;
+    margin-left: -12px;
+}
+.statistical {
+    min-width: 324px;
+}
+.statistical ul {
+    margin-top: 10px;
+    list-style: none;
+}
+.statistical ul li {
+    padding: 10px 0;
+    font-size: 1.4rem;
+    border-top: 1px solid#e6e6e6;
+}
+.statistical ul li button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+.statistical ul li button {
+    cursor: pointer;
+    position: relative;
+}
+.statistical ul li button + button {
+    margin-left: 20px;
+}
+.statistical ul li button:hover::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 35px;
+    height: 35px;
+    background-color: #e6e6e6;
+    border-radius: 50%;
+    z-index: -1;
+}
+.statistical ul li button > div {
+    display: none;
+}
+.statistical ul li button:hover > div {
+    display: block;
+}
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+    }
+    .info {
+        margin-right: 0;
+    }
+    .statistical {
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}

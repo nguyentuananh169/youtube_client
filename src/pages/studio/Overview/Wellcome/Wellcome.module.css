@@ -1,0 +1,43 @@
+.wrapper {
+    width: 100%;
+}
+.title {
+    width: 100%;
+    margin-top: 30px;
+    font-size: 1.3rem;
+    color: #0d0d0d;
+}
+.body {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+}
+.body .text {
+    flex: 1;
+    font-size: 1.3rem;
+    color: #0d0d0d;
+    line-height: 2rem;
+}
+.body img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-left: 8px;
+}
+.linkBtn {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+}
+.linkBtn a {
+    color: #065fd4;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.dotBtn {
+    margin-left: 25px;
+    width: 25px;
+    height: 25px;
+    position: relative;
+}

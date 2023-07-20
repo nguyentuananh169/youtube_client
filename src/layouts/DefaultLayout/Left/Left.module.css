@@ -1,6 +1,6 @@
 .wrapper {
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 250px;
     height: 100vh;
@@ -78,7 +78,7 @@
     }
 }
 
-@keyframes slideRight {
+@keyframes sliderToRight {
     from {
         left: -250px;
     }
@@ -86,47 +86,109 @@
         left: 0;
     }
 }
-/* mini */
+@media only screen and (min-width: 1331px) {
+    .wrapper:not(.mobile).toggle {
+        width: 95px;
+        padding: 0 5px;
+    }
+    .wrapper:not(.mobile).toggle .footerMenu {
+        display: none;
+    }
+}
+@media only screen and (max-width: 1330px) and (min-width: 769px) {
+    .wrapper:not(.mobile) {
+        width: 95px;
+        padding: 0 5px;
+    }
+    .wrapper:not(.mobile).toggle {
+        animation: sliderToRight 0.3s linear;
+    }
+    .wrapper:not(.mobile) .footerMenu {
+        display: none;
+    }
 
-.wrapper[data-type='mini'],
-.wrapper[data-type='full'].toggle {
-    width: 95px;
-    padding: 0 5px;
+    .wrapper:not(.mobile).toggle {
+        left: -250px;
+        width: 250px;
+        padding: 0 17px;
+        background-color: #fff;
+        z-index: 9999;
+    }
+    .wrapper:not(.mobile).toggle {
+        left: 0;
+    }
+    .wrapper:not(.mobile).toggle .main .headerMenu {
+        display: block;
+    }
+    .overlay.toggle {
+        display: block;
+    }
 }
-
-.wrapper[data-type='mini'].toggle {
-    animation: slideRight 0.3s linear;
+@media only screen and (max-width: 768px) {
+    .overlay.toggle {
+        display: block;
+    }
+    .wrapper {
+        position: fixed;
+        background-color: #fff;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        height: auto;
+        padding: 0 10px;
+        box-shadow: 0px -2px 2px #f9f9f9;
+        z-index: 994;
+    }
+    .main {
+        display: none;
+    }
+    .menu {
+        padding-right: 0;
+    }
+    .footerMenu {
+        display: none;
+    }
+    /* */
+    .wrapper.toggle {
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        padding: 0 17px;
+        background-color: #fff;
+        animation: sliderToRight 0.3s linear;
+        z-index: 9999;
+    }
+    .wrapper.toggle .main {
+        max-width: 255px;
+        margin: 0 auto;
+        display: block;
+    }
+    .wrapper.toggle .main .headerMenu {
+        display: block;
+    }
+    .wrapper.toggle .menu {
+        overflow: auto;
+    }
+    .wrapper.toggle .footerMenu {
+        display: block;
+    }
 }
-.wrapper[data-type='full'].toggle .footerMenu,
-.wrapper[data-type='mini'] .footerMenu {
-    display: none;
-}
-/* hidden */
-.wrapper[data-type='hidden'] {
-    transition: left 0.3s linear;
-}
-.wrapper[data-type='hidden'],
-.wrapper[data-type='mini'].toggle {
-    left: -250px;
-    width: 250px;
-    padding: 0 17px;
-    background-color: #fff;
-    z-index: 9999;
-}
-.wrapper[data-type='mini'].toggle {
-    left: 0;
-}
-.wrapper[data-type='mini'].toggle .main .headerMenu {
-    display: block;
-}
-.wrapper[data-type='hidden'] .main .headerMenu {
-    display: block;
-}
-.wrapper[data-type='hidden'].toggle {
-    left: 0;
-}
-/* overlay */
-.overlay[data-type='mini'].toggle,
-.overlay[data-type='hidden'].toggle {
-    display: block;
+@media only screen and (min-width: 769px) {
+    .overlay.mobile.toggle {
+        display: block;
+    }
+    .wrapper.mobile {
+        left: -250px;
+        width: 250px;
+        padding: 0 17px;
+        background-color: #fff;
+        transition: left 0.3s linear;
+        z-index: 9999;
+    }
+    .wrapper.mobile .main .headerMenu {
+        display: block;
+    }
+    .wrapper.mobile.toggle {
+        left: 0;
+    }
 }

@@ -12,30 +12,37 @@ import styles from './LeftControls.module.css';
 import Tooltip from '../../../Tooltip';
 import { useEffect, useRef } from 'react';
 function LeftControls({
-    isPlay,
-    isVolume,
-    volumeLevel,
+    isPreview,
+    isAutoSkip,
+    size,
+    dataSetting,
+    currentTimeRef,
+    totalTimeRef,
     handleClickVideo,
     handleClickVolume,
     handleChangeVolume,
-    children,
 }) {
     const volumeRef = useRef(null);
     useEffect(() => {
-        if (isVolume) {
+        if (dataSetting.isVolume) {
             volumeRef.current.value = 10;
         } else {
             volumeRef.current.value = 0;
         }
-    }, [isVolume]);
+    }, [dataSetting.isVolume]);
     return (
-        <div className={clsx(styles.wrapper)}>
+        <div
+            className={clsx(styles.wrapper, {
+                [styles.preview]: isPreview,
+                [styles[size]]: size,
+            })}
+        >
             <div
                 className={clsx(styles.btn, styles.play, styles.tooltip)}
                 onClick={handleClickVideo}
             >
                 <Tooltip
-                    content={'Phát (k)'}
+                    content={dataSetting.isPlay ? 'Tạm dừng (k)' : 'Phát (k)'}
                     customStyle={{
                         left: '0',
                         whiteSpace: 'nowrap',
@@ -43,28 +50,32 @@ function LeftControls({
                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
                     }}
                 />
-                {isPlay ? <BsFillPauseFill /> : <BsFillPlayFill />}
+                {dataSetting.isPlay ? <BsFillPauseFill /> : <BsFillPlayFill />}
             </div>
-            <div className={clsx(styles.btn, styles.skip)}>
-                <BsFillSkipEndFill />
-            </div>
+            {isAutoSkip && (
+                <div className={clsx(styles.btn, styles.skip)}>
+                    <BsFillSkipEndFill />
+                </div>
+            )}
+
             <div className={clsx(styles.volumeContainer)}>
                 <div
                     className={clsx(styles.btn, styles.volume, styles.tooltip)}
                     onClick={handleClickVolume}
                 >
                     <Tooltip
-                        content={isVolume ? 'Tắt tiếng (m)' : 'Mở tiếng (m)'}
+                        content={dataSetting.isVolume ? 'Tắt tiếng (m)' : 'Mở tiếng (m)'}
                         customStyle={{
-                            left: '-40%',
+                            [`${isPreview || 'left'}`]: '-40%',
+                            [`${isPreview && 'right'}`]: '0',
                             whiteSpace: 'nowrap',
-                            bottom: 'calc(100% + 10px)',
+                            [`${isPreview ? 'top' : 'bottom'}`]: 'calc(100% + 10px)',
                             backgroundColor: 'rgba(0, 0, 0, 0.7)',
                         }}
                     />
-                    {volumeLevel === 'mute' && <BsVolumeMuteFill />}
-                    {volumeLevel === 'low' && <BsVolumeDownFill />}
-                    {volumeLevel === 'full' && <BsFillVolumeUpFill />}
+                    {dataSetting.volumeLevel === 'mute' && <BsVolumeMuteFill />}
+                    {dataSetting.volumeLevel === 'low' && <BsVolumeDownFill />}
+                    {dataSetting.volumeLevel === 'full' && <BsFillVolumeUpFill />}
                 </div>
                 <div className={clsx(styles.volumeLine)}>
                     <input
@@ -79,11 +90,10 @@ function LeftControls({
                     />
                 </div>
             </div>
-            <div className={clsx(styles.volumeLine)}></div>
-            <div className={clsx(styles.text)}>{children}</div>
-            <div className={clsx(styles.title)}>
-                <span style={{ marginRight: '10px', display: 'inline-block' }}>•</span>
-                <span>How To Create The YouTube Video Player</span>
+            <div className={clsx(styles.text)}>
+                <span ref={currentTimeRef}>0:0</span>
+                <span> / </span>
+                <span ref={totalTimeRef}>0:0</span>
             </div>
         </div>
     );

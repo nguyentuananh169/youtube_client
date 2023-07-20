@@ -1,0 +1,222 @@
+.wrapper {
+    position: fixed;
+    width: 360px;
+    height: calc(100vh - 84px);
+    background: linear-gradient(
+        to bottom,
+        rgba(89, 89, 89, 0.8) 0%,
+        rgba(89, 89, 89, 0.298) 33%,
+        rgba(89, 89, 89, 0.8) 100%
+    );
+    border-radius: 15px;
+    padding: 24px;
+    overflow-y: auto;
+}
+.img {
+    display: block;
+    aspect-ratio: 16/9;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+.img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.img .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.img:hover .overlay {
+    opacity: 1;
+}
+.img .overlay p {
+    font-size: 1.3rem;
+    margin-left: 5px;
+    text-transform: uppercase;
+}
+.title {
+    width: 100%;
+    margin-top: 24px;
+}
+.title span {
+    font-size: 2.8rem;
+    color: #fff;
+    font-weight: 700;
+}
+.name {
+    display: inline-block;
+    margin-top: 20px;
+    position: relative;
+}
+.name [data-class='tooltip'] {
+    display: none;
+}
+.name:hover [data-class='tooltip'] {
+    display: block;
+}
+.name a {
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.statistical {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+}
+.statistical p {
+    font-size: 1.2rem;
+    color: #eeecec;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.statistical p:last-child {
+    flex: 1;
+}
+.statistical p + p {
+    margin-left: 10px;
+}
+.actions {
+    width: 100%;
+    display: flex;
+    margin-top: 15px;
+}
+.actions .download,
+.actions .dot {
+    width: 40px;
+    height: 40px;
+    background-color: #999;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.actions .download svg,
+.actions .dot svg {
+    color: #fff;
+}
+.actions .download:hover,
+.actions .dot:hover {
+    background-color: #ababab;
+}
+.actions .download [data-class='tooltip'] {
+    display: none;
+}
+.actions .download:hover [data-class='tooltip'] {
+    display: block;
+}
+.actions .dot {
+    margin-left: 10px;
+}
+.btns {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.btns button {
+    width: 48%;
+    height: 36px;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.btns button:first-child {
+    background-color: #fff;
+}
+.btns button:first-child:hover {
+    background-color: #eeecec;
+}
+.btns button:last-child {
+    background-color: #888889;
+    color: #fff;
+}
+.btns button:last-child:hover {
+    background-color: #b5b5b5;
+}
+.btns button svg {
+    margin-right: 10px;
+}
+@media only screen and (max-width: 1070px) {
+    .wrapper {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+    .location {
+        max-width: 724px;
+        width: 100%;
+        display: flex;
+    }
+    .img {
+        width: 338px;
+    }
+    .info {
+        width: 100%;
+        margin-left: 22px;
+        display: flex;
+        align-items: end;
+    }
+    .text {
+        padding-right: 10px;
+    }
+    .actions {
+        justify-content: flex-end;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .location {
+        flex-direction: column;
+    }
+    .img {
+        margin: 0 auto;
+    }
+    .info {
+        margin-left: 0;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .info {
+        display: block;
+    }
+    .actions {
+        justify-content: flex-start;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .btns {
+        flex-direction: column;
+    }
+    .btns button {
+        width: 100%;
+    }
+    .btns button:last-child {
+        margin-top: 15px;
+    }
+}

@@ -1,0 +1,70 @@
+.wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.btnPrev,
+.btnNext {
+    position: absolute;
+    background-color: #fff;
+
+    display: none;
+}
+.wrapper.start .btnPrev {
+    box-shadow: 20px 0px 9px 7px #fff;
+    display: block;
+}
+.wrapper.end .btnNext {
+    box-shadow: -20px 0px 9px 7px #fff;
+    display: block;
+}
+.btnPrev button,
+.btnNext button {
+    width: 37px;
+    height: 37px;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    font-size: 14px;
+    line-height: 0;
+    cursor: pointer;
+}
+.btnPrev button:hover,
+.btnNext button:hover {
+    background-color: #e5e5e5;
+}
+.btnPrev {
+    left: 0;
+    top: 2px;
+    z-index: 3;
+}
+.btnNext {
+    right: 0;
+    top: 2px;
+    z-index: 3;
+}
+.list {
+    display: flex;
+    padding: 5px 0;
+    transition: all 0.3s linear;
+}
+.item + .item {
+    margin-left: 10px;
+}
+.item button {
+    padding: 8px 12px;
+    font-size: 1.4rem;
+    color: #0f0f0f;
+    background-color: #f2f2f2;
+    white-space: nowrap;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.item button:hover {
+    background-color: #e5e5e5;
+}
+.item.active button {
+    background-color: #000;
+    color: #fff;
+}

@@ -1,0 +1,14 @@
+.wrapper {
+    width: 100%;
+}
+.title {
+    width: 100%;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+.noData {
+    width: 100%;
+    margin-top: 30px;
+    font-size: 1.4rem;
+    text-align: center;
+}

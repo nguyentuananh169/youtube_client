@@ -18,7 +18,7 @@ function Owner({ avatar, name, subscriber, isOfficial = false }) {
                                 content={name}
                                 customStyle={{ bottom: 'calc(100% + 20px )', whiteSpace: 'nowrap' }}
                             />
-                            <Link to={'/channel/@nta'}>{name}</Link>
+                            <Link to={'/channel/@nta/home'}>{name}</Link>
                         </div>
 
                         {isOfficial && (

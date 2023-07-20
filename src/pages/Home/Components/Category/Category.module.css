@@ -1,0 +1,16 @@
+.wrapper {
+    width: 100%;
+}
+.category {
+    position: fixed;
+    top: 54px;
+    padding: 5px 0;
+    background-color: #fff;
+    z-index: 99;
+    transition: top 0.3s linear;
+}
+@media only screen and (max-width: 768px) {
+    .category.hidden {
+        top: -60px;
+    }
+}

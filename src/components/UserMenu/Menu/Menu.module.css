@@ -1,0 +1,193 @@
+.userMenu {
+    position: absolute;
+    top: 0;
+    right: 100%;
+    min-width: 300px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    z-index: 99;
+}
+.close {
+    width: 100%;
+    padding: 10px 16px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    display: none;
+    box-shadow: 0 0 5px #ddd;
+}
+.close svg {
+    margin-right: 10px;
+    cursor: pointer;
+}
+.close span {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-left: 11px;
+}
+.title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.title .icon {
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.title .icon:hover {
+    background-color: #e6e6e6;
+}
+.title .icon svg {
+    font-size: 22px;
+}
+.title span {
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+.header {
+    width: 100%;
+    display: flex;
+    padding: 16px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.header .avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+}
+.header .avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.header .info {
+    flex: 1;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    font-weight: 400;
+}
+.header .info .userName,
+.header .info .userId {
+    font-size: 1.6rem;
+}
+.header .info a {
+    display: inline-block;
+    text-decoration: none;
+    color: #065fd4;
+    margin-top: 10px;
+}
+.main {
+    flex: 1;
+    position: relative;
+    overflow-y: auto;
+}
+/* Track */
+.main::-webkit-scrollbar-track {
+    background: transparent;
+}
+.main:hover::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+/* Handle */
+.main::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+.main:hover::-webkit-scrollbar-thumb {
+    background: #7a7676;
+}
+.main ul {
+    padding: 7px 0;
+    list-style: none;
+}
+.main ul + ul {
+    border-top: 1px solid #e5e5e5;
+}
+.main ul li:hover {
+    background-color: #e5e5e5;
+}
+.main ul li.hidden {
+    display: none;
+}
+.main ul li .content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 7px 16px;
+}
+.main ul li button.content {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+.main ul li a.content {
+    text-decoration: none;
+    color: #000;
+}
+.main ul li span.icon {
+    display: inline-block;
+    font-size: 24px;
+    margin-right: 16px;
+    font-weight: 300;
+}
+.main ul li span.text {
+    flex: 1;
+    font-size: 1.4rem;
+    text-align: left;
+}
+.main ul li span.icon2 {
+    display: inline-block;
+    font-size: 24px;
+    margin-left: 5px;
+    font-weight: 300;
+}
+/*  */
+.note {
+    margin: 0 16px;
+    padding: 12px 0;
+    font-size: 1.2rem;
+    line-height: 18px;
+    color: #606060;
+    font-weight: 400;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.iconCheck {
+    opacity: 0;
+}
+.iconCheck.active {
+    opacity: 1;
+}
+.border {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+.border.hidden {
+    display: none;
+}
+.border .line {
+    width: 100%;
+    height: 1px;
+    background-color: #e5e5e5;
+}
+@media only screen and (max-width: 768px) {
+    .userMenu {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+    .close {
+        display: block;
+    }
+}

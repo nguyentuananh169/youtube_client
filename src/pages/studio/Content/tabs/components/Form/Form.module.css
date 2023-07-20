@@ -1,0 +1,77 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.top {
+    width: 100%;
+    height: 82px;
+    display: flex;
+    align-items: center;
+}
+.body {
+    width: 100%;
+    flex: 1;
+    overflow: auto;
+    padding: 25px 50px;
+}
+.bottom {
+    width: 100%;
+    height: 50px;
+    padding: 0 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.bottom .text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #2eb85c;
+}
+.bottom .btn {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border-radius: 2px;
+    color: #606060;
+    background-color: transparent;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    border: none;
+    position: relative;
+}
+.bottom .btn:last-child {
+    background-color: #065fd4;
+    color: #fff;
+}
+.bottom .btn + .btn {
+    margin-left: 10px;
+}
+.bottom .btn.loading {
+    background-color: rgba(6, 95, 212, 0.4);
+    cursor: no-drop;
+}
+.bottom .error {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.bottom .error svg {
+    margin-right: 15px;
+}
+.bottom .error span {
+    font-size: 1.3rem;
+    color: #c00;
+}
+@media only screen and (max-width: 768px) {
+    .body {
+        padding: 25px;
+    }
+}

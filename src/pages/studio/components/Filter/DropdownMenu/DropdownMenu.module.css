@@ -1,0 +1,100 @@
+.dropdownMenu {
+    --left: 0;
+    --top: 0;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 8px);
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    z-index: 2;
+}
+.dropdownMenu.fixed {
+    position: fixed;
+    left: var(--left);
+    top: var(--top);
+    z-index: 1000;
+}
+.heading {
+    width: 100%;
+    height: 46px;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+.heading h3 {
+    flex: 1;
+    color: #fff;
+    overflow: hidden;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+.heading .backMenu {
+    cursor: pointer;
+    position: relative;
+}
+.heading .backMenu [data-class='tooltip'] {
+    display: none;
+}
+.heading .backMenu:hover [data-class='tooltip'] {
+    display: block;
+}
+.menu {
+    width: 100%;
+    padding: 8px 0;
+    list-style: none;
+}
+.menu li {
+    width: 100%;
+    padding: 10px 24px;
+    font-size: 1.5rem;
+    color: #0d0d0d;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.menu li:not(.noItem):hover {
+    background-color: #f9f9f9;
+}
+.menu li .children {
+    margin-right: 10px;
+}
+.menu2 {
+    min-width: 192px;
+    padding: 20px 0 8px 0;
+}
+.menu2 li {
+    padding: 7px 20px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.submit {
+    width: 100%;
+    height: 53px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 15px;
+    border-top: 1px solid #e6e6e6;
+}
+.submit button {
+    height: 100%;
+    padding: 0 10px;
+    outline: none;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #909090;
+}
+.submit button.allowed {
+    color: #065fd4;
+    cursor: pointer;
+}
+/* không có mục */
+.menu li.noItem {
+    padding: 7px 20px;
+    color: #909090;
+    cursor: default;
+}

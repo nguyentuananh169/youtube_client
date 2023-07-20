@@ -1,0 +1,23 @@
+.wrapper {
+    width: 100%;
+    padding-left: 24px;
+    margin-top: 18px;
+    margin-bottom: 10px;
+}
+.wrapper a {
+    font-size: 1.3rem;
+    color: #606060;
+}
+.wrapper a + a {
+    margin-left: 38px;
+}
+.wrapper a svg {
+    opacity: 0;
+    margin-bottom: -3px;
+}
+.wrapper a:hover {
+    color: #065fd4;
+}
+.wrapper a:hover svg {
+    opacity: 1;
+}

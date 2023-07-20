@@ -1,5 +1,5 @@
 .actions {
-    width: auto;
+    flex: 1;
     display: flex;
     justify-content: flex-end;
     height: 36px;
@@ -33,6 +33,7 @@
 .btn.share button {
     border-radius: 20px;
     position: relative;
+    white-space: nowrap;
 }
 .btn.share button div:first-child {
     display: none;
@@ -40,7 +41,7 @@
 .btn.share button:hover div:first-child {
     display: block;
 }
-.btn svg {
+.btn:not(.btnActions) svg {
     margin-right: 5px;
     font-size: 1.7rem;
 }
@@ -72,9 +73,6 @@
 }
 .menuActions {
     width: 200px;
-    position: absolute;
-    left: 0;
-    top: 100%;
     background-color: #fff;
     border-radius: 7px;
     box-shadow: 0 0 5px #ccc;
@@ -94,4 +92,33 @@
 }
 .menuActions ul li span {
     padding-left: 10px;
+}
+@media only screen and (max-width: 720px) {
+    .actions {
+        margin-top: 10px;
+        flex: none;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .actions {
+        width: 100%;
+        overflow: auto;
+        justify-content: flex-start;
+    }
+    /* width */
+    .actions::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    /* Track */
+    .actions::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    .actions::-webkit-scrollbar-thumb {
+        background: #7a7676;
+        border-radius: 5px;
+    }
 }

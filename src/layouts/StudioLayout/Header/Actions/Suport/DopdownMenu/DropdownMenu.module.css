@@ -1,0 +1,135 @@
+.wrapper {
+    position: fixed;
+    width: 100%;
+    max-height: calc(100vh - 100px);
+    max-width: 360px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 7px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+.heading {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+.heading h3 {
+    flex: 1;
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: 400;
+    cursor: all-scroll;
+    user-select: none;
+    position: relative;
+}
+.heading h3 > div {
+    display: none;
+}
+.heading h3:hover > div {
+    display: block;
+}
+.heading button {
+    width: 35px;
+    height: 35px;
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+}
+.heading button.arrowLeft {
+    visibility: hidden;
+}
+.heading button.arrowLeft.show {
+    visibility: visible;
+}
+.heading button:hover {
+    background-color: #e3e3e3;
+}
+.heading button > div {
+    display: none;
+}
+.heading button:hover > div {
+    display: block;
+}
+.body {
+    width: 100%;
+    flex: 1;
+}
+.body:not(.tabSearch) {
+    overflow-y: auto;
+}
+.main {
+    width: 100%;
+}
+.main li {
+    width: 100%;
+    list-style: none;
+}
+.main li:not(.title) {
+    cursor: pointer;
+}
+.main li a {
+    display: block;
+    width: 100%;
+    padding: 8px 15px;
+    font-size: 1.4rem;
+    font-weight: 400;
+    display: flex;
+    align-items: flex-start;
+    color: #000;
+}
+.main li.title {
+    padding: 15px;
+    cursor: auto;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+.main li:not(.title):hover {
+    background-color: #efefef;
+}
+.main li:not(.title) span {
+    display: inline-block;
+    padding: 5px 0;
+    line-height: 1.8rem;
+}
+.main li .icon {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #ecf3fe;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.openInNew {
+    width: 100%;
+}
+
+.openInNew a {
+    display: block;
+    width: 100%;
+    padding: 15px 8px 15px 60px;
+    color: #0b57d0;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+}
+.openInNew a:hover {
+    background-color: #ecf3fe;
+    color: #0842a0;
+}
+.openInNew a svg {
+    margin-left: 5px;
+}

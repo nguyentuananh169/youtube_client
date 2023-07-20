@@ -1,0 +1,22 @@
+.user {
+    width: 64px;
+    height: 32px;
+    padding: 0 6px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.user img {
+    width: 32px;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    cursor: pointer;
+}
+@media only screen and (max-width: 768px) {
+    .user {
+        padding: 0;
+        width: auto;
+    }
+}

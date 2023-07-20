@@ -1,0 +1,20 @@
+.wrapper {
+    margin-left: 50px;
+    margin-top: 65px;
+}
+.card,
+.comments {
+    width: 100%;
+    max-width: 852px;
+}
+@media only screen and (max-width: 1100px) {
+    .wrapper {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+    .card,
+    .comments {
+        margin: 0 auto;
+    }
+}

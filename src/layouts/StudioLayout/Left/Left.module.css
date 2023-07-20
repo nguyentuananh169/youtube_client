@@ -1,0 +1,63 @@
+.overlay {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    display: none;
+    opacity: 0;
+    z-index: 9;
+    transition: opacity 0.3s ease;
+}
+.wrapper {
+    width: 255px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: width 0.3s linear;
+    z-index: 10;
+}
+@media only screen and (min-width: 992px) {
+    .wrapper.toggleNavbar {
+        width: 70px;
+    }
+}
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+    .overlay.toggleNavbar {
+        display: block;
+        opacity: 1;
+    }
+    .wrapper {
+        position: fixed;
+        width: 70px;
+        height: calc(100vh - var(--header-height));
+        top: var(--header-height);
+        left: 0;
+        transition: width 0.3s linear;
+    }
+    .wrapper.toggleNavbar {
+        width: 255px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        transition: none;
+    }
+    .wrapper.toggleNavbar {
+        height: 100vh;
+        top: 0;
+        flex-direction: column;
+        z-index: 9999;
+    }
+}

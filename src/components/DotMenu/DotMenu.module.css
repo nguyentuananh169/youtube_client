@@ -1,0 +1,36 @@
+.wrapper {
+    position: relative;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: all 0.1s ease;
+    border: 1px solid transparent;
+    opacity: 0.6;
+}
+.wrapper[data-animation='mouseDown']::after {
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+.wrapper[data-animation='mouseUp']::after {
+    animation: op 0.3s ease-in forwards;
+}
+@keyframes op {
+    from {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    to {
+        border: 1px solid transparent;
+    }
+}

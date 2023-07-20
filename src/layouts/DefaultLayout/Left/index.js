@@ -37,8 +37,12 @@ import { ImPlay } from 'react-icons/im';
 
 import HeaderMenu from '../Header/components/Menu';
 import Menu from './Components/Menu';
+import useStore from '../../../hook/useStore';
+import { setIsToggleNavBar } from '../../../store/actions';
 import styles from './Left.module.css';
-function Left({ isToggleGuide, guideType, handleToggleGuide }) {
+function Left({ isMobile }) {
+    const [state, dispatch] = useStore();
+    const { isToggleNavbar } = state;
     const dataMenu = [
         {
             title: null,
@@ -60,7 +64,7 @@ function Left({ isToggleGuide, guideType, handleToggleGuide }) {
                     isVisible: true,
                 },
                 {
-                    path: '/subscriptions',
+                    path: '/subscriptions/videos',
                     text: 'Kênh đăng ký',
                     icon1: <BsCollectionPlay />,
                     icon2: <BsCollectionPlayFill />,
@@ -88,21 +92,21 @@ function Left({ isToggleGuide, guideType, handleToggleGuide }) {
                     type: null,
                 },
                 {
-                    path: '/channel/@you',
+                    path: '/studio/videos/upload',
                     text: 'Video của bạn',
                     icon1: <AiOutlinePlaySquare />,
                     icon2: <AiFillPlaySquare />,
                     type: null,
                 },
                 {
-                    path: '/playlist/WL',
+                    path: '/watch-later',
                     text: 'Xem sau',
                     icon1: <AiOutlineClockCircle />,
                     icon2: <AiFillClockCircle />,
                     type: null,
                 },
                 {
-                    path: '/playlist/LL',
+                    path: '/liked',
                     text: 'Video đã thích',
                     icon1: <AiOutlineLike />,
                     icon2: <AiFillLike />,
@@ -114,40 +118,40 @@ function Left({ isToggleGuide, guideType, handleToggleGuide }) {
             title: 'Kênh đăng ký',
             menu: [
                 {
-                    path: '/channel/@kth1',
+                    path: '/channel/@buichill/home',
                     text: 'Kênh tổng hợp 1 Kênh tổng hợp 1',
                     avatar: 'https://yt3.ggpht.com/z0B7y-Hr1sw4WxeNXki2JtD_22nIaFq8thBdKtCT6452c5RUypePAiC14KXBOdNyidM69Nxw=s68-c-k-c0x00ffffff-no-rj',
                     type: 'channel',
                     online: true,
                 },
                 {
-                    path: '/channel/@kth2',
+                    path: '/channel/@buichill/home',
                     text: 'Kênh tổng hợp 2',
                     avatar: 'https://yt3.ggpht.com/ytc/AMLnZu-QZUU7IM-MN5vGExTxSfgp0Qt7aGnIpgNSFiaFyQ=s88-c-k-c0x00ffffff-no-rj',
                     type: 'channel',
                     online: true,
                 },
                 {
-                    path: '/channel/@kth3',
+                    path: '/channel/@buichill/home',
                     text: 'Kênh tổng hợp 3',
                     avatar: 'https://yt3.ggpht.com/SB-871TnzGP0fFlcDY3JgtPjuZ6pwHts4FuvOHgOaOyjFxqQVUWaSZh8yhnZdFMxY9LUYOCO=s88-c-k-c0x00ffffff-no-rj',
                     type: 'channel',
                 },
                 {
-                    path: '/channel/@kth4',
+                    path: '/channel/@buichill/home',
                     text: 'Kênh tổng hợp 4',
                     avatar: 'https://yt3.ggpht.com/ytc/AMLnZu81hTygRbAY4QFys1Og1LYH05rR9U0P4c80socz=s88-c-k-c0x00ffffff-no-rj',
                     type: 'channel',
                     online: true,
                 },
                 {
-                    path: '/channel/@kth5',
+                    path: '/channel/@buichill/home',
                     text: 'Kênh tổng hợp 5',
                     avatar: 'https://yt3.ggpht.com/jZgTT-gREqn5Ar3bNyCsxRqge72RX8rbesRTsfAOcDBMMmopyOpN9bUwUTceyajaRCfSRzgYqA=s88-c-k-c0x00ffffff-no-rj',
                     type: 'channel',
                 },
                 {
-                    path: '/channel/@kth6',
+                    path: '/channel/@buichill/home',
                     text: 'Xem qua các kênh',
                     icon: 'add_circle',
                     type: null,
@@ -234,7 +238,7 @@ function Left({ isToggleGuide, guideType, handleToggleGuide }) {
                     type: null,
                 },
                 {
-                    path: '/reporthistory',
+                    path: '/report-history',
                     text: 'Nhật ký quảng cáo',
                     icon1: <BsFlag />,
                     type: null,
@@ -254,30 +258,31 @@ function Left({ isToggleGuide, guideType, handleToggleGuide }) {
             ],
         },
     ];
-
     return (
         <>
             <div
-                className={clsx(styles.overlay, { [styles.toggle]: isToggleGuide })}
-                data-type={guideType}
-                onClick={handleToggleGuide}
+                className={clsx(styles.overlay, {
+                    [styles.toggle]: isToggleNavbar,
+                    [styles.mobile]: isMobile,
+                })}
+                onClick={() => dispatch(setIsToggleNavBar())}
             ></div>
             <div
                 className={clsx(styles.wrapper, {
-                    [styles.toggle]: isToggleGuide,
+                    [styles.toggle]: isToggleNavbar,
+                    [styles.mobile]: isMobile,
                 })}
-                data-type={guideType}
             >
                 <div className={clsx(styles.main)}>
                     <div className={clsx(styles.headerMenu, styles.show)}>
-                        <HeaderMenu handleToggleGuide={handleToggleGuide} />
+                        <HeaderMenu />
                     </div>
                 </div>
                 <div className={clsx(styles.menu)}>
-                    <Menu data={dataMenu} isToggleGuide={isToggleGuide} guideType={guideType} />
+                    <Menu isMobile={isMobile} data={dataMenu} isToggleNavbar={isToggleNavbar} />
                     <div
                         className={clsx(styles.footerMenu, {
-                            [styles.hidden]: isToggleGuide,
+                            [styles.hidden]: isToggleNavbar,
                         })}
                     >
                         <Link to={'/'}>Giới thiệu</Link>
@@ -290,7 +295,7 @@ function Left({ isToggleGuide, guideType, handleToggleGuide }) {
                     </div>
                     <div
                         className={clsx(styles.footerMenu, {
-                            [styles.hidden]: isToggleGuide,
+                            [styles.hidden]: isToggleNavbar,
                         })}
                     >
                         <Link to={'/'}>Điều khoản</Link>

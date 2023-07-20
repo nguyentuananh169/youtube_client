@@ -1,0 +1,41 @@
+.wrapper {
+    width: 100%;
+}
+.videoPlayer {
+    margin: 50px 0 20px 0;
+}
+.group {
+    width: 100%;
+}
+.group + .group {
+    margin-top: 20px;
+    border-top: 1px solid#e6e6e6;
+}
+.category {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+.category a {
+    color: #000;
+    font-size: 1.6rem;
+}
+.category button {
+    padding: 7px 14px;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 30px;
+    background-color: transparent;
+}
+.category button:hover {
+    background-color: #e5e5e5;
+}
+.category button svg {
+    margin-right: 5px;
+}

@@ -1,0 +1,9 @@
+.wrapper {
+    background-image: url(https://i.imgur.com/T0S0bL6.png);
+    height: 0;
+    padding-top: 17%;
+    position: relative;
+    background-size: 100% 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}

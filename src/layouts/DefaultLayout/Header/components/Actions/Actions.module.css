@@ -24,22 +24,8 @@
 .btn:hover .tooltip {
     display: block;
 }
-.user {
-    width: 64px;
-    height: 32px;
-    padding: 0 6px;
-    display: flex;
-    justify-content: center;
-    position: relative;
-}
-.user img {
-    width: 32px;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    overflow: hidden;
-    cursor: pointer;
-}
+
+/*  */
 .tooltip {
     position: absolute;
     white-space: nowrap;
@@ -49,4 +35,41 @@
 }
 .notification .tooltip {
     left: -16px;
+}
+.btnLogin {
+    width: 122px;
+    height: 35px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+    margin-right: 10px;
+    color: #065fd4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+}
+.btnLogin:hover {
+    background-color: rgba(6, 95, 212, 0.2);
+    border: 1px solid rgba(6, 95, 212, 0.1);
+}
+.btnLogin svg {
+    margin-right: 5px;
+}
+.btnLogin span {
+    font-size: 1.4rem;
+    font-weight: 450;
+}
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        max-width: 100%;
+        width: auto;
+        justify-content: flex-start;
+        flex: none;
+    }
+}
+@media only screen and (max-width: 430px) {
+    .notification,
+    .btn {
+        display: none;
+    }
 }

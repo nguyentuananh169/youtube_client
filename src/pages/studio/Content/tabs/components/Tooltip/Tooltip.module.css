@@ -1,0 +1,44 @@
+.wrapper {
+    position: fixed;
+    max-width: 400px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 7px;
+    padding: 20px;
+    z-index: 1000;
+}
+.wrapper:not(.children) {
+    min-width: 320px;
+}
+.heading,
+.body,
+.bottom {
+    width: 100%;
+    white-space: wrap;
+}
+.heading strong,
+.body span {
+    font-size: 1.3rem;
+    color: #0d0d0d;
+    font-weight: 400;
+}
+.heading strong {
+    font-weight: 500;
+}
+.body {
+    line-height: 1.8rem;
+    white-space: normal;
+}
+.bottom a {
+    color: #065fd4;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+.wrapper .gr + .gr {
+    margin-top: 15px;
+}
+@media only screen and (max-width: 400px) {
+    .wrapper {
+        max-width: 100vw;
+    }
+}

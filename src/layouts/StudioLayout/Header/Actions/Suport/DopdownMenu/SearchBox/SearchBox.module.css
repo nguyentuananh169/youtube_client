@@ -1,0 +1,72 @@
+.wrapper {
+    width: 100%;
+}
+.form {
+    width: 100%;
+    padding: 10px 15px 15px 15px;
+}
+.form form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 5px 7px;
+    position: relative;
+}
+.form form button {
+    height: 36px;
+    width: 36px;
+    margin-right: 10px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.form form.tabSearch button:hover {
+    background-color: #e3e3e3;
+}
+.form form button > div {
+    display: none;
+}
+.form form.tabSearch button:hover > div {
+    display: block;
+}
+.form form button .loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #444746;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.form form .text,
+.form form input {
+    flex: 1;
+    font-size: 1.4rem;
+    color: #444746;
+}
+.form form input {
+    height: 30px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+.form form input::placeholder {
+    color: #444746;
+}

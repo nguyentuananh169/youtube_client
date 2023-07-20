@@ -32,7 +32,7 @@
     align-items: center;
 }
 .info .name .text {
-    max-width: 170px;
+    max-width: 116px;
     position: relative;
 }
 .info .name .text div:first-child,
@@ -78,4 +78,14 @@
 }
 .subscribeButton button:hover {
     background-color: rgba(0, 0, 0, 0.9);
+}
+@media only screen and (max-width: 1080px) {
+    .ownerInfo {
+        padding-right: 5px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .owner {
+        align-items: flex-start;
+    }
 }

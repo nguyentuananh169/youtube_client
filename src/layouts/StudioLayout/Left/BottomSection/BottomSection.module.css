@@ -1,0 +1,57 @@
+.wrapper {
+    width: 100%;
+    padding: 5px 0;
+    overflow: hidden;
+}
+.wrapper ul {
+    width: 100%;
+    list-style: none;
+}
+.wrapper ul li {
+    min-width: 255px;
+    outline: none;
+    border: none;
+    padding: 14px 14px 14px 25px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: transparent;
+    position: relative;
+}
+.wrapper ul li:hover {
+    background-color: #f9f9f9;
+}
+.wrapper ul li svg {
+    margin-right: 25px;
+}
+.wrapper ul li span {
+    color: #606060;
+    font-weight: 500;
+    font-size: 1.4rem;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+@media only screen and (min-width: 992px) {
+    .wrapper:not(.toggleNavbar) {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .wrapper.toggleNavbar ul li span {
+        opacity: 0;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .wrapper.toggleNavbar {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .wrapper:not(.toggleNavbar) ul li span {
+        opacity: 0;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .wrapper:not(.toggleNavbar) {
+        display: none;
+    }
+    .wrapper.toggleNavbar {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+}

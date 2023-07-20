@@ -1,0 +1,144 @@
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main {
+    width: calc(100vw - 30px);
+    max-width: 650px;
+    margin: 15px 0;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 48px 16px;
+}
+.logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.logo a {
+    display: inline-block;
+}
+.logo img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    display: block;
+}
+.title {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+.title h1 {
+    font-size: 2.8rem;
+    color: #292929;
+}
+.form {
+    display: block;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.group + .group {
+    margin-top: 10px;
+}
+.group label {
+    font-size: 1.3rem;
+    color: #292929;
+    margin-bottom: 10px;
+    font-weight: 500;
+    padding-left: 8px;
+}
+.group input {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 25px;
+    outline: none;
+    background-color: rgba(22, 24, 35, 0.06);
+    border: 1px solid rgba(22, 24, 35, 0.06);
+}
+.group input::placeholder {
+    color: #848484;
+}
+.group input.inputVaild {
+    border: 1px solid #f33a58;
+}
+
+.group .note {
+    font-size: 1.1rem;
+    color: #666;
+    padding-left: 8px;
+    margin-top: 10px;
+}
+.group .valid {
+    font-size: 1.1rem;
+    color: #f33a58;
+    padding-left: 8px;
+    margin-top: 10px;
+}
+.submit {
+    width: 100%;
+    margin-top: 20px;
+}
+.submit button {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    text-shadow: 0 0 5px #fff;
+    padding: 11px 16px;
+    font-size: 1.7rem;
+    border-radius: 25px;
+    background: linear-gradient(70.06deg, #2cccff -5%, #fe2e64 106%);
+    cursor: pointer;
+}
+.submit button.loading {
+    cursor: no-drop;
+}
+.dontHaveAcc {
+    width: 100%;
+    margin-top: 40px;
+    font-size: 1.4rem;
+    color: #333;
+    text-align: center;
+}
+.dontHaveAcc a {
+    color: red;
+    text-decoration: none;
+}
+.forgotPassword {
+    width: 100%;
+    margin-top: 15px;
+    text-align: center;
+}
+.forgotPassword a {
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: red;
+}
+.acceptTerm {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #666;
+    text-align: center;
+    line-height: 1.8rem;
+}
+.acceptTerm a {
+    text-decoration: underline;
+    color: #292929;
+}

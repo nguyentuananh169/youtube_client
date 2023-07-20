@@ -1,0 +1,9 @@
+.editor-component {
+    width: 100%;
+}
+.editor-component .tox .tox-statusbar {
+    display: none;
+}
+.editor-component .tox-tinymce {
+    border: none;
+}

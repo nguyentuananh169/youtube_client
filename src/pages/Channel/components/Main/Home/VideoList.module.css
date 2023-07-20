@@ -1,0 +1,52 @@
+.wrapper {
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+}
+.container {
+    width: 100%;
+    overflow: hidden;
+}
+.btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: 43%;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    outline: none;
+    border: none;
+    z-index: 2;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.btn.prev {
+    left: -10px;
+}
+.btn.next {
+    right: -10px;
+}
+.wrapper.prev .prev,
+.wrapper.next .next {
+    display: flex;
+}
+.list {
+    margin-left: -5px;
+    display: flex;
+    transition: margin-left 0.3s ease-in-out;
+}
+.item {
+    margin-left: 5px;
+    flex-shrink: 0;
+}
+@media only screen and (max-width: 768px) {
+    .btn.prev {
+        left: 0;
+    }
+    .btn.next {
+        right: 0;
+    }
+}

@@ -1,0 +1,14 @@
+.body tr th.checkbox {
+    padding-left: 20px;
+    padding-right: 10px;
+}
+.body tr th.checkbox input {
+    width: 17px;
+    height: 17px;
+}
+.body tr th [data-class='tooltip'] {
+    visibility: hidden;
+}
+.body tr th:hover [data-class='tooltip'] {
+    visibility: visible;
+}

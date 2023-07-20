@@ -1,0 +1,35 @@
+.wrapper {
+    margin-left: 365px;
+}
+.item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-radius: 10px;
+}
+.item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.count {
+    width: 36px;
+    text-align: center;
+    font-size: 1.4rem;
+    color: #606060;
+}
+.card {
+    flex: 1;
+}
+@media only screen and (max-width: 1070px) {
+    .wrapper {
+        margin-left: 0;
+        width: 100%;
+        max-width: 756px;
+        margin: 0 auto;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .count {
+        display: none;
+    }
+}

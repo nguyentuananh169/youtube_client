@@ -1,0 +1,92 @@
+.wrapper {
+    width: 100%;
+}
+.videoInforCn {
+    width: 100%;
+    padding: 20px 25px;
+}
+.videoInfor {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    background-color: #f1f1f1;
+}
+.img {
+    width: 120px;
+    height: 68px;
+}
+.img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+.info {
+    flex: 1;
+    padding-left: 15px;
+}
+.info strong {
+    font-size: 1.3rem;
+    color: #0d0d0d;
+    font-weight: 400;
+    line-height: 2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.info p {
+    font-size: 1.2rem;
+    color: #606060;
+    line-height: 1.6rem;
+}
+.checkBox {
+    width: 100%;
+    padding: 0 25px 25px 25px;
+    display: flex;
+    align-items: center;
+}
+.checkBox input {
+    margin-right: 10px;
+}
+.checkBox label {
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #0d0d0d;
+    user-select: none;
+}
+.loading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loading span {
+    font-size: 1.2rem;
+    color: #2eb85c;
+}
+.bottom {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px 25px;
+}
+.bottom button {
+    outline: none;
+    border: none;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    white-space: nowrap;
+    padding: 8px 0;
+    color: #065fd4;
+    cursor: pointer;
+}
+.bottom button + button {
+    margin-left: 25px;
+}
+.bottom button.disable {
+    color: #909090;
+    cursor: default;
+}

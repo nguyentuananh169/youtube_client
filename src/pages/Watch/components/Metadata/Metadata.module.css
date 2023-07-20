@@ -1,6 +1,5 @@
 .wrapper {
     width: 100%;
-    margin-top: 10px;
 }
 .topRow {
     width: 100%;
@@ -8,4 +7,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+@media only screen and (max-width: 768px) {
+    .location {
+        display: flex;
+        flex-direction: column-reverse;
+    }
 }

@@ -1,0 +1,134 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.close {
+    display: none;
+}
+.img {
+    width: 100%;
+    padding: 23px 0 20px 0;
+    display: flex;
+    justify-content: center;
+}
+.img a {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    display: block;
+    background-color: #aa47bc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    position: relative;
+    transition: all 0.3s linear;
+}
+.img a > span {
+    text-transform: uppercase;
+    font-size: 6rem;
+    transition: font-size 0.3s linear;
+}
+.img a .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.img a:hover .overlay {
+    display: flex;
+}
+.img a div[data-class='tooltip'] {
+    display: none;
+}
+.name {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.name .title {
+    font-size: 1.4rem;
+    color: #2f2f2f;
+    font-weight: 500;
+}
+.name .text {
+    font-size: 1.2rem;
+    color: #606060;
+    margin-top: 5px;
+}
+@media only screen and (min-width: 992px) {
+    .wrapper.toggleNavbar .img {
+        padding: 15px 0;
+    }
+    .wrapper.toggleNavbar .img a {
+        width: 32px;
+        height: 32px;
+    }
+    .wrapper.toggleNavbar .img a > span {
+        font-size: 1.5rem;
+    }
+    .wrapper.toggleNavbar .name {
+        display: none;
+    }
+    .wrapper:not(.toggleNavbar) .img a:hover div[data-class='tooltip'] {
+        display: block;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .wrapper:not(.toggleNavbar) .img {
+        padding: 15px 0;
+    }
+    .wrapper:not(.toggleNavbar) .img a {
+        width: 32px;
+        height: 32px;
+    }
+    .wrapper:not(.toggleNavbar) .img a > span {
+        font-size: 1.5rem;
+    }
+    .wrapper:not(.toggleNavbar) .name {
+        display: none;
+    }
+    .wrapper.toggleNavbar .img a:hover div[data-class='tooltip'] {
+        display: block;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .wrapper:not(.toggleNavbar) {
+        display: none;
+    }
+    .wrapper.toggleNavbar {
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .wrapper.toggleNavbar .close {
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .close button {
+        outline: none;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+    }
+    .close button:hover {
+        background-color: #f9f9f9;
+    }
+    .wrapper.toggleNavbar .img a:hover div[data-class='tooltip'] {
+        display: block;
+    }
+}

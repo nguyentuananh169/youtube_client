@@ -1,0 +1,126 @@
+.wrapper {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.wrapper::-webkit-scrollbar-thumb {
+    background: #ccc;
+}
+.wrapper::-webkit-scrollbar-thumb:hover {
+    background: #858484;
+}
+.wrapper ul {
+    width: 100%;
+    list-style: none;
+}
+.wrapper ul li {
+    width: 100%;
+    position: relative;
+}
+.wrapper ul li.more {
+    display: none;
+}
+.wrapper ul li a {
+    display: block;
+    min-width: 255px;
+    padding: 13px 13px 13px 25px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: #606060;
+    flex-wrap: nowrap;
+}
+.wrapper ul li a:hover,
+.wrapper ul li a.active {
+    background-color: #f9f9f9;
+}
+.wrapper ul li a.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: #c00;
+}
+.wrapper ul li a svg {
+    margin-right: 25px;
+    color: #909090;
+}
+.wrapper ul li a.active,
+.wrapper ul li a.active svg {
+    color: #c00;
+}
+.wrapper ul li a span {
+    font-size: 1.4rem;
+    font-weight: 500;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+@media only screen and (min-width: 992px) {
+    .wrapper.toggleNavbar ul li a span {
+        opacity: 0;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .wrapper:not(.toggleNavbar) ul li a span {
+        opacity: 0;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .wrapper:not(.toggleNavbar) ul {
+        display: flex;
+    }
+    .wrapper:not(.toggleNavbar) ul li.more {
+        display: block;
+        width: 50px;
+    }
+    .wrapper:not(.toggleNavbar) ul li.more button {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-items: center;
+        color: #606060;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    .wrapper:not(.toggleNavbar) ul li.more button:hover {
+        background-color: #f9f9f9;
+    }
+    .wrapper:not(.toggleNavbar) ul li.hiddenOnMobile {
+        display: none;
+    }
+    .wrapper:not(.toggleNavbar) ul li a,
+    .wrapper:not(.toggleNavbar) ul li button {
+        min-width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 7px 10px;
+    }
+    .wrapper:not(.toggleNavbar) ul li a.active::before {
+        top: calc(100% - 4px);
+        left: 0;
+        width: 100%;
+        height: 4px;
+    }
+    .wrapper:not(.toggleNavbar) ul li a svg,
+    .wrapper:not(.toggleNavbar) ul li button svg {
+        margin-right: 0;
+    }
+    .wrapper:not(.toggleNavbar) ul li a span {
+        margin-top: 5px;
+        font-size: 1.1rem;
+        font-weight: 400;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

@@ -1,4 +1,6 @@
-import { useRef, useState } from 'react';
+import { TfiClose } from 'react-icons/tfi';
+
+import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import Button from '../../../../../../components/Button';
 import styles from './Description.module.css';
@@ -18,26 +20,72 @@ function Description() {
             }, 1);
         }
     };
+    useEffect(() => {
+        if (window.innerWidth <= 768 && isMore) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.backgroundColor = 'rgba(0, 0, 0, .5)';
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.backgroundColor = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.backgroundColor = '';
+        };
+    }, [isMore]);
     return (
         <div ref={desRef} className={clsx(styles.desContainer)}>
             <div className={clsx(styles.des, { [styles.more]: isMore })}>
-                <p>
-                    <strong style={{ color: '#606060' }}>
-                        <span>617 N lượt xem</span>
-                        <span style={{ display: 'inline-block', marginLeft: '7px' }}>
-                            23 giờ trước
-                        </span>
-                    </strong>
-                </p>
-                {des ? (
-                    <div dangerouslySetInnerHTML={{ __html: des }}></div>
-                ) : (
-                    <span className={clsx(styles.noDes)}>Không có mô tả video</span>
-                )}
+                <div className={clsx(styles.heading)}>
+                    <h3>Nội dung mô tả</h3>
+                    <TfiClose size={19} onClick={() => setMore(false)} />
+                </div>
+                <div className={clsx(styles.content)}>
+                    <div className={clsx(styles.title)}>
+                        <h3>
+                            Mới nhất vụ tấn công trụ sở xã ở Đắk Lắk: 3 con tin kể lại những đêm
+                            trắng dưới họng súng | TV24h
+                        </h3>
+                        <div className={clsx(styles.owner)}>
+                            <img src="https://yt3.ggpht.com/ytc/AMLnZu8iE_CcyRx0x12MV1EvEMzJFVeoe6_6oavoSfLa0A=s48-c-k-c0x00ffffff-no-rj" />
+                            <span>Nguyễn Tuấn Anh</span>
+                        </div>
+                        <div className={clsx(styles.info1)}>
+                            <div className={clsx(styles.item)}>
+                                <strong>39</strong>
+                                <p>Lượt thích</p>
+                            </div>
+                            <div className={clsx(styles.item)}>
+                                <strong>7075</strong>
+                                <p>Lượt xem</p>
+                            </div>
+                            <div className={clsx(styles.item)}>
+                                <strong>16 thg 6</strong>
+                                <p>2023</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={clsx(styles.info2)}>
+                        <strong style={{ color: '#606060' }}>
+                            <span>617 N lượt xem</span>
+                            <span style={{ display: 'inline-block', marginLeft: '7px' }}>
+                                23 giờ trước
+                            </span>
+                        </strong>
+                    </div>
+                    {des ? (
+                        <div
+                            className={clsx(styles.text)}
+                            dangerouslySetInnerHTML={{ __html: des }}
+                        ></div>
+                    ) : (
+                        <span className={clsx(styles.noDes)}>Không có mô tả video</span>
+                    )}
+                </div>
             </div>
             {des && (
                 <div className={clsx(styles.more)}>
-                    <Button onClick={handleToggleMore}>{isMore ? 'Ẩn bớt' : 'Hiện thêm'}</Button>
+                    <Button onClick={handleToggleMore}>{isMore ? 'ẩn bớt' : '...thêm'}</Button>
                 </div>
             )}
         </div>

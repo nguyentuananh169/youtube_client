@@ -1,0 +1,21 @@
+.wrapper {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.wrapper > div {
+    display: none;
+}
+.wrapper:hover > div {
+    display: block;
+}
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        width: 30px;
+        height: 30px;
+    }
+}

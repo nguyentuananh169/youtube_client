@@ -1,8 +1,13 @@
 import clsx from 'clsx';
 import styles from './Tooltip.module.css';
-function Tooltip({ content, customStyle = {} }) {
+function Tooltip({ content, customStyle = {}, ...classes }) {
     return (
-        <div className={clsx(styles.tooltip)} style={{ ...customStyle }}>
+        <div
+            data-class="tooltip"
+            className={clsx(styles.tooltip)}
+            style={{ ...customStyle }}
+            {...classes}
+        >
             <span>{content}</span>
         </div>
     );

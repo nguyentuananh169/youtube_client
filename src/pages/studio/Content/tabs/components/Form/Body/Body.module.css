@@ -1,0 +1,195 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    align-items: start;
+}
+/* left */
+.left {
+    flex: 1;
+}
+.inputContainer {
+    width: 100%;
+}
+.inputContainer + .inputContainer {
+    margin-top: 25px;
+}
+.inputContainer .errorMessage {
+    font-size: 1.2rem;
+    color: #c00;
+    margin-top: 5px;
+}
+
+.group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    position: relative;
+}
+.group.focus:not(.error) {
+    border: 1px solid #065fd4;
+}
+.group.error {
+    border: 1px solid #c00;
+}
+.group.focus:not(.error) label {
+    color: #065fd4;
+}
+.group.error label {
+    color: #c00;
+}
+.group label {
+    font-size: 1.2rem;
+    color: #606060;
+}
+.group input {
+    width: 100%;
+    outline: none;
+    border: none;
+    margin-top: 2px;
+    line-height: 2rem;
+    font-size: 1.5rem;
+    height: 30px;
+}
+.group input::placeholder {
+    color: #909090;
+    font-size: 1.4rem;
+}
+.group .charCounter {
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.group [data-class='tooltip'] {
+    display: none;
+}
+.group.focus.error [data-class='tooltip'] {
+    display: block;
+}
+.label {
+    width: 100%;
+    font-size: 1.5rem;
+    color: #0d0d0d;
+    font-weight: 500;
+}
+.sublabel {
+    margin-top: 15px;
+    font-size: 1.3rem;
+    color: #606060;
+    line-height: 1.8rem;
+}
+.sublabel a {
+    text-decoration: none;
+    color: #065fd4;
+}
+.imgContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.imgContainer label + label {
+    margin-left: 5px;
+}
+.inputImg,
+.img {
+    width: 128px;
+    height: 69px;
+    border: 1px;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    margin-top: 15px;
+}
+.inputImg {
+    border-style: dashed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.inputImg.error {
+    border-color: #c00;
+}
+.img {
+    border-style: solid;
+    overflow: hidden;
+}
+.img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.text {
+    font-size: 1.2rem;
+    margin-top: 5px;
+    color: #606060;
+}
+.inputFile {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+.inputContainer select {
+    width: 260px;
+    height: 48px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.inputContainer select.error {
+    border: 1px solid #c00;
+}
+/* right */
+.right {
+    width: 310px;
+    margin-left: 24px;
+    background-color: #f9f9f9;
+    border-radius: 0 0 5px 5px;
+}
+.videoInfo {
+    width: 100%;
+    padding: 25px 15px 15px 15px;
+}
+.videoInfo p {
+    font-size: 1.3rem;
+    color: #606060;
+}
+.fileName {
+    position: relative;
+    margin-top: 5px;
+}
+.fileName > span,
+.fileName > a {
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #0d0d0d;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fileName > a {
+    color: #065fd4;
+    font-size: 1.3rem;
+}
+.fileName [data-class='tooltip'] {
+    display: none;
+}
+.fileName:hover [data-class='tooltip'] {
+    display: block;
+}
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        flex-direction: column-reverse;
+    }
+    .right {
+        width: 100%;
+        margin-bottom: 20px;
+        margin-left: 0;
+    }
+}

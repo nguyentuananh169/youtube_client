@@ -1,0 +1,29 @@
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.wrapper h1 {
+    font-size: 8rem;
+    text-shadow: 0 0 6px #8b4d1a;
+}
+
+.wrapper p {
+    margin-top: 8px;
+    font-size: 1.75em;
+    color: #ea8a1a;
+    text-align: center;
+}
+.wrapper p > a {
+    border-bottom: 1px dashed #837256;
+    text-decoration: none;
+    color: #837256;
+}
+
+.wrapper p > a:hover {
+    text-shadow: 0 0 3px #8b4d1a;
+}

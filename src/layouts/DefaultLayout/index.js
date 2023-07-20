@@ -1,49 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import clsx from 'clsx';
 import Header from './Header';
 import Left from './Left';
 import Right from './Right';
 
 import styles from './DefaultLayout.module.css';
+import useStore from '../../hook/useStore';
+import { setIsToggleNavBar } from '../../store/actions';
 import { useLocation } from 'react-router-dom';
 
 function DefaultLayout({ isMobile = false, children }) {
-    const [isToggleGuide, setToogle] = useState(false);
-    const [guideType, setGuideType] = useState('full');
-    const handleToggleGuide = () => {
-        setToogle(!isToggleGuide);
-    };
-    const handleChangeGuideType = () => {
-        const widthScreen = window.innerWidth;
-        if (widthScreen <= 1312 && widthScreen >= 769) {
-            setGuideType('mini');
-        } else if (widthScreen <= 768) {
-            setGuideType('hidden');
-        } else {
-            setGuideType('full');
+    const [state, dispatch] = useStore();
+    const { pathname } = useLocation();
+    useEffect(() => {
+        const screenWidth = window.innerWidth;
+        if (state.isToggleNavbar && (isMobile || screenWidth <= 1330)) {
+            dispatch(setIsToggleNavBar(false));
         }
-    };
-    useEffect(() => {
-        window.addEventListener('resize', handleChangeGuideType);
-        return () => {
-            window.removeEventListener('resize', handleChangeGuideType);
-        };
-    }, []);
-    useEffect(() => {
-        handleChangeGuideType();
-    }, []);
+    }, [pathname]);
+
     return (
         <>
-            <Header handleToggleGuide={handleToggleGuide} />
+            <Header />
             <div className={clsx(styles.main)}>
-                <Left
-                    isToggleGuide={isToggleGuide}
-                    guideType={guideType}
-                    handleToggleGuide={handleToggleGuide}
-                />
-                <Right isToggleGuide={isToggleGuide} guideType={guideType}>
-                    {children}
-                </Right>
+                <Left isMobile={isMobile} />
+                <Right isMobile={isMobile}>{children}</Right>
             </div>
         </>
     );

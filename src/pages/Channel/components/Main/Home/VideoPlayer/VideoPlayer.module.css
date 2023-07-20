@@ -1,0 +1,148 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+}
+.videoPlayer {
+    width: 424px;
+    margin-right: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+.top {
+    position: absolute;
+    width: 100%;
+    padding: 10px;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent);
+}
+.top .title {
+    flex: 1;
+}
+.top .title a {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+    font-size: 1.4rem;
+}
+.top .btnDot {
+    padding: 0 10px;
+    cursor: pointer;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: op 0.3s ease;
+}
+@keyframes op {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.overlay .close {
+    position: absolute;
+    right: 10px;
+    top: 3px;
+    color: #aaa;
+    cursor: pointer;
+}
+.overlay .close > div {
+    display: none;
+}
+.overlay .close:hover > div {
+    display: block;
+}
+.overlay .close:hover {
+    color: #fff;
+}
+.overlay .buttons {
+    display: flex;
+}
+.overlay .btn {
+    position: relative;
+    cursor: pointer;
+}
+.overlay .buttons .btn + .btn {
+    margin-left: 20px;
+}
+.overlay .buttons .btn > div {
+    display: none;
+}
+.overlay .buttons .btn:hover > div {
+    display: block;
+}
+.details {
+    flex: 1;
+    max-width: 400px;
+    min-width: 100px;
+    position: relative;
+}
+.details .link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.title {
+    color: #260f0f;
+    font-size: 1.3rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* số dòng hiển thị */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.title h3 {
+    font-weight: 500;
+}
+.time {
+    margin-top: 15px;
+    color: #606060;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+.des {
+    margin-top: 15px;
+    font-size: 1.4rem;
+    color: #260f0f;
+    display: -webkit-box;
+    -webkit-line-clamp: 9; /* số dòng hiển thị */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@media only screen and (max-width: 850px) {
+    .wrapper {
+        flex-direction: column;
+    }
+    .videoPlayer {
+        margin: 0 auto;
+    }
+    .details {
+        display: none;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .videoPlayer {
+        width: 100%;
+    }
+}

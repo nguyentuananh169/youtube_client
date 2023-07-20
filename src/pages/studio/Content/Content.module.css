@@ -1,0 +1,45 @@
+.wrapper {
+    width: 100%;
+}
+.tabs {
+    width: 100%;
+    display: flex;
+    list-style: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+.tabs li {
+    margin-left: 34px;
+}
+.tabs li a {
+    display: inline-block;
+    padding: 14px 5px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #606060;
+    position: relative;
+}
+.tabs li a.active {
+    color: #065fd4;
+}
+.tabs .line {
+    position: absolute;
+    bottom: -2px;
+    left: 34px;
+    width: 0;
+    height: 5px;
+    border-radius: 5px;
+    background-color: #065fd4;
+    transition: all 0.3s linear;
+}
+.main {
+    width: 100%;
+}
+.tab {
+    width: 100%;
+    display: none;
+}
+.tab.show {
+    display: block;
+}

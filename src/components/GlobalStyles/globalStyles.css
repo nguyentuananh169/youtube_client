@@ -1,6 +1,5 @@
 :root {
-    --widthTimeLineVideo1: 0;
-    --widthTimeLineVideo2: 0;
+    --video-height-in-watch-page: 0;
 }
 * {
     padding: 0;
@@ -28,4 +27,12 @@ html {
 }
 strong {
     font-weight: 500;
+}
+a {
+    text-decoration: none;
+}
+button,
+input {
+    outline: none;
+    background-color: transparent;
 }

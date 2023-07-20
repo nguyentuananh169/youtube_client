@@ -1,0 +1,75 @@
+.wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal {
+    max-width: 688px;
+    width: calc(100% - 20px);
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 18px 24px 10px 24px;
+}
+.title {
+    width: 100%;
+    margin-top: 6px;
+}
+.title span {
+    font-size: 1.6rem;
+}
+.userName {
+    width: 100%;
+    margin-top: 24px;
+    font-size: 1.4rem;
+    color: #717171;
+    font-weight: 500;
+}
+.body {
+    width: 100%;
+}
+.body p {
+    margin-top: 24px;
+    color: #717171;
+    font-size: 1.4rem;
+    line-height: 1.9rem;
+}
+.body p a {
+    color: #065fd4;
+}
+.bottom {
+    width: 100%;
+    margin-top: 33px;
+    display: flex;
+    justify-content: flex-end;
+}
+.bottom .btn {
+    padding: 10px 14px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+}
+.bottom .btn + .btn {
+    margin-left: 15px;
+}
+.bottom .btn.close {
+    color: #0f0f0f;
+}
+.bottom .btn.close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.bottom .btn.ok {
+    color: #065fd4;
+}
+.bottom .btn.ok:hover {
+    background-color: rgba(6, 95, 212, 0.1);
+}

@@ -2,14 +2,37 @@
     margin-top: 54px;
     margin-left: 250px;
 }
-.wrapper[data-type='full'].toggle,
-.wrapper[data-type='mini'] {
-    margin-left: 85px;
-}
-.wrapper[data-type='hidden'] {
+.wrapper.mobile {
+    margin-top: 54px;
     margin-left: 0;
 }
 .container {
     width: 100%;
     padding: 10px 30px;
+}
+@media only screen and (min-width: 1331px) {
+    .wrapper:not(.mobile).toggle {
+        margin-left: 85px;
+    }
+}
+@media only screen and (max-width: 1330px) {
+    .wrapper:not(.mobile) {
+        margin-left: 85px;
+    }
+}
+@media only screen and (max-width: 1080px) {
+    .container {
+        padding: 8px 12px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .wrapper:not(.mobile) {
+        margin-left: 0;
+    }
+    .wrapper {
+        margin-bottom: 70px;
+    }
+    /* .wrapper.hiddenHeader {
+        margin-top: 0;
+    } */
 }

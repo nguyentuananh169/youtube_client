@@ -1,0 +1,9 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+}
+@media only screen and (max-width: 1030px) {
+    .wrapper {
+        flex-direction: column-reverse;
+    }
+}

@@ -1,0 +1,9 @@
+.wrapper {
+    position: relative;
+}
+.wrapper [data-class='tooltip'] {
+    display: none;
+}
+.wrapper:hover [data-class='tooltip'] {
+    display: block;
+}

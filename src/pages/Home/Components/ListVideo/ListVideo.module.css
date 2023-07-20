@@ -1,6 +1,33 @@
 .wrapper {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+.videoList {
     margin-top: 72px;
     margin-left: -16px;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
+}
+.item {
+    width: calc(25% - 16px);
+    margin-left: 16px;
+    margin-bottom: 34px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .item {
+        width: calc(33.333% - 16px);
+    }
+}
+@media only screen and (max-width: 870px) {
+    .item {
+        width: calc(50% - 16px);
+    }
+}
+@media only screen and (max-width: 568px) {
+    .item {
+        width: calc(100% - 16px);
+    }
 }
