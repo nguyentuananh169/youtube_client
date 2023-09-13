@@ -1,13 +1,10 @@
-:root {
-    --video-height-in-watch-page: 0;
-}
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 html {
-    font-family: 'Roboto', Arial, sans-serif;
+    font-family: 'Roboto', 'Arial', sans-serif;
     font-size: 10px;
 }
 /* width */

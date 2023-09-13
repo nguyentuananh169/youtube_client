@@ -7,6 +7,12 @@ import {
     REMOVE_TOAST_MESSAGE,
     CHANGE_USER_IFO,
     CHECK_LOGIN,
+    NEXT_VIDEO_INFO,
+    ADD_SUBSCRIPTION,
+    ADD_SUBSCRIPTION_LIST,
+    DELETE_SUBSCRIPTION,
+    OPEN_PICTURE_IN_PICTURE,
+    CLOSE_PICTURE_IN_PICTURE,
 } from './constants';
 
 export const setIsToggleNavBar = (payload) => {
@@ -61,6 +67,42 @@ export const changeUserInfo = (payload) => {
 export const checkLogin = (payload) => {
     return {
         type: CHECK_LOGIN,
+        payload,
+    };
+};
+export const nextVideoInfo = (payload) => {
+    return {
+        type: NEXT_VIDEO_INFO,
+        payload,
+    };
+};
+export const addSubscriptionList = (payload) => {
+    return {
+        type: ADD_SUBSCRIPTION_LIST,
+        payload,
+    };
+};
+export const addSubscription = (payload) => {
+    return {
+        type: ADD_SUBSCRIPTION,
+        payload,
+    };
+};
+export const deleteSubscription = (payload) => {
+    return {
+        type: DELETE_SUBSCRIPTION,
+        payload,
+    };
+};
+export const _ = (payload) => {
+    return {
+        type: OPEN_PICTURE_IN_PICTURE,
+        payload,
+    };
+};
+export const closePictureInPicture = (payload) => {
+    return {
+        type: CLOSE_PICTURE_IN_PICTURE,
         payload,
     };
 };

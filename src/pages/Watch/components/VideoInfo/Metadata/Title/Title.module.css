@@ -1,0 +1,13 @@
+.title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 10px;
+}
+.title h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 2.8rem;
+}

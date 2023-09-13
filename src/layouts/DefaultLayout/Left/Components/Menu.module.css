@@ -1,3 +1,6 @@
+.hidden {
+    display: none !important;
+}
 .wrapper {
     width: 100%;
 }
@@ -9,14 +12,24 @@
 .wrapper ul + ul {
     border-top: 1px solid#ccc;
 }
-.wrapper ul h3 {
+.wrapper ul h3.title {
     font-size: 1.5rem;
     font-weight: 400;
     display: inline-block;
     padding: 5px 0;
 }
+.wrapper ul span.title2 {
+    font-size: 1.4rem;
+    display: inline-block;
+    padding: 5px 12px;
+    color: #0f0f0f;
+    line-height: 2rem;
+}
 .wrapper ul li {
     font-size: 1.4rem;
+}
+.wrapper ul .login {
+    padding: 0 12px;
 }
 .wrapper ul li a {
     display: flex;
@@ -56,6 +69,11 @@
     object-fit: cover;
     object-position: center;
 }
+.wrapper ul li a .noAvatar {
+    margin-right: 23px;
+    width: 24px;
+    height: 24px;
+}
 .wrapper ul li a .text {
     flex: 1;
     overflow: hidden;
@@ -82,7 +100,9 @@
     background-color: rgba(230, 230, 230, 0.5);
 }
 @media only screen and (min-width: 1331px) {
-    .wrapper:not(.mobile).toggle ul h3.title {
+    .wrapper:not(.mobile).toggle ul h3.title,
+    .wrapper:not(.mobile).toggle ul span.title2,
+    .wrapper:not(.mobile).toggle ul .login {
         display: none;
     }
     .wrapper:not(.mobile).toggle ul {
@@ -114,7 +134,14 @@
     .wrapper:not(.mobile) ul h3.title {
         display: none;
     }
-
+    .wrapper:not(.mobile) ul span.title2,
+    .wrapper:not(.mobile) ul .login {
+        display: none;
+    }
+    .wrapper:not(.mobile).toggle ul span.title2,
+    .wrapper:not(.mobile).toggle ul .login {
+        display: block;
+    }
     .wrapper:not(.toggle, .mobile) ul {
         border-top: none;
         padding: 0;
@@ -122,7 +149,6 @@
     .wrapper:not(.toggle, .mobile) ul li:not(.visible) {
         display: none;
     }
-
     .wrapper:not(.toggle, .mobile) ul li a {
         display: flex;
         flex-direction: column;
@@ -153,8 +179,14 @@
     .wrapper:not(.toggle) ul + ul {
         border-top: none;
     }
-    .wrapper:not(.toggle) ul .title {
+    .wrapper:not(.toggle) ul .title,
+    .wrapper ul span.title2,
+    .wrapper ul .login {
         display: none;
+    }
+    .wrapper.toggle ul span.title2,
+    .wrapper.toggle ul .login {
+        display: block;
     }
     .wrapper:not(.toggle) ul li:not(.visible) {
         display: none;

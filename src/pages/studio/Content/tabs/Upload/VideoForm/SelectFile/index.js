@@ -10,8 +10,8 @@ function SelectFile({ dataForm, handleSetDataForm, handleCloseModal }) {
         if (file.type !== 'video/mp4') {
             return setError('Chỉ được chọn file MP4');
         }
-        if (file.size >= 60000000) {
-            return setError('Kích thước file phải nhỏ hơn 60MB');
+        if (file.size > 100 * 1024 * 1024) {
+            return setError('Kích thước file phải nhỏ hơn 100MB');
         }
         const title = file.name.slice(0, -4);
         const videoLink = URL.createObjectURL(file);

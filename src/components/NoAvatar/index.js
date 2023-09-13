@@ -7,7 +7,7 @@ function NoAvatar({ userName = '', customStyles = {} }) {
         text = textToArray[textToArray.length - 1].slice(0, 1);
     }
     return (
-        <div className={clsx(styles.wrapper)} style={customStyles}>
+        <div className={clsx(styles.wrapper)} style={customStyles} data-class="no-avatar">
             <span>{text}</span>
         </div>
     );

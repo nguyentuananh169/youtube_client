@@ -1,10 +1,13 @@
 import clsx from 'clsx';
-import styles from './Channels.module.css';
 import Item from './Item';
+import NoData from '../components/NoData';
+import styles from './Channels.module.css';
 function Channels() {
     return (
         <div className={clsx(styles.wrapper)}>
-            <div className={clsx(styles.title)}>
+            <NoData isBtn={false} textSpan={'Kênh này không có bất kỳ kênh nào khác.'} />
+
+            {/* <div className={clsx(styles.title)}>
                 <span>Hệ thống kênh Bụi Chill</span>
             </div>
             <div className={clsx(styles.list)}>
@@ -13,7 +16,7 @@ function Channels() {
                 <Item />
                 <Item />
                 <Item />
-            </div>
+            </div> */}
         </div>
     );
 }

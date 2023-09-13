@@ -176,7 +176,7 @@
 }
 .tableBottom .item {
     margin: 0 8px;
-
+    user-select: none;
     color: #606060;
 }
 .tableBottom .item:first-child {
@@ -185,17 +185,18 @@
 .tableBottom .item:last-child {
     margin-right: 24px;
 }
-.tableBottom .item.select {
-    display: flex;
-    align-items: center;
-}
-.tableBottom .item.select .icon {
-    padding-left: 28px;
+.tableBottom .item.select select {
+    width: 72px;
+    outline: none;
+    border: none;
 }
 .tableBottom .item .icon {
     cursor: pointer;
     position: relative;
     padding: 5px;
+}
+.tableBottom .item .icon.disable {
+    cursor: no-drop;
 }
 .tableBottom .item .icon svg {
     color: #606060;

@@ -1,24 +1,42 @@
-import { AiFillCaretDown } from 'react-icons/ai';
 import { BsChevronBarLeft, BsChevronLeft, BsChevronBarRight, BsChevronRight } from 'react-icons/bs';
 
 import clsx from 'clsx';
 import styles from './Upload.module.css';
 import Tooltip from '../../../../../components/Tooltip';
-function TableBottom() {
+function TableBottom({ params, handleChangeLimit, handleChangePage }) {
+    const handleCheckValue = (boolean, value) => {
+        if (boolean) {
+            handleChangePage(value);
+        }
+    };
     return (
         <tr data-class="no-hover">
             <td colSpan={8}>
                 <div className={clsx(styles.tableBottom)}>
                     <div className={clsx(styles.item)}>Số hàng trên mỗi trang:</div>
                     <div className={clsx(styles.item, styles.select)}>
-                        <span>30</span>
-                        <div className={clsx(styles.icon)}>
-                            <AiFillCaretDown size={15} />
-                        </div>
+                        <select
+                            value={params.limit}
+                            onChange={(e) =>
+                                handleChangeLimit(
+                                    e.target.options[e.target.options.selectedIndex].value,
+                                )
+                            }
+                        >
+                            <option value={10}>10</option>
+                            <option value={30}>30</option>
+                            <option value={50}>50</option>
+                        </select>
                     </div>
-                    <div className={clsx(styles.item)}>1 - 2/2</div>
+                    <div className={clsx(styles.item)}>Trang hiện tại:</div>
+                    <div
+                        className={clsx(styles.item)}
+                    >{`${params.page} - ${params.page}/${params.totalPage}`}</div>
                     <div className={clsx(styles.item)}>
-                        <div className={clsx(styles.icon)}>
+                        <div
+                            className={clsx(styles.icon, { [styles.disable]: params.page === 1 })}
+                            onClick={() => handleCheckValue(params.page !== 1, 1)}
+                        >
                             <BsChevronBarLeft size={17} />
                             <Tooltip
                                 content={'Trang đầu tiên'}
@@ -34,10 +52,13 @@ function TableBottom() {
                         </div>
                     </div>
                     <div className={clsx(styles.item)}>
-                        <div className={clsx(styles.icon)}>
+                        <div
+                            className={clsx(styles.icon, { [styles.disable]: params.page <= 1 })}
+                            onClick={() => handleCheckValue(params.page > 1, params.page - 1)}
+                        >
                             <BsChevronLeft size={15} />
                             <Tooltip
-                                content={'Trang đầu trước'}
+                                content={'Trang trước'}
                                 customStyle={{
                                     bottom: '100%',
                                     left: '50%',
@@ -50,7 +71,14 @@ function TableBottom() {
                         </div>
                     </div>
                     <div className={clsx(styles.item)}>
-                        <div className={clsx(styles.icon)}>
+                        <div
+                            className={clsx(styles.icon, {
+                                [styles.disable]: params.page >= params.totalPage,
+                            })}
+                            onClick={() =>
+                                handleCheckValue(params.page < params.totalPage, params.page + 1)
+                            }
+                        >
                             <BsChevronRight size={15} />
                             <Tooltip
                                 content={'Trang tiếp theo'}
@@ -66,7 +94,14 @@ function TableBottom() {
                         </div>
                     </div>
                     <div className={clsx(styles.item)}>
-                        <div className={clsx(styles.icon)}>
+                        <div
+                            className={clsx(styles.icon, {
+                                [styles.disable]: params.page >= params.totalPage,
+                            })}
+                            onClick={() =>
+                                handleCheckValue(params.page !== params.totalPage, params.totalPage)
+                            }
+                        >
                             <BsChevronBarRight size={17} />
                             <Tooltip
                                 content={'Trang cuối'}

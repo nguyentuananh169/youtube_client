@@ -14,7 +14,8 @@ function VideoForm({ dataForm, setDataForm, modal, setModal, getVideoApi, handle
 
     return (
         <>
-            {(modal.type === 'upload' && dataForm.videoFile) || modal.type === 'update' ? (
+            {(modal.type === 'upload_video' && dataForm.videoFile) ||
+            modal.type === 'update_video' ? (
                 <Form
                     modal={modal}
                     getVideoApi={getVideoApi}

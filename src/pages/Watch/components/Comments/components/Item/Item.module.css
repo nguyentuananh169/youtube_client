@@ -1,0 +1,190 @@
+.itemList {
+    width: 100%;
+    display: flex;
+    align-items: self-start;
+}
+.itemList + .itemList {
+    margin-top: 20px;
+}
+.itemList.itemLv2 {
+    margin-top: 20px;
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 16px;
+    position: relative;
+}
+.avatar > a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.avatar .noAvatar {
+    width: 40px;
+    height: 40px;
+}
+.itemList.itemLv2 .avatar,
+.itemList.itemLv2 .avatar .noAvatar {
+    width: 24px;
+    height: 24px;
+}
+.itemList.itemLv2 .avatar .noAvatar [data-class='no-avatar'] {
+    font-size: 1.4rem;
+}
+.info {
+    flex: 1;
+}
+.pin {
+    margin-bottom: 10px;
+}
+.pin span {
+    font-size: 1.2rem;
+    color: #606060;
+}
+.pin svg {
+    font-size: 1rem;
+    margin-right: 5px;
+}
+.name a {
+    color: #0f0f0f;
+    font-weight: 500;
+    font-size: 1.3rem;
+    display: inline-block;
+    margin-bottom: 7px;
+    margin-right: 5px;
+}
+.name a.owner {
+    display: inline-block;
+    padding: 3px 7px;
+    border-radius: 15px;
+    background-color: #888888;
+    color: #fff;
+}
+.name a svg {
+    margin-bottom: -1px;
+    font-size: 1.2rem;
+    margin-left: 1px;
+}
+.name span {
+    display: inline-block;
+    color: #606060;
+    font-size: 1.2rem;
+    margin-bottom: 7px;
+}
+.content {
+    line-height: 2rem;
+    font-size: 1.4rem;
+}
+.actions {
+    width: 100%;
+    margin-top: 7px;
+    display: flex;
+    align-items: center;
+}
+.actions .btn {
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+.actions .btn button {
+    cursor: pointer;
+}
+.actions .btn.loading button {
+    cursor: no-drop;
+}
+.actions .btn span {
+    font-size: 1.3rem;
+    color: #606060;
+}
+.actions .btn + .btn {
+    margin-left: 5px;
+}
+.actions .btn:not(.reply) button {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 1.9rem;
+    font-weight: 400;
+    background-color: transparent;
+    position: relative;
+    border: 1px solid transparent;
+}
+.actions .btn:not(.reply) button .loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid#c7c7c7;
+    border-top-color: transparent;
+    left: 0;
+    top: 0;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.actions .btn:not(.reply) button:hover {
+    background-color: #e5e5e5;
+}
+.actions .btn.reply {
+    padding: 11px 12px;
+    border-radius: 20px;
+    background-color: transparent;
+    border: none;
+    color: #000;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+}
+.actions .btn.reply:hover,
+.actions .btn.reply.active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.actions .ownerHeart {
+    margin: 0 5px;
+}
+.actions .ownerHeart .avt {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+}
+.actions .ownerHeart .avt img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.actions .ownerHeart .avt svg {
+    position: absolute;
+    bottom: -6px;
+    right: 0;
+    font-size: 12px;
+}
+.actions .ownerHeart .avt [data-class='no-avatar'] {
+    font-size: 1.1rem;
+}
+.dotMenu {
+    width: 30px;
+    height: 30px;
+    visibility: hidden;
+}
+.itemList:hover .dotMenu,
+.dotMenu.active {
+    visibility: visible;
+}

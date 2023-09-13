@@ -1,26 +1,26 @@
 .wrapper {
     position: relative;
-    background-color: #d8d8d8;
     overflow: hidden;
+    animation: skeletonLoading 2s linear infinite;
 }
-.wrapper::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: linear-gradient(to right, #d8d8d8, #fff, #d8d8d8);
-    animation: skeletonLoading 2s linear infinite alternate;
-}
+
 .circle {
     border-radius: 50%;
 }
 @keyframes skeletonLoading {
-    from {
-        left: -50%;
+    0% {
+        background-color: #e6e4e4;
     }
-    to {
-        left: 50%;
+    25% {
+        background-color: #dbd9d9;
+    }
+    50% {
+        background-color: #d0cfcf;
+    }
+    75% {
+        background-color: #dbd9d9;
+    }
+    100% {
+        background-color: #e6e4e4;
     }
 }

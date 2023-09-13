@@ -38,12 +38,15 @@ import { ImPlay } from 'react-icons/im';
 import HeaderMenu from '../Header/components/Menu';
 import Menu from './Components/Menu';
 import useStore from '../../../hook/useStore';
-import { setIsToggleNavBar } from '../../../store/actions';
+import { addSubscriptionList, setIsToggleNavBar } from '../../../store/actions';
+import Login from '../Header/components/Actions/Login';
 import styles from './Left.module.css';
+import { useEffect, useState } from 'react';
+import subscriptionApi from '../../../api/subscriptionApi';
 function Left({ isMobile }) {
     const [state, dispatch] = useStore();
     const { isToggleNavbar } = state;
-    const dataMenu = [
+    const initMenuData = [
         {
             title: null,
             menu: [
@@ -64,7 +67,7 @@ function Left({ isMobile }) {
                     isVisible: true,
                 },
                 {
-                    path: '/subscriptions/videos',
+                    path: '/subscriptions',
                     text: 'Kênh đăng ký',
                     icon1: <BsCollectionPlay />,
                     icon2: <BsCollectionPlayFill />,
@@ -97,6 +100,7 @@ function Left({ isMobile }) {
                     icon1: <AiOutlinePlaySquare />,
                     icon2: <AiFillPlaySquare />,
                     type: null,
+                    isHidden: !state.isLogin || !state.user?.user_id,
                 },
                 {
                     path: '/watch-later',
@@ -104,6 +108,7 @@ function Left({ isMobile }) {
                     icon1: <AiOutlineClockCircle />,
                     icon2: <AiFillClockCircle />,
                     type: null,
+                    isHidden: !state.isLogin || !state.user?.user_id,
                 },
                 {
                     path: '/liked',
@@ -111,52 +116,24 @@ function Left({ isMobile }) {
                     icon1: <AiOutlineLike />,
                     icon2: <AiFillLike />,
                     type: null,
+                    isHidden: !state.isLogin || !state.user?.user_id,
                 },
             ],
         },
         {
-            title: 'Kênh đăng ký',
+            title2: 'Hãy đăng nhập để thích video, bình luận và đăng ký kênh',
+            isHidden: state.isLogin && state.user?.user_id,
             menu: [
                 {
-                    path: '/channel/@buichill/home',
-                    text: 'Kênh tổng hợp 1 Kênh tổng hợp 1',
-                    avatar: 'https://yt3.ggpht.com/z0B7y-Hr1sw4WxeNXki2JtD_22nIaFq8thBdKtCT6452c5RUypePAiC14KXBOdNyidM69Nxw=s68-c-k-c0x00ffffff-no-rj',
-                    type: 'channel',
-                    online: true,
-                },
-                {
-                    path: '/channel/@buichill/home',
-                    text: 'Kênh tổng hợp 2',
-                    avatar: 'https://yt3.ggpht.com/ytc/AMLnZu-QZUU7IM-MN5vGExTxSfgp0Qt7aGnIpgNSFiaFyQ=s88-c-k-c0x00ffffff-no-rj',
-                    type: 'channel',
-                    online: true,
-                },
-                {
-                    path: '/channel/@buichill/home',
-                    text: 'Kênh tổng hợp 3',
-                    avatar: 'https://yt3.ggpht.com/SB-871TnzGP0fFlcDY3JgtPjuZ6pwHts4FuvOHgOaOyjFxqQVUWaSZh8yhnZdFMxY9LUYOCO=s88-c-k-c0x00ffffff-no-rj',
-                    type: 'channel',
-                },
-                {
-                    path: '/channel/@buichill/home',
-                    text: 'Kênh tổng hợp 4',
-                    avatar: 'https://yt3.ggpht.com/ytc/AMLnZu81hTygRbAY4QFys1Og1LYH05rR9U0P4c80socz=s88-c-k-c0x00ffffff-no-rj',
-                    type: 'channel',
-                    online: true,
-                },
-                {
-                    path: '/channel/@buichill/home',
-                    text: 'Kênh tổng hợp 5',
-                    avatar: 'https://yt3.ggpht.com/jZgTT-gREqn5Ar3bNyCsxRqge72RX8rbesRTsfAOcDBMMmopyOpN9bUwUTceyajaRCfSRzgYqA=s88-c-k-c0x00ffffff-no-rj',
-                    type: 'channel',
-                },
-                {
-                    path: '/channel/@buichill/home',
-                    text: 'Xem qua các kênh',
-                    icon: 'add_circle',
-                    type: null,
+                    component: <Login />,
                 },
             ],
+            dataClass: 'login',
+        },
+        {
+            title: 'Kênh đăng ký',
+            isHidden: !state.isLogin || !state.user?.user_id,
+            menu: [],
         },
         {
             title: 'Khám phá',
@@ -205,25 +182,25 @@ function Left({ isMobile }) {
                 {
                     path: '/creator-studio',
                     text: 'Creator studio',
-                    icon1: <FaPlayCircle />,
+                    icon1: <FaPlayCircle color="#ff0000" />,
                     type: null,
                 },
                 {
                     path: '/youtube-music',
                     text: 'YouTuBe Music',
-                    icon1: <BsFillPlayCircleFill />,
+                    icon1: <BsFillPlayCircleFill color="#ff0000" />,
                     type: null,
                 },
                 {
                     path: '/youtube-kids',
                     text: 'YouTuBe Kids',
-                    icon1: <ImPlay />,
+                    icon1: <ImPlay color="#ff0000" />,
                     type: null,
                 },
                 {
                     path: '/youtube-tv',
                     text: 'YouTuBe TV',
-                    icon1: <BsDisplayFill />,
+                    icon1: <BsDisplayFill color="#ff0000" />,
                     type: null,
                 },
             ],
@@ -258,6 +235,30 @@ function Left({ isMobile }) {
             ],
         },
     ];
+    const [menuData, setMenuData] = useState(initMenuData);
+
+    useEffect(() => {
+        if (state.isLogin && state.user?.user_id) {
+            const fetchSubscribed = async () => {
+                const response = await subscriptionApi.showSubscribed();
+                const subList = response.list;
+                dispatch(addSubscriptionList(subList));
+            };
+            fetchSubscribed();
+        }
+    }, []);
+    useEffect(() => {
+        const subList = state.subscriptionList.map((item) => ({
+            path: `/channel/${item.user_id}/home`,
+            text: item.user_name,
+            avatar: item.user_avatar,
+            type: 'channel',
+            online: true,
+        }));
+        const newData = [...menuData];
+        newData[3].menu = subList;
+        setMenuData(newData);
+    }, [state.subscriptionList]);
     return (
         <>
             <div
@@ -279,7 +280,7 @@ function Left({ isMobile }) {
                     </div>
                 </div>
                 <div className={clsx(styles.menu)}>
-                    <Menu isMobile={isMobile} data={dataMenu} isToggleNavbar={isToggleNavbar} />
+                    <Menu isMobile={isMobile} data={menuData} isToggleNavbar={isToggleNavbar} />
                     <div
                         className={clsx(styles.footerMenu, {
                             [styles.hidden]: isToggleNavbar,

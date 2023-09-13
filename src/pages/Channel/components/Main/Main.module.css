@@ -2,3 +2,10 @@
     max-width: 1070px;
     margin: 0 auto;
 }
+.group {
+    width: 100%;
+    display: none;
+}
+.group.show {
+    display: block;
+}

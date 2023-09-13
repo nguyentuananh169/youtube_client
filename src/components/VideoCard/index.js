@@ -10,13 +10,20 @@ import VideoPlay from '../VideoPlay';
 import Tooltip from '../Tooltip';
 import MenuFixed from '../MenuFixed';
 import DotMenu from '../DotMenu';
+import NoAvatar from '../NoAvatar';
+import formatDuration from '../../hook/formatDuration';
+import useTimeConversion from '../../hook/useTimeConversion';
 import styles from './VideoCard.module.css';
+import useNumberConversion from '../../hook/useNumberConversion';
 function VideoCard({
+    item,
+    url = '',
     width,
     row = false,
     rowOwner = false,
     hidenOwner = false,
     hidenBtnIcon = false,
+    hidenDotMenu = false,
     isPreview = false,
     showDes = false,
 }) {
@@ -54,6 +61,7 @@ function VideoCard({
     const [elementRef, isShow, setShow] = useClickOutSide();
     const { pathname } = useLocation();
     const timeOutRef = useRef(null);
+    const timeAgo = useTimeConversion(item.video_created_at || item.vote_updated_at, 'ago');
     const handleShowMenu = (e) => {
         e.preventDefault();
         setShow(!isShow);
@@ -76,24 +84,33 @@ function VideoCard({
             }
             timeOutRef.current = setTimeout(() => {
                 handlePlay();
-            }, 2000);
+            }, 1500);
         }
     };
     const handleChangeVolume = () => {
         setIsVolume(!isMuteVolume);
     };
+    const views = useNumberConversion(item.video_views, 'compression');
     return (
         <div className={clsx(styles.videoCard, { [styles.row]: row, [styles.preview]: isPreview })}>
-            <Link className={clsx(styles.link)} to="/watch/22"></Link>
+            <Link
+                className={clsx(styles.link)}
+                to={url || `/watch?category=${item.category_id}&id=${item.video_id}`}
+            ></Link>
             <div
                 className={clsx(styles.img, { [styles.preview]: isPlayVideo })}
                 style={{ width }}
                 onMouseOver={handleMouseOver}
                 onMouseLeave={handleMouseLeave}
             >
-                <Link className={clsx(styles.link)} to="/watch/22"></Link>
+                <Link
+                    className={clsx(styles.link)}
+                    to={url || `/watch?category=${item.category_id}&id=${item.video_id}`}
+                ></Link>
                 {isPlayVideo ? (
                     <VideoPlay
+                        videoId={item.video_id}
+                        videoLink={item.video_link}
                         isPreview
                         isMuteVoLumePreview={isMuteVolume}
                         autoPlay
@@ -102,8 +119,10 @@ function VideoCard({
                     />
                 ) : (
                     <>
-                        <img src="https://tse4.mm.bing.net/th?id=OIP.oDuqR6J22VPG70LDIHufZwHaEK&pid=Api&P=0&h=180" />
-                        <div className={clsx(styles.duration)}>11:00:00</div>
+                        <img src={item.video_poster} />
+                        <div className={clsx(styles.duration)}>
+                            {formatDuration(item.video_duration)}
+                        </div>
                         {isPreview && (
                             <div className={clsx(styles.tooltip)}>Tiếp tục di chuột để phát</div>
                         )}
@@ -131,16 +150,19 @@ function VideoCard({
             <div className={clsx(styles.details)}>
                 {pathname === '/' && (
                     <div className={clsx(styles.channel)}>
-                        <Link to="/channel/@nguyentuananh/home">
-                            <img src="https://yt3.ggpht.com/sRhKv0BM8jaNEWohgVcxv4bengflseeCPUtzINiGe_grG2CPZXIriR5ytxvZlxOVv8LEgV9-J_M=s88-c-k-c0x00ffffff-no-rj" />
+                        <Link to={`/channel/${item.user_id}/home`}>
+                            {item.user_avatar ? (
+                                <img src={item.user_avatar} />
+                            ) : (
+                                <div className={clsx(styles.noAvatar)}>
+                                    <NoAvatar userName={item.user_name} />
+                                </div>
+                            )}
                         </Link>
                     </div>
                 )}
                 <div className={clsx(styles.info)}>
-                    <div className={clsx(styles.title)}>
-                        Top 20 Bài Hát Hot Nhất Trên TikTok 2023 💘 Nhạc Remix Hot Trend Được Sử
-                        Dụng Nhiều Nhất TikTok 2023
-                    </div>
+                    <div className={clsx(styles.title)}>{item.video_title}</div>
                     <div
                         className={clsx(styles.ownerContainer, {
                             [styles.location]: pathname.includes('/search'),
@@ -152,19 +174,25 @@ function VideoCard({
                                 {pathname.includes('/search') && (
                                     <Link
                                         className={clsx(styles.zIndex)}
-                                        to="/channel/@nguyentuananh"
+                                        to={`/channel/${item.user_id}/home`}
                                     >
-                                        <img src="https://yt3.ggpht.com/2PdJLlJXOqRV-41XvN6fS-wdAlkFmf69bjbebYZstYo2pBBOBTNVXhw-GqPtb9cfEMowsDXctA=s68-c-k-c0x00ffffff-no-rj" />
+                                        {item.user_avatar ? (
+                                            <img src={item.user_avatar} />
+                                        ) : (
+                                            <div className={clsx(styles.noAvatar)}>
+                                                <NoAvatar userName={item.user_name} />
+                                            </div>
+                                        )}
                                     </Link>
                                 )}
                                 <Link
-                                    to="/channel/@nguyentuananh/home"
+                                    to={`/channel/${item.user_id}/home`}
                                     className={clsx(styles.zIndex, styles.name)}
                                 >
                                     <div className={clsx(styles.text)}>
-                                        <span>Ni Tac - 冯提莫 Feng Timo</span>
+                                        <span>{item.user_name}</span>
                                         <Tooltip
-                                            content="Nguyễn Tuấn Anh"
+                                            content={item.user_name}
                                             customStyle={{
                                                 left: '0',
                                                 bottom: 'calc(100% + 28px)',
@@ -188,25 +216,26 @@ function VideoCard({
                             </div>
                         )}
                         <div className={clsx(styles.time)}>
-                            502 N lượt xem <BsDot /> 3 năm trước
+                            {views} lượt xem <BsDot /> {timeAgo}
                         </div>
                     </div>
                     {showDes && (
-                        <div className={clsx(styles.des)}>
-                            Đăng kí kênh A Pháo TV tại đây: http://pesc.pw/FAUWS ▻ Đăng kí kênh
-                            Giàng A Pháo tại đây: http://pesc.pw/DZK9K ▻ Facebook
-                        </div>
+                        <div
+                            className={clsx(styles.des)}
+                            dangerouslySetInnerHTML={{ __html: item.video_des }}
+                        ></div>
                     )}
                 </div>
-
-                <div
-                    ref={elementRef}
-                    className={clsx(styles.dotMenu, { [styles.active]: isShow })}
-                    onClick={handleShowMenu}
-                >
-                    <DotMenu />
-                    {isShow && <MenuFixed isDisableScroll={isShow} menulist={menuList} />}
-                </div>
+                {!hidenDotMenu && (
+                    <div
+                        ref={elementRef}
+                        className={clsx(styles.dotMenu, { [styles.active]: isShow })}
+                        onClick={handleShowMenu}
+                    >
+                        <DotMenu />
+                        {isShow && <MenuFixed isDisableScroll={isShow} menulist={menuList} />}
+                    </div>
+                )}
             </div>
         </div>
     );

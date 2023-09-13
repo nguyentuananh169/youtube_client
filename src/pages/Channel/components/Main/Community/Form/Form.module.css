@@ -1,0 +1,96 @@
+.wrapper {
+    width: 100%;
+    height: auto;
+    border: 1px solid#D8D8D8;
+    margin-top: 30px;
+    border-radius: 10px;
+    padding: 20px;
+}
+.owner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.owner .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.owner .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.owner .name {
+    font-size: 1.4rem;
+    margin-left: 10px;
+}
+.content {
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid#D8D8D8;
+    border-radius: 5px;
+}
+.charCounter {
+    width: 100%;
+    text-align: right;
+    font-size: 1.2rem;
+}
+.content .charCounter {
+    padding: 5px 10px;
+}
+.btns {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.btns .btn {
+    padding: 9px 12px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    font-size: 1.3rem;
+}
+.btns .btn svg {
+    margin-right: 5px;
+}
+.btns .btn:hover {
+    background-color: rgba(0, 128, 255, 0.1);
+}
+.btns .btn + .btn {
+    margin-left: 10px;
+}
+.btnSubmit {
+    width: 100%;
+    text-align: right;
+    margin-top: 10px;
+}
+.btnSubmit button {
+    padding: 10px 12px;
+    outline: none;
+    border: none;
+    background-color: #065fd4;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.btnSubmit button.disable {
+    background-color: #d8d8d8;
+    cursor: no-drop;
+    color: #606060;
+}
+p.error {
+    font-size: 1.2rem;
+    color: #ff0040;
+    padding: 5px 10px;
+}
+p.error.right {
+    text-align: right;
+}

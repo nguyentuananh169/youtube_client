@@ -1,4 +1,5 @@
 .itemBtn {
+    max-width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +22,7 @@
 }
 .itemBtn .text span {
     display: inline-block;
-    max-width: 290px;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -38,4 +39,14 @@
 .itemBtn .text:hover [data-class='tooltip'],
 .itemBtn .remove:hover [data-class='tooltip'] {
     display: block;
+}
+@media only screen and (max-width: 450px) {
+    .itemBtn .text span {
+        max-width: 250px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .itemBtn .text span {
+        max-width: 180px;
+    }
 }

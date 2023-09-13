@@ -6,8 +6,24 @@ import { MdOutlineContentCut } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import VideoCard from '../../../components/VideoCard';
+import VideoCardLoading from '../../../components/VideoCard/Loading';
 import styles from './Contents.module.css';
+import { useEffect, useState } from 'react';
+import videoVotesApi from '../../../api/videoVotesApi';
 function Contents() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [totalVideo, setTotalVideo] = useState('');
+    const [videoList, setVideoList] = useState([]);
+    useEffect(() => {
+        const fetchVideoByVote = async () => {
+            setIsLoading(true);
+            const response = await videoVotesApi.showVideoByVote({ _limit: 4 });
+            setVideoList(response.list);
+            setTotalVideo(response.totalVote);
+            setIsLoading(false);
+        };
+        fetchVideoByVote();
+    }, []);
     return (
         <div className={clsx(styles.wrapper)}>
             <div className={clsx(styles.item)}>
@@ -37,29 +53,29 @@ function Contents() {
             </div>
             <div className={clsx(styles.item)}>
                 <div className={clsx(styles.title)}>
-                    <Link className={clsx(styles.link)} to={'#'}>
+                    <Link className={clsx(styles.link)} to={'/liked'}>
                         <BiLike size={20} />
                         <span>Video đã thích</span>
-                        <span className={clsx(styles.count)}>22</span>
+                        <span className={clsx(styles.count)}>{totalVideo > 0 && totalVideo}</span>
                     </Link>
-                    <Link to={'#'} className={clsx(styles.btnMore)}>
+                    <Link to={'/liked'} className={clsx(styles.btnMore)}>
                         Xem tất cả
                     </Link>
                 </div>
                 <div className={clsx(styles.content)}>
                     <div className={clsx(styles.lists)}>
-                        <div className={clsx(styles.card)}>
-                            <VideoCard />
-                        </div>
-                        <div className={clsx(styles.card)}>
-                            <VideoCard />
-                        </div>
-                        <div className={clsx(styles.card)}>
-                            <VideoCard />
-                        </div>
-                        <div className={clsx(styles.card)}>
-                            <VideoCard />
-                        </div>
+                        {isLoading && (
+                            <div className={clsx(styles.card)}>
+                                <VideoCardLoading />
+                            </div>
+                        )}
+                        {!isLoading &&
+                            videoList.length > 0 &&
+                            videoList.map((item) => (
+                                <div key={item.vote_id} className={clsx(styles.card)}>
+                                    <VideoCard item={item} />
+                                </div>
+                            ))}
                     </div>
                 </div>
             </div>

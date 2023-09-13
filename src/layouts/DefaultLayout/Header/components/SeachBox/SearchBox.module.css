@@ -101,7 +101,7 @@
     display: flex;
     align-items: center;
 }
-.dropdown ul li:hover {
+.dropdown ul li:hover:not(.disabled) {
     background-color: #e5e5e5;
 }
 .dropdown ul li .btn {
@@ -113,8 +113,15 @@
     color: #000;
     cursor: pointer;
 }
+.dropdown ul li.disabled .btn {
+    cursor: default;
+    color: #606060;
+}
 .dropdown ul li .btn .btnIcon {
     line-height: 0;
+}
+.dropdown ul li.disabled .btn .btnIcon {
+    opacity: 0;
 }
 .dropdown ul li .btn .text {
     font-size: 1.5rem;
@@ -126,6 +133,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.dropdown ul li.disabled .btn .text {
+    font-weight: 400;
+}
 .dropdown ul li .delete {
     display: inline-block;
     width: 22px;
@@ -135,6 +145,9 @@
 }
 .dropdown ul li .delete:hover {
     text-decoration: underline;
+}
+.dropdown ul li .delete.hidden {
+    display: none;
 }
 .submitBtn {
     width: 75px;
@@ -248,6 +261,9 @@
     .searchBox {
         display: none;
     }
+    .keyboard {
+        display: none;
+    }
     .btnFormMobile,
     .btnBack {
         display: flex;
@@ -261,6 +277,7 @@
     .dropdown {
         position: fixed;
         left: 0;
+        bottom: 0;
         top: 56px;
         border-radius: 0;
     }

@@ -19,16 +19,20 @@ function Body({
     const inputImgRef = useRef(null);
     const { errors, invalid, removeError } = objValidateForm;
     const baseUrl = window.location.origin;
+
     useEffect(() => {
         const file = values.posterFile[0];
-        if (
-            file &&
-            (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/gif')
-        ) {
-            values.posterLink && URL.revokeObjectURL(values.posterLink);
-            setValues({ ...values, posterLink: URL.createObjectURL(file) });
-        } else {
-            setValues({ ...values, posterLink: '' });
+        if (file) {
+            if (
+                file.type === 'image/png' ||
+                file.type === 'image/jpeg' ||
+                file.type === 'image/gif'
+            ) {
+                values.posterLink && URL.revokeObjectURL(values.posterLink);
+                setValues({ ...values, posterLink: URL.createObjectURL(file) });
+            } else {
+                setValues({ ...values, posterFile: '', posterLink: '' });
+            }
         }
         return () => {
             values.posterLink && URL.revokeObjectURL(values.posterLink);
@@ -134,6 +138,7 @@ function Body({
                     </p>
                     <select
                         name="playlistId"
+                        value={values.playlistId}
                         onChange={(e) =>
                             handleChange(
                                 'playlistId',
@@ -145,8 +150,8 @@ function Body({
                             {isLoadingPlaylist ? '-- Đang tải dữ liệu --' : 'Chọn'}
                         </option>
                         {playlist.map((item) => (
-                            <option key={item.id} value={item.id}>
-                                {item.name}
+                            <option key={item.playlist_id} value={item.playlist_id}>
+                                {item.playlist_name}
                             </option>
                         ))}
                     </select>
@@ -210,8 +215,11 @@ function Body({
                         <>
                             <p>Đường liên kết của video</p>
                             <div className={clsx(styles.fileName)}>
-                                <Link to={`/watch/${values.id}`} target="_blank">
-                                    {`${baseUrl}/watch/${values.id}`}
+                                <Link
+                                    to={`/watch?category=${values.categoryId}&id=${values.id}`}
+                                    target="_blank"
+                                >
+                                    {`${baseUrl}/watch?category=${values.categoryId}&id=${values.id}`}
                                 </Link>
                             </div>
                         </>

@@ -1,0 +1,47 @@
+.wrapper {
+    width: 100%;
+    margin-top: 140px;
+}
+.img,
+.title,
+.text,
+.btn {
+    width: 100%;
+    text-align: center;
+}
+.img img {
+    max-width: 278px;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+.title {
+    margin-top: 25px;
+}
+.title h3 {
+    font-size: 2.4rem;
+    font-weight: 400;
+}
+.text {
+    margin-top: 18px;
+}
+.text span {
+    font-size: 1.4rem;
+    color: #0f0f0f;
+}
+.btn {
+    margin-top: 26px;
+}
+.btn a {
+    display: inline-block;
+    font-weight: 500;
+    color: #065fd4;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    padding: 8px 15px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+}
+.btn a:hover {
+    background-color: #def1ff;
+    border: 1px solid #def1ff;
+}

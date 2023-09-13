@@ -1,25 +1,55 @@
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
-import { RiHistoryFill } from 'react-icons/ri';
+import { VscHistory } from 'react-icons/vsc';
 import { TfiSearch } from 'react-icons/tfi';
 import styles from './SearchBox.module.css';
-function ResultSearch({ dataList, setValueInput }) {
+function ResultSearch({ dataList, setValueInput, setDataList }) {
     const naviagte = useNavigate();
-    const handleClickBtn = (value) => {
+    const handleClickBtn = (type, value) => {
+        if (type) {
+            return;
+        }
         setValueInput(value);
         naviagte(`/search/${value}`);
     };
+    const handleClickDelete = (id) => {
+        const dataLocalStorage = localStorage.getItem('search_list')
+            ? JSON.parse(localStorage.getItem('search_list'))
+            : [];
+        const arr = [...dataLocalStorage];
+        const arr2 = dataList.list;
+        const index = arr.findIndex((item) => item.id === id);
+        const index2 = arr2.findIndex((item) => item.id === id);
+        if (index >= 0) {
+            arr.splice(index, 1);
+            arr2[index2].keyword = 'Đã xóa đề xuất';
+            arr2[index2].type = 'delete';
+            const data = { ...dataList, list: arr2 };
+            setDataList(data);
+            localStorage.setItem('search_list', JSON.stringify(arr));
+        }
+    };
     return (
         <ul>
-            {dataList.data.map((item) => (
-                <li key={item.id}>
-                    <div className={clsx(styles.btn)} onClick={() => handleClickBtn(item.text)}>
+            {dataList.list.map((item) => (
+                <li key={item.id} className={clsx({ [styles.disabled]: item.type })}>
+                    <div
+                        className={clsx(styles.btn)}
+                        onClick={() => handleClickBtn(item.type, item.keyword)}
+                    >
                         <span className={clsx(styles.btnIcon)}>
-                            {dataList.type === 'history' ? <RiHistoryFill /> : <TfiSearch />}
+                            {dataList.type === 'history' ? <VscHistory /> : <TfiSearch />}
                         </span>
-                        <strong className={clsx(styles.text)}>{item.text}</strong>
+                        <span className={clsx(styles.text)}>{item.keyword}</span>
                     </div>
-                    <span className={clsx(styles.delete)}>Xóa</span>
+                    {dataList.type === 'history' && (
+                        <span
+                            className={clsx(styles.delete, { [styles.hidden]: item.type })}
+                            onClick={() => handleClickDelete(item.id)}
+                        >
+                            Xóa
+                        </span>
+                    )}
                 </li>
             ))}
         </ul>

@@ -16,11 +16,16 @@ import Liked from '../pages/Liked';
 
 const defaultRoutes = [
     { path: '/', component: Home, layout: DefaultLayout },
-    { path: '/watch/:id', component: Watch, layout: DefaultLayout, props: { isMobile: true } },
+    {
+        path: '/watch',
+        component: Watch,
+        layout: DefaultLayout,
+        props: { isMobile: true },
+    },
     { path: '/search/:keyword', component: Search, layout: DefaultLayout },
     { path: '/channel/:id/:page', component: Channel, layout: DefaultLayout },
     { path: '/post/:id', component: Post, layout: DefaultLayout },
-    { path: '/subscriptions/:page', component: Subscriptions, layout: DefaultLayout },
+    { path: '/subscriptions', component: Subscriptions, layout: DefaultLayout },
     { path: '/library', component: Library, layout: DefaultLayout },
     { path: '/history', component: History, layout: DefaultLayout },
     { path: '/watch-later', component: WatchLater, layout: DefaultLayout },

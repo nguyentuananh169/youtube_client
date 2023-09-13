@@ -1,0 +1,12 @@
+.video {
+    width: 100%;
+}
+@media only screen and (max-width: 768px) {
+    .video[data-type='fixed'] {
+        position: fixed;
+        right: 0;
+        left: 0;
+        top: 56px;
+        z-index: 996;
+    }
+}

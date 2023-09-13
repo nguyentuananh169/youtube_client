@@ -3,25 +3,23 @@ import { RiShareForwardLine } from 'react-icons/ri';
 
 import clsx from 'clsx';
 import Tooltip from '../../../../../components/Tooltip';
+import useTimeConversion from '../../../../../hook/useTimeConversion';
 import styles from './About.module.css';
-function About() {
+import useNumberConversion from '../../../../../hook/useNumberConversion';
+function About({ user }) {
+    const { date, month, year } = useTimeConversion(user?.user_created_at, 'object');
+    const totalViews = useNumberConversion(user.user_total_views, 'commas');
     return (
         <div className={clsx(styles.wrapper)}>
             <div className={clsx(styles.info)}>
                 <div className={clsx(styles.des)}>
                     <span className={clsx(styles.title)}>Mô tả</span>
-                    <div className={clsx(styles.content)}>
-                        <p>
-                            Bụi Chill là kênh nhạc tổng hợp những bản nhạc hot nhất hiện nay. Cùng
-                            nghe và thư giãn nhé cả nhà 🥰
-                        </p>
-                        <p style={{ marginTop: '20px' }}>
-                            ✉ Hợp tác, quảng cáo, khiếu nại các vấn đề về bản quyền liên hệ chúng
-                            tôi qua mail: contact@meemedia.net
-                        </p>
-                        <p style={{ marginTop: '15px' }}>© Bản quyền âm nhạc thuộc về Mee Media.</p>
-                        <p>© Copyright by Mee Media </p>
-                    </div>
+                    <div
+                        className={clsx(styles.content)}
+                        dangerouslySetInnerHTML={{
+                            __html: user?.user_des,
+                        }}
+                    ></div>
                 </div>
                 <div className={clsx(styles.detail)}>
                     <span className={clsx(styles.title)}>Chi tiết</span>
@@ -47,8 +45,8 @@ function About() {
                 <span className={clsx(styles.title)}>Thống kê</span>
                 <div className={clsx(styles.content)}>
                     <ul>
-                        <li>Đã tham gia 24 thg 7, 2020</li>
-                        <li>69.559.815 lượt xem</li>
+                        <li>{`Đã tham gia ${date} Thg ${month}, ${year}`}</li>
+                        {user.user_total_views > 0 && <li>{totalViews} lượt xem</li>}
                         <li>
                             <button>
                                 <Tooltip

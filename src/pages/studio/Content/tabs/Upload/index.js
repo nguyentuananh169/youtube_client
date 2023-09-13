@@ -9,11 +9,11 @@ import imgv1 from '../../../../../assets/img/no_content_v1.png';
 import NoData from '../../../components/NoData';
 import VideoForm from './VideoForm';
 import queryString from 'query-string';
-import styles from './Upload.module.css';
 import videoApi from '../../../../../api/videoApi';
 import Loading from './Loading';
 import Item from './Item';
 import DeleteForm from './VideoForm/DeleteForm';
+import styles from './Upload.module.css';
 function Upload({ tab }) {
     const initFilterData = {
         copyright: false,
@@ -204,8 +204,9 @@ function Upload({ tab }) {
     });
     const [videoList, setVideoList] = useState([]);
     const [params, setParams] = useState({
-        type: 'user_id',
+        type: 'get_by_token',
         page: 1,
+        totalPage: 1,
         limit: 10,
     });
     const [dataForm, setDataForm] = useState({
@@ -228,11 +229,11 @@ function Upload({ tab }) {
     useEffect(() => {
         const { type } = queryString.parse(search);
         switch (type) {
-            case 'upload':
-                setModal({ isShow: true, type: 'upload' });
+            case 'upload_video':
+                setModal({ isShow: true, type: 'upload_video' });
                 break;
-            case 'update':
-                setModal({ isShow: true, type: 'update' });
+            case 'update_video':
+                setModal({ isShow: true, type: 'update_video' });
                 break;
             default:
                 break;
@@ -241,10 +242,20 @@ function Upload({ tab }) {
     useEffect(() => {
         getVideoApi();
     }, []);
-    const getVideoApi = async () => {
+    const getVideoApi = async (valuePage, valueLimit, objParams) => {
         setIsLoading(true);
-        const obj = { ...params };
+        const obj = {
+            type: params.type,
+            page: valuePage || params.page,
+            limit: valueLimit || params.limit,
+        };
         const response = await videoApi.get(obj);
+        setParams({
+            ...params,
+            page: response.page,
+            totalPage: response.totalPage,
+            limit: response.limit,
+        });
         setVideoList(response.videoList);
         setIsLoading(false);
     };
@@ -276,7 +287,7 @@ function Upload({ tab }) {
             playlistId: item.playlist_id,
             categoryId: item.category_id,
         });
-        navigate('/studio/videos/upload?type=update');
+        navigate('/studio/videos/upload?type=update_video');
     };
     const handleClickBtnDelete = (item) => {
         setDataForm({
@@ -288,16 +299,26 @@ function Upload({ tab }) {
             views: item.video_views,
             duration: item.video_duration,
         });
-        setModal({ isShow: true, type: 'delete' });
+        setModal({ isShow: true, type: 'delete_video' });
+    };
+    const handleChangeLimit = (value) => {
+        getVideoApi(1, value);
+    };
+    const handleChangePage = (value) => {
+        getVideoApi(value, null);
+    };
+    const handleSearch = (data) => {
+        console.log(data);
     };
     return (
         <>
             <Filter
                 initMenu={initMenu}
-                initFilterData={initFilterData}
-                initFilterText={initFilterText}
+                isLoading={isLoading}
+                handleSearch={handleSearch}
+                tab={tab}
             />
-            {modal.isShow && modal.type !== 'delete' && (
+            {modal.isShow && modal.type !== 'delete_video' && (
                 <VideoForm
                     dataForm={dataForm}
                     setDataForm={setDataForm}
@@ -308,7 +329,7 @@ function Upload({ tab }) {
                 />
             )}
 
-            {modal.isShow && modal.type === 'delete' && (
+            {modal.isShow && modal.type === 'delete_video' && (
                 <DeleteForm
                     dataForm={dataForm}
                     handleResetDataForm={handleResetDataForm}
@@ -320,17 +341,24 @@ function Upload({ tab }) {
                 {(videoList.length || isLoading) && (
                     <Table>
                         <TableTop tab={tab} />
-                        {isLoading && <Loading count={params.limit} />}
-                        {videoList.map((item) => (
-                            <Item
-                                key={item.video_id}
-                                item={item}
-                                tab={tab}
-                                handleClickBtnUpdate={handleClickBtnUpdate}
-                                handleClickBtnDelete={handleClickBtnDelete}
+                        {isLoading && <Loading count={5} />}
+                        {!isLoading &&
+                            videoList.map((item) => (
+                                <Item
+                                    key={item.video_id}
+                                    item={item}
+                                    tab={tab}
+                                    handleClickBtnUpdate={handleClickBtnUpdate}
+                                    handleClickBtnDelete={handleClickBtnDelete}
+                                />
+                            ))}
+                        {!isLoading && (
+                            <TableBottom
+                                params={params}
+                                handleChangeLimit={handleChangeLimit}
+                                handleChangePage={handleChangePage}
                             />
-                        ))}
-                        {!isLoading && <TableBottom />}
+                        )}
                     </Table>
                 )}
                 {!videoList.length && !isLoading && (
@@ -339,7 +367,7 @@ function Upload({ tab }) {
                         bodyText="Không có nội dung"
                         bottomText="Tải video lên"
                         isBottomBtn
-                        bottomLink="/studio/videos/upload?type=upload"
+                        bottomLink="/studio/videos/upload?type=upload_video"
                     />
                 )}
             </div>

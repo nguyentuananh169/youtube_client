@@ -1,10 +1,8 @@
 import clsx from 'clsx';
 import Filter from '../../../components/Filter';
 import NoData from '../../../components/NoData';
-import Table from '../components/Table';
 import imgv2 from '../../../../../assets/img/no_content_v2.png';
 import styles from './Live.module.css';
-import TableTop from './TableTop';
 function Live({ tab }) {
     const initFilterData = {
         copyright: false,
@@ -194,11 +192,9 @@ function Live({ tab }) {
                 initMenu={initMenu}
                 initFilterData={initFilterData}
                 initFilterText={initFilterText}
+                tab={tab}
             />
             <div className={clsx(styles.body)}>
-                {/* <Table>
-                    <TableTop tab={tab} />
-                </Table> */}
                 <NoData
                     img={imgv2}
                     bodyText="Các sự kiện phát trực tiếp của bạn sẽ xuất hiện ở đây"

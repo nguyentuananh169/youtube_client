@@ -3,6 +3,7 @@
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     padding: 0 20px;
 }
 /*  */
@@ -12,8 +13,8 @@
     max-width: 980px;
     padding: 20px 20px 0 0;
 }
-.video {
-    width: 100%;
+.main.hidden {
+    display: none;
 }
 /*  */
 .videoList {
@@ -33,17 +34,5 @@
     .videoList {
         padding: 20px 0 0 0;
         max-width: 100%;
-    }
-}
-@media only screen and (max-width: 768px) {
-    .wrapper[data-type='fixed'] .video {
-        position: fixed;
-        right: 0;
-        left: 0;
-        top: 56px;
-        z-index: 996;
-    }
-    .metadata {
-        margin-top: var(--videoHeight);
     }
 }

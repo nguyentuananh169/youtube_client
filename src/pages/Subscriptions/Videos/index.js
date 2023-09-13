@@ -89,13 +89,13 @@ function Videos() {
                                 </div>
 
                                 <div className={clsx(styles.video)}>
-                                    <VideoCard
+                                    {/* <VideoCard
                                         isPreview
                                         row={!isLayoutGird && !isLayoutGird2}
                                         width={!isLayoutGird && !isLayoutGird2 ? '246px' : null}
                                         rowOwner={!isLayoutGird && !isLayoutGird2}
                                         showDes={!isLayoutGird && !isLayoutGird2}
-                                    />
+                                    /> */}
                                 </div>
                             </div>
                         </div>

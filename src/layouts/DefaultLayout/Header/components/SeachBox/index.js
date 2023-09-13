@@ -2,45 +2,29 @@ import { HiOutlineMicrophone } from 'react-icons/hi';
 import { TfiSearch } from 'react-icons/tfi';
 import { GoKeyboard } from 'react-icons/go';
 import { TfiClose, TfiArrowLeft } from 'react-icons/tfi';
-import clsx from 'clsx';
+
 import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import clsx from 'clsx';
 import Button from '../../../../../components/Button';
 import Tooltip from '../../../../../components/Tooltip';
 import ResultSearch from './ResultSearch';
 import useClickOutSide from '../../../../..//hook/useClickOutSide';
 import styles from './SearchBox.module.css';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
 function SearchBox() {
+    const array = localStorage.getItem('search_list')
+        ? JSON.parse(localStorage.getItem('search_list'))
+        : [];
     const init = {
         type: 'history',
-        data: [
-            {
-                id: '1',
-                text: 'Lịch sử tìm kiếm 1',
-            },
-            {
-                id: '2',
-                text: 'Lịch sử tìm kiếm 2',
-            },
-            {
-                id: '3',
-                text: 'Lịch sử tìm kiếm 3',
-            },
-            {
-                id: '4',
-                text: 'Lịch sử tìm kiếm 4',
-            },
-            {
-                id: '5',
-                text: 'Lịch sử tìm kiếm 5',
-            },
-        ],
+        list: array,
     };
     const [elementRef, isShow, setShow] = useClickOutSide(false);
     const [isSearchBoxMobile, setIsSearchBoxMobile] = useState(false);
     const [valueInput, setValueInput] = useState('');
     const [dataList, setDataList] = useState(init);
     const timeoutRef = useRef(null);
+    const inputRef = useRef(null);
     const naviagte = useNavigate();
     const { pathname } = useLocation();
     const params = useParams();
@@ -52,8 +36,7 @@ function SearchBox() {
         if (params.keyword) {
             handleChangeInput(params.keyword);
         }
-    }, []);
-
+    }, [params.keyword]);
     const handleChangeInput = (value) => {
         setValueInput(value);
         if (timeoutRef.current) {
@@ -62,24 +45,61 @@ function SearchBox() {
         if (value) {
             timeoutRef.current = setTimeout(() => {
                 const data = [
-                    { id: 1, text: `Nội dung liên quan ${value} 1` },
-                    { id: 2, text: `Nội dung liên quan ${value} 2` },
-                    { id: 3, text: `Nội dung liên quan ${value} 3` },
-                    { id: 4, text: `Nội dung liên quan ${value} 4` },
-                    { id: 5, text: `Nội dung liên quan ${value} 5` },
+                    { id: 1, keyword: `Gợi ý "${value}"` },
+                    { id: 2, keyword: `Gợi ý "${value}"` },
+                    { id: 3, keyword: `Gợi ý "${value}"` },
+                    { id: 4, keyword: `Gợi ý "${value}"` },
+                    { id: 5, keyword: `Gợi ý "${value}"` },
                 ];
-                setDataList({ type: 'search', data: data });
+                setDataList({ type: 'search', list: data });
             }, 500);
         } else {
             setDataList(init);
         }
     };
+    const handleClearInput = () => {
+        handleChangeInput('');
+        inputRef.current.focus();
+        setShow(true);
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (valueInput) {
-            naviagte(`/search/${valueInput}`);
+        if (!valueInput) {
+            return;
         }
+        const currentDate = new Date();
+        const milliseconds = currentDate.getTime();
+        const searchList = JSON.parse(localStorage.getItem('search_list'));
+        if (searchList && searchList.length > 0) {
+            const obj = {
+                id: milliseconds,
+                keyword: valueInput,
+            };
+            const index = searchList.findIndex((item) => item.keyword === valueInput);
+            if (index >= 0) {
+                searchList.splice(index, 1);
+            } else {
+                if (searchList.length >= 5) {
+                    searchList.pop();
+                }
+            }
+            let arr = [obj, ...searchList];
+            localStorage.setItem('search_list', JSON.stringify(arr));
+        } else {
+            let arr = [{ id: milliseconds, keyword: valueInput }];
+            localStorage.setItem('search_list', JSON.stringify(arr));
+        }
+        naviagte(`/search/${valueInput}`);
     };
+    useEffect(() => {
+        if (!isShow) {
+            inputRef.current.blur();
+            const searchList = localStorage.getItem('search_list')
+                ? JSON.parse(localStorage.getItem('search_list'))
+                : [];
+            setDataList((state) => ({ ...state, list: searchList }));
+        }
+    }, [isShow]);
     return (
         <>
             <div
@@ -111,6 +131,7 @@ function SearchBox() {
                             <TfiSearch />
                         </span>
                         <input
+                            ref={inputRef}
                             placeholder="Tìm kiếm"
                             value={valueInput}
                             onChange={(e) => handleChangeInput(e.target.value)}
@@ -123,13 +144,17 @@ function SearchBox() {
                             className={clsx(styles.close, styles.btnIcon, {
                                 [styles.active]: valueInput,
                             })}
-                            onClick={() => handleChangeInput('')}
+                            onClick={handleClearInput}
                         >
                             <TfiClose />
                         </div>
-                        {isShow && (
+                        {isShow && dataList.list.length > 0 && (
                             <div className={clsx(styles.dropdown)}>
-                                <ResultSearch dataList={dataList} setValueInput={setValueInput} />
+                                <ResultSearch
+                                    dataList={dataList}
+                                    setValueInput={setValueInput}
+                                    setDataList={setDataList}
+                                />
                             </div>
                         )}
                     </form>

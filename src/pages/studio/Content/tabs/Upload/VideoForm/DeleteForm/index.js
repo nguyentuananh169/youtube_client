@@ -60,7 +60,8 @@ function DeleteForm({ dataForm, handleResetDataForm, setModal, getVideoApi }) {
                         onChange={() => setIsCheckBox(!isCheckBox)}
                     />
                     <label htmlFor="checkboxInput">
-                        Tôi hiểu rằng video sẽ bị xóa vĩnh viễn và không thể khôi phục
+                        Tôi hiểu rằng video và các dữ liệu liên quan (bình luận, lượt thích,...) sẽ
+                        bị xóa vĩnh viễn và không thể khôi phục
                     </label>
                 </div>
                 {isLoading && (

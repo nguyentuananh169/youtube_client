@@ -67,7 +67,7 @@ function MenuFixed({
                     <>
                         {menulist.map((item, index) => (
                             <li
-                                className={clsx(styles.item)}
+                                className={clsx(styles.item, { [styles.hidden]: item?.isHidden })}
                                 style={item.customStyle}
                                 key={index}
                                 onClick={item.onClick}

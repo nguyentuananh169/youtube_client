@@ -27,8 +27,9 @@ function DropdownMenu({
         if (code) {
             let isAllowed = true;
             const objectValidates = currentMenu.validates || {};
+            const data = code === 'views' ? currentData[1] : currentData;
             for (let item in objectValidates) {
-                const error = objectRules[item](code, currentData);
+                const error = objectRules[item](code, data);
                 if (error) {
                     isAllowed = false;
                     break;
@@ -73,7 +74,7 @@ function DropdownMenu({
             {!currentMenu.isComp && (
                 <ul className={clsx(styles.menu, { [styles.menu2]: menuList.length > 1 })}>
                     {checkShow.length === 0 && (
-                        <li className={clsx(styles.noItem)}>Không có bộ lọc nào khớp</li>
+                        <li className={clsx(styles.noItem)}>Không có bộ lọc nào</li>
                     )}
                     {currentMenu.data.map((item, index) => {
                         if (item.isHidden) {
@@ -105,7 +106,6 @@ function DropdownMenu({
             {currentMenu.isComp && (
                 <div className={clsx(styles.menu2)}>
                     <InputMenu
-                        isSelector={currentMenu.isSelector}
                         code={currentMenu.code}
                         valueInput={currentData}
                         handleSetFilterData={handleSetFilterData}

@@ -9,36 +9,37 @@ import Channels from './Channels';
 import About from './About';
 import Search from './Search';
 
-function Main() {
+function Main({ user }) {
     const { page } = useParams();
-    let component;
-    switch (page) {
-        case 'home':
-            component = <Home />;
-            break;
-        case 'videos':
-            component = <Videos />;
-            break;
-        case 'playlist':
-            component = <PlayList />;
-            break;
-        case 'community':
-            component = <Community />;
-            break;
-        case 'channels':
-            component = <Channels />;
-            break;
-        case 'about':
-            component = <About />;
-            break;
-        case 'search':
-            component = <Search />;
-            break;
-        default:
-            component = <Home />;
-            break;
-    }
-    return <div className={clsx(styles.wrapper)}>{component}</div>;
+    return (
+        <div className={clsx(styles.wrapper)}>
+            {user?.user_id && (
+                <>
+                    <div className={clsx(styles.group, { [styles.show]: page === 'home' })}>
+                        <Home />
+                    </div>
+                    <div className={clsx(styles.group, { [styles.show]: page === 'videos' })}>
+                        <Videos />
+                    </div>
+                    <div className={clsx(styles.group, { [styles.show]: page === 'playlist' })}>
+                        <PlayList />
+                    </div>
+                    <div className={clsx(styles.group, { [styles.show]: page === 'community' })}>
+                        <Community user={user} />
+                    </div>
+                    <div className={clsx(styles.group, { [styles.show]: page === 'channels' })}>
+                        <Channels />
+                    </div>
+                    <div className={clsx(styles.group, { [styles.show]: page === 'about' })}>
+                        <About user={user} />
+                    </div>
+                    <div className={clsx(styles.group, { [styles.show]: page === 'search' })}>
+                        <Search user={user} />
+                    </div>
+                </>
+            )}
+        </div>
+    );
 }
 
 export default Main;

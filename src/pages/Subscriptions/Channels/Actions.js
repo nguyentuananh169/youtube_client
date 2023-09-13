@@ -7,14 +7,22 @@ import clsx from 'clsx';
 import MenuFixed from '../../../components/MenuFixed';
 import useClickOutSide from '../../../hook/useClickOutSide';
 import styles from './Channels.module.css';
-function Actions() {
+function Actions({ userId, index, handleClickUnsubscribe }) {
+    const [elementRef, isShow, setShow] = useClickOutSide();
+    const handleClick = () => {
+        setShow(false);
+        handleClickUnsubscribe(userId, index);
+    };
     const menu = [
         { icon: <HiOutlineBellAlert size={17} />, text: 'Tất cả' },
         { icon: <BsBell size={17} />, text: 'Dành riêng cho bạn' },
         { icon: <BsBellSlash size={17} />, text: 'Không thông báo' },
-        { icon: <AiOutlineUserDelete size={17} />, text: 'Hủy đăng ký' },
+        {
+            icon: <AiOutlineUserDelete size={17} />,
+            text: 'Hủy đăng ký',
+            onClick: handleClick,
+        },
     ];
-    const [elementRef, isShow, setShow] = useClickOutSide();
     return (
         <div className={clsx(styles.actions)} ref={elementRef}>
             <button onClick={() => setShow(!isShow)}>

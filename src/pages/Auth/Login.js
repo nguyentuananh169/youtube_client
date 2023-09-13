@@ -84,7 +84,7 @@ function Login() {
                     <div className={clsx(styles.group)}>
                         <input
                             className={clsx({ [styles.inputVaild]: errors.password })}
-                            type="text"
+                            type="password"
                             name="password"
                             placeholder="Mật khẩu"
                             value={values.password}

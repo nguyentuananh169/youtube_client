@@ -1,32 +1,54 @@
 import { TfiSearch, TfiClose } from 'react-icons/tfi';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import styles from './SearchBox.module.css';
-import { Link } from 'react-router-dom';
 import useClickOutSide from '../../../../hook/useClickOutSide';
 import DotMenu from '../../../../components/DotMenu';
+import Result from './Result';
+import videoApi from '../../../../api/videoApi';
+import styles from './SearchBox.module.css';
 function SearchBox() {
     const [elementRef, isShow, setShow] = useClickOutSide(false);
     const [value, setValue] = useState('');
+    const [result, setResult] = useState([]);
     const [isLoading, setLoading] = useState(false);
+    const [isSearch, setIsSearch] = useState(false);
     const timeoutRef = useRef(null);
-
-    const handleSetValue = (text) => {
+    const fetchVideo = async (text) => {
+        if (isLoading || text === '') {
+            return;
+        }
+        setLoading(true);
+        const params = {
+            type: 'get_by_token',
+            search_type: 'title',
+            keyword: text,
+            limit: 5,
+        };
+        const response = await videoApi.get(params);
         setLoading(false);
+        setIsSearch(true);
+        if (response[0]?.error) {
+            return;
+        }
+        setResult(response.videoList);
+    };
+    const handleSetValue = (text) => {
         setValue(text);
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
         timeoutRef.current = setTimeout(() => {
-            setLoading(true);
-            setTimeout(() => {
-                setLoading(false);
-            }, 3000);
+            fetchVideo(text);
         }, 500);
     };
     const handleSubmit = (e) => {
         e.preventDefault();
     };
+    useEffect(() => {
+        if (!isShow) {
+            setIsSearch(false);
+        }
+    }, [isShow]);
     return (
         <>
             <div
@@ -65,25 +87,14 @@ function SearchBox() {
                 {isLoading && <div className={clsx(styles.loading)}></div>}
                 {isShow && !isLoading && (
                     <div className={clsx(styles.menu)}>
-                        <div className={clsx(styles.title)}>Video gần đây</div>
-                        {Array(5)
-                            .fill(0)
-                            .map((item, index) => (
-                                <Link key={index} to={'#'} className={clsx(styles.item)}>
-                                    <div className={clsx(styles.img)}>
-                                        <img src="https://i9.ytimg.com/vi/HP0jFLsSP4Y/mqdefault.jpg?sqp=COSUs6MG-oaymwEmCMACELQB8quKqQMa8AEB-AH4CYAC0AWKAgwIABABGD4gYShlMA8=&rs=AOn4CLCSJwXjLSF6SREh2iWyIRomaJMeSQ" />
-                                        <span className={clsx(styles.duration)}>0:45</span>
-                                    </div>
-                                    <div className={clsx(styles.text)}>
-                                        <span>Đồng hồ đếm ngược 30s Mp4 Linh Phan</span>
-                                        <p>Đây là mô tả</p>
-                                    </div>
-                                    <div className={clsx(styles.time)}>
-                                        <p>23 thg 5, 2023</p>
-                                        <p>Ngày tải lên</p>
-                                    </div>
-                                </Link>
-                            ))}
+                        <div className={clsx(styles.title)}>
+                            {!isSearch
+                                ? 'Nhập từ khóa tìm kiếm'
+                                : `5 kết quả gần nhất (${result.length})`}
+                        </div>
+                        {result.map((item) => (
+                            <Result key={item.video_id} item={item} />
+                        ))}
                     </div>
                 )}
             </div>

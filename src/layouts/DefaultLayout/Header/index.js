@@ -11,8 +11,7 @@ function Header({ handleToggleGuide }) {
     const [state, dispatch] = useStore();
     const { pathname } = useLocation();
     useEffect(() => {
-        const watchPage = pathname.startsWith('/watch/');
-        if (watchPage) {
+        if (pathname === '/watch') {
             return dispatch(setIsHiddenHeader(false));
         }
         if (window.innerWidth <= 768) {

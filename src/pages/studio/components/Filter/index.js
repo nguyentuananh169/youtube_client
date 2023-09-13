@@ -8,14 +8,34 @@ import FilterList from './FilterList';
 import DropdownMenu from './DropdownMenu';
 import useClickOutSide from '../../../../hook/useClickOutSide';
 import styles from './Filter.module.css';
-function Filter({ initMenu = [], initFilterData = {}, initFilterText = {} }) {
-    const [isLoading, setLoading] = useState(false);
+function Filter({ initMenu, isLoading = false, handleSearch = () => {} }) {
+    const initFilterData = {
+        copyright: false,
+        visibility: [],
+        mfk_restrictions: [],
+        age_restricted: '',
+        description: '',
+        views: [],
+        title: '',
+    };
+    const initFilterText = {
+        copyright: false,
+        visibility: [],
+        mfk_restrictions: [],
+        age_restricted: '',
+        description: '',
+        views: [],
+        title: '',
+    };
     const [filterMenu, setFilterMenu] = useState([...initMenu]);
-    const [filterData, setFilterData] = useState({ ...initFilterData });
-    const [filterText, setFilterText] = useState({ ...initFilterText });
+    const [filterData, setFilterData] = useState(initFilterData);
+    const [filterText, setFilterText] = useState(initFilterText);
     const [filterList, setFilterList] = useState([]);
     const [elementRef, isShow, setShow] = useClickOutSide();
     const codeRef = useRef(null);
+    const fetchApi = (data) => {
+        handleSearch(data);
+    };
     useEffect(() => {
         const code = codeRef.current;
         if (!isShow && !isLoading && code) {
@@ -32,7 +52,10 @@ function Filter({ initMenu = [], initFilterData = {}, initFilterText = {} }) {
         if (code === 'copyright') {
             itemData = !filterData[code];
             itemFilterText = !filterText[code];
-            handleSubmit();
+            handleSubmit({ ...filterData, copyright: itemData });
+        } else if (code === 'views') {
+            itemData = valueText;
+            itemFilterText = valueText;
         } else if (Array.isArray(itemData)) {
             const index = itemData.indexOf(valueCode);
             if (index === -1) {
@@ -49,12 +72,6 @@ function Filter({ initMenu = [], initFilterData = {}, initFilterText = {} }) {
         setFilterData({ ...filterData, [code]: itemData });
         setFilterText({ ...filterText, [code]: itemFilterText });
     };
-    const handleSearchVideo = () => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    };
     const handleRemoveFilterList = (code) => {
         const arr = filterMenu;
         for (let i = 0; i < arr.length; i++) {
@@ -64,10 +81,12 @@ function Filter({ initMenu = [], initFilterData = {}, initFilterText = {} }) {
             }
         }
         const arr2 = filterList.filter((item) => item.code !== code);
+        const objFilterData = { ...filterData, [code]: initFilterData[code] };
+        const objFilterText = { ...filterText, [code]: initFilterText[code] };
         setFilterList(arr2);
-        setFilterData({ ...filterData, [code]: initFilterData[code] });
-        setFilterText({ ...filterText, [code]: initFilterText[code] });
-        handleSearchVideo();
+        setFilterData(objFilterData);
+        setFilterText(objFilterText);
+        fetchApi(objFilterData);
     };
     const handleClickRemoveAll = () => {
         setFilterList([]);
@@ -75,9 +94,9 @@ function Filter({ initMenu = [], initFilterData = {}, initFilterText = {} }) {
         setFilterData(initFilterData);
         setFilterText(initFilterText);
         handleSetCodeRef(null);
-        handleSubmit();
+        handleSubmit(initFilterData);
     };
-    const handleSubmit = () => {
+    const handleSubmit = (objData) => {
         const code = codeRef.current;
         if (code) {
             // set filter menu
@@ -106,41 +125,45 @@ function Filter({ initMenu = [], initFilterData = {}, initFilterText = {} }) {
         }
         setShow(false);
         codeRef.current = null;
-        handleSearchVideo();
+        fetchApi(objData);
     };
-    // console.log(filterData);
     return (
         <div className={clsx(styles.filter)}>
-            {isLoading && <div className={clsx(styles.loading)}></div>}
-            <label className={clsx(styles.icon)} htmlFor="my-input">
-                <VscListFilter size={24} color="#838282" />
-            </label>
-            <div className={clsx(styles.menu)}>
-                {filterList.map((item, index) => (
-                    <FilterList
-                        key={index}
-                        item={item}
-                        handleRemoveFilterList={handleRemoveFilterList}
-                    />
-                ))}
-                <div ref={elementRef} className={clsx(styles.input)} onClick={() => setShow(true)}>
-                    {isShow && (
-                        <DropdownMenu
-                            filterMenu={filterMenu}
-                            filterData={filterData}
-                            setShow={setShow}
-                            handleSetFilterData={handleSetFilterData}
-                            handleSubmit={handleSubmit}
-                            handleSetCodeRef={handleSetCodeRef}
+            {(isLoading || isShow) && <div className={clsx(styles.loading)}></div>}
+            <div className={clsx(styles.group)}>
+                <label className={clsx(styles.icon)} htmlFor="btn-filter">
+                    <VscListFilter size={24} color="#838282" />
+                </label>
+                <div className={clsx(styles.menu)}>
+                    {filterList.map((item, index) => (
+                        <FilterList
+                            key={index}
+                            item={item}
+                            handleRemoveFilterList={handleRemoveFilterList}
                         />
-                    )}
-
-                    <input
-                        className={clsx(styles.search)}
-                        id="my-input"
-                        type="text"
-                        placeholder="Lọc"
-                    />
+                    ))}
+                    <div
+                        ref={elementRef}
+                        className={clsx(styles.input)}
+                        onClick={() => setShow(true)}
+                    >
+                        {isShow && (
+                            <DropdownMenu
+                                filterMenu={filterMenu}
+                                filterData={filterData}
+                                setShow={setShow}
+                                handleSetFilterData={handleSetFilterData}
+                                handleSubmit={handleSubmit}
+                                handleSetCodeRef={handleSetCodeRef}
+                            />
+                        )}
+                        <input
+                            type="button"
+                            id="btn-filter"
+                            className={clsx(styles.search)}
+                            value={'Chọn bộ lọc'}
+                        />
+                    </div>
                 </div>
             </div>
             <div

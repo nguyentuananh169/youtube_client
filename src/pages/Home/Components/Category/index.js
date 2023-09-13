@@ -1,29 +1,37 @@
 import { useRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import useStore from '../../../../hook/useStore';
-import styles from './Category.module.css';
 import FilterSlider from '../../../../components/FilterSlider';
-function Category() {
-    const data = [
-        'Tất cả',
-        'Âm nhạc',
-        'Trò chơi',
-        'Danh sách kết hợp',
-        'Trực tiếp',
-        'Hài kịch tình huống',
-        'Trò chơi hành động phưu lưu',
-        'Bóng đá',
-        'Đọc rap',
-        'Nấu ăn',
-        'Hoạt hình',
-        'Mới tải lên gần đây',
-        'Đều xuất mới',
-    ];
-
+import categoryApi from '../../../../api/categoryApi';
+import styles from './Category.module.css';
+function Category({ setCategoryId }) {
+    const [categoryList, setCategoryList] = useState([]);
+    useEffect(() => {
+        const fetchCatgory = async () => {
+            const initCategory1 = [
+                {
+                    id: '',
+                    name: 'Tất cả',
+                },
+            ];
+            const initCategory2 = [
+                {
+                    id: 'live',
+                    name: 'Trực tiếp',
+                },
+                {
+                    id: 'playlist',
+                    name: 'Danh sách kết hợp',
+                },
+            ];
+            const response = await categoryApi.get();
+            setCategoryList([...initCategory1, ...response, ...initCategory2]);
+        };
+        fetchCatgory();
+    }, []);
     const [width, setWidth] = useState(null);
     const wrapperRef = useRef(null);
     const [state] = useStore();
-
     useEffect(() => {
         const handleResize = () => {
             const wrapperEl = wrapperRef.current;
@@ -35,11 +43,18 @@ function Category() {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [state.isToggleNavbar]);
+    }, [state.isToggleNavbar, categoryList]);
+    const hanleClickCategory = (id) => {
+        setCategoryId(id);
+    };
     return (
         <div ref={wrapperRef} className={clsx(styles.wrapper)}>
             <div className={clsx(styles.category, { [styles.hidden]: state.isHiddenHeader })}>
-                <FilterSlider itemList={data} width={width} />
+                <FilterSlider
+                    itemList={categoryList}
+                    width={width}
+                    handleClick={hanleClickCategory}
+                />
             </div>
         </div>
     );

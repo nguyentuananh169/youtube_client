@@ -5,13 +5,67 @@ import { TfiClose } from 'react-icons/tfi';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import styles from './Comments.module.css';
-import CommentList from './components/CommentList';
 import Filter from './components/Filter';
 import Form from './components/Form';
 import DotMenu from '../../../../components/DotMenu';
-function Comments() {
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
+import commentApi from '../../../../api/commentApi';
+import LoadingHasMore from '../../../../components/LoadingHasMore';
+import CommentGroup from './components/CommentGroup';
+function Comments({ ownerId, ownerName, ownerAvatar, loadingPage }) {
     const [isShow, setIsShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [totalComment, setTotalComment] = useState(0);
+    const [commentList, setCommentList] = useState([]);
+    const [params, setParams] = useState({
+        page: 1,
+        totalPage: 1,
+        order_by: 'cmt_id',
+        order_type: 'DESC',
+    });
+    const [hasMore, setHasMore] = useState(false);
     const overlayRef = useRef(null);
+    const isReset = useRef(false);
+    const { search } = useLocation();
+    const urlParams = queryString.parse(search);
+    const mainRef = useRef(null);
+    const fetchComments = async (pageValue, orderTypeValue) => {
+        setIsLoading(true);
+        const formData = {
+            _video_id: urlParams.id,
+            _page: pageValue || params.page,
+            _totalPage: params.totalPage,
+            _order_by: 'cmt_id',
+            _order_type: orderTypeValue || params.order_type,
+            _limit: 15,
+        };
+        const response = await commentApi.get(formData);
+        if (isReset.current) {
+            setCommentList(response.commentList);
+        } else {
+            setCommentList([...commentList, ...response.commentList]);
+        }
+        setTotalComment(response.totalComment);
+        setParams({
+            ...params,
+            page: response.page + 1,
+            totalPage: response.totalPage,
+            order_type: orderTypeValue || params.order_type,
+        });
+        setIsLoading(false);
+        setHasMore(false);
+        isReset.current = false;
+    };
+    const handleResetComments = () => {
+        isReset.current = true;
+        fetchComments(1);
+    };
+    useEffect(() => {
+        if (urlParams.id) {
+            handleResetComments();
+        }
+    }, [urlParams.id]);
     useEffect(() => {
         if (isShow) {
             document.body.style.overflow = 'hidden';
@@ -29,8 +83,87 @@ function Comments() {
     };
     const handleClickIcon = (e) => {
         e.stopPropagation();
-        if (isShow) {
-            setIsShow(false);
+        setIsShow(!isShow);
+    };
+    const handleAddCommentSuccess = (data) => {
+        const arr = [...commentList];
+        if (params.page <= params.totalPage) {
+            arr.pop();
+        }
+        if (arr[0]?.cmt_pin) {
+            const dataNew = [arr[0], data];
+            arr.shift();
+            setCommentList([...dataNew, ...arr]);
+        } else {
+            arr.unshift(data);
+            setCommentList(arr);
+        }
+        setTotalComment(totalComment + 1);
+    };
+    const handleDeleteCommentSuccess = (index) => {
+        const arr = [...commentList];
+        arr.splice(index, 1);
+        setCommentList(arr);
+        setTotalComment(totalComment - 1);
+    };
+    const handleUpdateCommentSuccess = (index, content, timestamp) => {
+        const arr = [...commentList];
+        arr[index].cmt_content = content;
+        arr[index].cmt_updated_at = timestamp;
+        arr[index].cmt_edited = true;
+        setCommentList(arr);
+    };
+    const handleInfiniteScroll = async () => {
+        const mainEl = mainRef.current;
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        let scrollTop;
+        let scrollHeight;
+        let clientHeight;
+        if (screenWidth <= 768) {
+            scrollTop = mainEl.scrollTop;
+            scrollHeight = Math.floor(scrollTop + mainEl.clientHeight);
+            clientHeight = Math.floor(mainEl.scrollHeight - 50);
+        } else if (screenWidth > 1024) {
+            scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            scrollHeight = Math.floor(scrollTop + screenHeight);
+            clientHeight = Math.floor(
+                mainEl.getBoundingClientRect().top + window.scrollY + mainEl.clientHeight,
+            );
+        }
+        if (scrollHeight >= clientHeight && (screenWidth <= 768 || screenWidth > 1024)) {
+            setHasMore(true);
+        }
+    };
+    const handleClickBtnMore = () => {
+        if (!isLoading) {
+            fetchComments();
+        }
+    };
+    useEffect(() => {
+        if (hasMore && !isLoading && params.page <= params.totalPage) {
+            fetchComments();
+        }
+    }, [hasMore]);
+    useEffect(() => {
+        if (window.innerWidth <= 768) {
+            const mailEl = mainRef.current;
+            mailEl.addEventListener('scroll', handleInfiniteScroll);
+            return () => {
+                mailEl.removeEventListener('scroll', handleInfiniteScroll);
+            };
+        } else if (window.innerWidth > 1024) {
+            window.addEventListener('scroll', handleInfiniteScroll);
+            return () => {
+                window.removeEventListener('scroll', handleInfiniteScroll);
+            };
+        }
+    }, []);
+    const handleChangeTypeFilter = (type) => {
+        if (params.order_type !== type) {
+            isReset.current = true;
+            setParams({ ...params, order_type: type });
+            fetchComments(1, type);
         }
     };
     return (
@@ -41,7 +174,7 @@ function Comments() {
                     <div className={clsx(styles.text)}>
                         <span>Bình luận</span>
                         {!isShow && <RxDotFilled size={10} />}
-                        <span>91</span>
+                        <span>{totalComment}</span>
                     </div>
 
                     <div className={clsx(styles.icon)} onClick={handleClickIcon}>
@@ -52,10 +185,47 @@ function Comments() {
                         )}
                     </div>
                 </div>
-                <div className={clsx(styles.main)}>
-                    <Filter />
-                    <Form />
-                    <CommentList />
+                <div ref={mainRef} className={clsx(styles.main)}>
+                    <Filter
+                        totalComment={totalComment}
+                        handleChangeTypeFilter={handleChangeTypeFilter}
+                    />
+                    <Form handleAddCommentSuccess={handleAddCommentSuccess} />
+
+                    {!isReset.current &&
+                        commentList.map((item, index) => (
+                            <CommentGroup
+                                key={
+                                    item?.type === 'add'
+                                        ? `${item.cmt_id}${item.cmt_time}`
+                                        : item.cmt_id
+                                }
+                                index={index}
+                                item={item}
+                                ownerId={ownerId}
+                                videoId={urlParams.id}
+                                ownerName={ownerName}
+                                ownerAvatar={ownerAvatar}
+                                handleDeleteCommentSuccess={handleDeleteCommentSuccess}
+                                handleUpdateCommentSuccess={handleUpdateCommentSuccess}
+                                handleResetComments={handleResetComments}
+                                commentRef={mainRef}
+                            />
+                        ))}
+                    {isLoading && <LoadingHasMore />}
+                    <div
+                        className={clsx(styles.btnMore, {
+                            [styles.loading]: isLoading,
+                            [styles.show]:
+                                !loadingPage &&
+                                window.innerWidth > 768 &&
+                                window.innerWidth <= 1024 &&
+                                params.page <= params.totalPage,
+                        })}
+                        onClick={handleClickBtnMore}
+                    >
+                        <button>{isLoading ? 'Đang tải...' : 'Xem thêm'}</button>
+                    </div>
                 </div>
             </div>
         </>

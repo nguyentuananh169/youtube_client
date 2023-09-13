@@ -1,0 +1,39 @@
+.wapper,
+.comment {
+    width: 100%;
+}
+.comment:not(.children) {
+    margin-top: 20px;
+}
+.children {
+    width: 100%;
+    padding-left: 56px;
+    display: none;
+}
+.children.show {
+    display: block;
+}
+.btnMore {
+    width: 100%;
+    margin-top: 5px;
+    padding-left: 56px;
+}
+.btnMore button {
+    background-color: transparent;
+    padding: 9px 13px;
+    border: none;
+    color: #065fd4;
+    font-weight: 500;
+    font-size: 1.4rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.btnMore button svg {
+    margin-right: 10px;
+}
+.btnMore button:hover,
+.btnMore.active button {
+    background-color: rgba(62, 166, 255, 0.3);
+}

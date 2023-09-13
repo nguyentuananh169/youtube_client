@@ -1,21 +1,69 @@
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import Filter from './components/Filter';
+import FilterSlider from '../../components/FilterSlider';
 import styles from './Search.module.css';
-import VideoCard from '../../components/VideoCard';
+import { useRef } from 'react';
+import useStore from '../../hook/useStore';
+import ResultList from './components/ResultList';
 function Search() {
+    const menuList = [
+        {
+            id: '',
+            name: 'Video',
+        },
+        {
+            id: 'user',
+            name: 'Kênh',
+        },
+        {
+            id: 'playlist',
+            name: 'Danh sách phát',
+        },
+        {
+            id: 'live',
+            name: 'Trực tiếp',
+        },
+    ];
+    const [isLoading, setIsLoading] = useState(true);
+    const [width, setWidth] = useState(0);
+    const [categoryId, setCatgoryId] = useState('');
+    const categoryRef = useRef(null);
+    const [state] = useStore();
+
+    useEffect(() => {
+        const handleResize = () => {
+            const categoryEl = categoryRef.current;
+            const width = categoryEl.clientWidth;
+            setWidth(width);
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [state.isToggleNavbar]);
+    const handleSetCatgoryId = (id) => {
+        setCatgoryId(id);
+        setIsLoading(true);
+    };
+
     return (
         <div className={clsx(styles.wrapper)}>
-            <div className={clsx(styles.filter)}>
-                <Filter />
-            </div>
-            <div className={clsx(styles.itemList)}>
-                <div className={clsx(styles.title)}>
-                    <h3>Kết quả hàng đầu</h3>
+            {isLoading && <div className={clsx(styles.overlay)}></div>}
+            <div ref={categoryRef} className={clsx(styles.category)}>
+                <div className={clsx(styles.fixed, { [styles.hidden]: state.isHiddenHeader })}>
+                    <FilterSlider
+                        itemList={menuList}
+                        width={width}
+                        handleClick={(id) => handleSetCatgoryId(id)}
+                    />
                 </div>
-                <VideoCard isPreview row showDes />
-                <VideoCard isPreview row showDes />
-                <VideoCard isPreview row showDes />
             </div>
+            <ResultList
+                categoryId={categoryId}
+                isLoadingPage={isLoading}
+                setIsLoadingPage={setIsLoading}
+            />
         </div>
     );
 }

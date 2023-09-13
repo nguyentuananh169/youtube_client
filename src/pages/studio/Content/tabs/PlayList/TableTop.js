@@ -13,10 +13,6 @@ function TableTop({ tab }) {
                 <span>Danh sách phát</span>
             </th>
             <th>
-                {tab === 'playlist' && <Tooltip headingText={'Loại danh sách phát'} />}
-                <span>Loại</span>
-            </th>
-            <th>
                 {tab === 'playlist' && (
                     <Tooltip headingText="Người có thể thấy danh sách phát này." />
                 )}

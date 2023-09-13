@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import styles from './LeftControls.module.css';
 import Tooltip from '../../../Tooltip';
 import { useEffect, useRef } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
 function LeftControls({
     isPreview,
     isAutoSkip,
@@ -21,8 +22,17 @@ function LeftControls({
     handleClickVideo,
     handleClickVolume,
     handleChangeVolume,
+    nextVideoInfo,
 }) {
     const volumeRef = useRef(null);
+    const { search } = useLocation();
+    let urlParams = search;
+    if (nextVideoInfo?.id) {
+        urlParams =
+            nextVideoInfo.type === 'playlist'
+                ? `/watch?category=${nextVideoInfo.categoryId}&id=${nextVideoInfo.id}&list=${nextVideoInfo.playlist}&index=${nextVideoInfo.index}`
+                : `/watch?category=${nextVideoInfo.categoryId}&id=${nextVideoInfo.id}`;
+    }
     useEffect(() => {
         if (dataSetting.isVolume) {
             volumeRef.current.value = 10;
@@ -53,9 +63,9 @@ function LeftControls({
                 {dataSetting.isPlay ? <BsFillPauseFill /> : <BsFillPlayFill />}
             </div>
             {isAutoSkip && (
-                <div className={clsx(styles.btn, styles.skip)}>
+                <Link to={urlParams} className={clsx(styles.btn, styles.skip)}>
                     <BsFillSkipEndFill />
-                </div>
+                </Link>
             )}
 
             <div className={clsx(styles.volumeContainer)}>

@@ -1,0 +1,21 @@
+.body {
+    width: 100%;
+    max-height: calc(var(--videoHeight) - 65px);
+    overflow: auto;
+}
+.body.collapse {
+    height: 0;
+    overflow: hidden;
+}
+@media only screen and (max-width: 768px) {
+    .body {
+        height: auto;
+        max-height: none;
+        overflow: unset;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .body {
+        background-color: #000;
+    }
+}

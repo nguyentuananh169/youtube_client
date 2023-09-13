@@ -87,7 +87,10 @@ function Actions({ item, handleClickBtnUpdate, handleClickBtnDelete }) {
                     />
                     <TfiCommentAlt size={20} />
                 </Link>
-                <Link to={`/watch/${item.video_id}`} className={clsx(styles.icon)}>
+                <Link
+                    to={`/watch?category=${item.category_id}&id=${item.video_id}`}
+                    className={clsx(styles.icon)}
+                >
                     <Tooltip
                         data-class="tooltip"
                         content={'Xem trên Youtube'}

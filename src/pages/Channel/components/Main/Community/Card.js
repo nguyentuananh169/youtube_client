@@ -36,7 +36,7 @@ function Card() {
                     </span>
                 </div>
                 <div className={clsx(styles.videoCard)}>
-                    <VideoCard row width={'30%'} showDes />
+                    {/* <VideoCard row width={'30%'} showDes /> */}
                 </div>
                 <div className={clsx(styles.actions)}>
                     <button className={clsx(styles.btn)}>

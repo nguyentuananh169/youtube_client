@@ -24,9 +24,18 @@
     flex: 1;
     margin-top: 16px;
 }
+.containerName {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 .name {
     display: flex;
     align-items: center;
+    margin-bottom: 7px;
+    margin-right: 10px;
 }
 .name strong {
     font-size: 2.4rem;
@@ -43,10 +52,43 @@
     margin-left: 10px;
     color: #606060;
 }
+.containerBtn {
+    margin-bottom: 7px;
+}
+.containerBtn .btn {
+    min-width: 83px;
+    padding: 0 12px;
+    height: 37px;
+    border-radius: 18px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 500;
+    background-color: #e9e9e9;
+    color: #000;
+}
+.containerBtn.loading .btn {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #bab8b8;
+    cursor: no-drop;
+}
+.containerBtn:not(.loading) .btn.subscriber {
+    background-color: rgba(0, 0, 0, 1);
+    color: #fff;
+}
+.containerBtn .btn + .btn {
+    margin-left: 10px;
+}
+.containerBtn:not(.loading) .btn:hover {
+    background-color: #dcdbdb;
+}
+.containerBtn:not(.loading) .btn.subscriber:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
 .meta {
     font-size: 1.4rem;
     color: #606060;
-    margin-top: 12px;
 }
 .meta > * + * {
     margin-left: 10px;
@@ -59,52 +101,31 @@
     font-size: 1.3rem;
     cursor: pointer;
     position: relative;
+}
+.about a span {
+    color: #606060;
+    display: inline-block;
     display: -webkit-box;
     -webkit-line-clamp: 1; /* số dòng hiển thị */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.about a {
-    color: #606060;
+.about.noDes a span {
+    margin-right: 5px;
 }
 .about svg {
     position: absolute;
     right: 0;
     top: -2px;
 }
-.btn1 {
-    margin-left: 10px;
-    display: none;
-}
-.btn2 {
-    margin-top: 16px;
-}
-.btn1 button,
-.btn2 button {
-    width: 83px;
-    height: 37px;
-    border-radius: 18px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-size: 1.4rem;
-    font-weight: 500;
-    background-color: rgba(0, 0, 0, 1);
-    color: #fff;
-}
-.btn1 button:hover,
-.btn2 button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+@media only screen and (max-width: 768px) {
+    .containerName {
+        justify-content: flex-start;
+    }
 }
 @media only screen and (max-width: 550px) {
     .img {
-        display: none;
-    }
-    .btn1 {
-        display: block;
-    }
-    .btn2 {
         display: none;
     }
 }

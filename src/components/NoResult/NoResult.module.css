@@ -1,0 +1,19 @@
+.wrapper {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.wrapper img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    object-fit: contain;
+}
+.wrapper .text {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    color: #606060;
+}

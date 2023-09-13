@@ -16,18 +16,22 @@ import Tooltip from '../Tooltip';
 import TimeLine from './components/TimeLine';
 import LeftControls from './components/LeftControls';
 import RightControls from './components/RightControls';
-import styles from './VideoPlay.module.css';
 import Spinner from '../Spinner';
 import MobileControls from './components/MobileControls';
 import NextVideo from './components/NextVideo';
-import { useLocation } from 'react-router-dom';
+import useStore from '../../hook/useStore';
+import formatDuration from '../../hook/formatDuration';
+import videoApi from '../../api/videoApi';
+import styles from './VideoPlay.module.css';
 function VideoPlay({
+    videoId = '',
     videoLink = '',
     isPreview = false,
     isAutoSkip = false,
     size = '',
     isMuteVoLumePreview,
     handleChangeVolumePreview,
+    handleEndedVideo = () => {},
     ...attributes
 }) {
     const menu = [
@@ -114,6 +118,7 @@ function VideoPlay({
     const [dataSetting, setDataSetting] = useState(data);
     const [sizeVideo, setSizeVideo] = useState(size);
     const [isNextVideo, setNextVideo] = useState(false);
+    const [isUpdateView, setIsUpdateView] = useState(false);
 
     const wrapperRef = useRef(null);
     const timeLineRef = useRef(null);
@@ -126,12 +131,15 @@ function VideoPlay({
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const timeoutRef = useRef(null);
+    const timePlayRef = useRef(0);
+    const intervalRef = useRef(0);
 
-    const { pathname } = useLocation();
+    const [state] = useStore();
+    const { nextVideoInfo } = state;
 
     const isTouchDevice =
         'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-
+    const userAgent = window.navigator.userAgent;
     useEffect(() => {
         if (!size) {
             const handleResize = () => {
@@ -149,20 +157,6 @@ function VideoPlay({
             return () => window.removeEventListener('resize', handleResize);
         }
     }, [size]);
-
-    useEffect(() => {
-        if (pathname.startsWith('/watch/')) {
-            const handleSetVideoHeight = () => {
-                const wrapperEl = wrapperRef.current;
-                document.body.style.setProperty('--videoHeight', `${wrapperEl.clientHeight}px`);
-            };
-            videoRef.current.addEventListener('loadeddata', handleSetVideoHeight);
-            return () => {
-                document.removeEventListener('loadeddata', handleSetVideoHeight);
-                document.body.style.setProperty('--videoHeight', `5px`);
-            };
-        }
-    }, []);
 
     useEffect(() => {
         if (!isPreview) {
@@ -226,31 +220,61 @@ function VideoPlay({
             document.removeEventListener('fullscreenchange', handleFullscreenChange);
         };
     }, []);
-    const formatNumber = (number) => {
-        if (number > 0 && number < 10) {
-            return `0${number}`;
-        } else {
-            return number;
+    useEffect(() => {
+        const videoEl = videoRef.current;
+        if (videoEl) {
+            const handleSetIsPlayVideo = () => {
+                const duration = Math.floor(videoEl.duration) / 2;
+                if (videoEl.paused) {
+                    setDataSetting({ ...dataSetting, isPlay: false });
+                    clearInterval(intervalRef.current);
+                } else {
+                    if (!isUpdateView) {
+                        intervalRef.current = setInterval(() => {
+                            timePlayRef.current += 1;
+                            if (timePlayRef.current >= duration) {
+                                setIsUpdateView(true);
+                            }
+                        }, 1000);
+                    }
+                    setDataSetting({ ...dataSetting, isPlay: true });
+                }
+            };
+            handleSetIsPlayVideo();
+            videoEl.addEventListener('play', handleSetIsPlayVideo);
+            videoEl.addEventListener('pause', handleSetIsPlayVideo);
+            videoEl.addEventListener('ended', handleEndedVideo);
+            return () => {
+                clearInterval(intervalRef.current);
+                videoEl.removeEventListener('play', handleSetIsPlayVideo);
+                videoEl.removeEventListener('pause', handleSetIsPlayVideo);
+                videoEl.removeEventListener('ended', handleEndedVideo);
+            };
         }
-    };
-    const formatDuration = (time) => {
-        let seconds = Math.floor(time % 60);
-        let minutes = Math.floor(time / 60) % 60;
-        let hours = Math.floor(time / 3600);
-        if (hours > 0) {
-            return `${hours}:${formatNumber(minutes)}:${formatNumber(seconds)}`;
-        } else {
-            return `${minutes}:${formatNumber(seconds)}`;
+    }, [isUpdateView]);
+    useEffect(() => {
+        if (isUpdateView && videoId) {
+            clearInterval(intervalRef.current);
+            const handleUpdateView = async () => {
+                const params = new FormData();
+                params.append('_video_id', videoId);
+                const response = await videoApi.updateView(params);
+            };
+            handleUpdateView();
         }
-    };
+    }, [isUpdateView]);
+    useEffect(() => {
+        const wrapperEl = wrapperRef.current;
+        if (wrapperEl) {
+            document.body.style.setProperty('--videoHeight', `${wrapperEl.clientHeight}px`);
+        }
+    }, []);
 
     const handlePlayVideo = () => {
         videoRef.current.play();
-        setDataSetting({ ...dataSetting, isPlay: true });
     };
     const handlePauseVideo = () => {
         videoRef.current.pause();
-        setDataSetting({ ...dataSetting, isPlay: false });
     };
     const handleClickVideo = () => {
         atPlayVideoRef.current.classList.add(clsx(styles.show));
@@ -271,6 +295,8 @@ function VideoPlay({
     const handleLoadMeatdata = () => {
         currentTimeRef.current.innerText = formatDuration(videoRef.current.currentTime);
         totalTimeRef.current.innerText = formatDuration(videoRef.current.duration);
+        const wrapperEl = wrapperRef.current;
+        document.body.style.setProperty('--videoHeight', `${wrapperEl.clientHeight}px`);
     };
     const handleTimeUpdate = () => {
         if (isNextVideo) {
@@ -279,9 +305,6 @@ function VideoPlay({
         if (videoRef.current.currentTime === videoRef.current.duration) {
             setDataSetting({ ...dataSetting, isPlay: false });
         }
-        currentTimeRef.current.innerText = formatDuration(videoRef.current.currentTime);
-        totalTimeRef.current.innerText = formatDuration(videoRef.current.duration);
-
         const timeLine = (videoRef.current.currentTime / videoRef.current.duration) * 100;
         wrapperRef.current.style.setProperty('--widthTimeLineVideo2', `${timeLine.toFixed(3)}%`);
         currentTimeRef.current.innerText = formatDuration(videoRef.current.currentTime);
@@ -381,7 +404,8 @@ function VideoPlay({
         setDataSetting({ ...dataSetting, [key]: value });
     };
     const handleOpenFullscreen = () => {
-        const element = isTouchDevice ? videoRef.current : wrapperRef.current;
+        const isIos = userAgent.match(/iPhone|iPad|iPod/i);
+        const element = isTouchDevice && isIos ? videoRef.current : wrapperRef.current;
         if (element.requestFullscreen) {
             element.requestFullscreen();
         } else if (element.mozRequestFullScreen) {
@@ -434,10 +458,29 @@ function VideoPlay({
         ) {
             handleExitFullscreen();
         }
+        if (document.pictureInPictureElement) {
+            document.exitPictureInPicture();
+        }
         handlePauseVideo();
-        setNextVideo(!isNextVideo);
+        setNextVideo(true);
     };
-
+    const handlePictureInPicture = () => {
+        const videoEl = videoRef.current;
+        if (document.pictureInPictureElement) {
+            document.exitPictureInPicture();
+        } else {
+            videoEl.requestPictureInPicture();
+        }
+    };
+    useEffect(() => {
+        const videoEl = videoRef.current;
+        return () => {
+            if (document.pictureInPictureElement) {
+                videoEl.pause();
+                document.exitPictureInPicture();
+            }
+        };
+    }, []);
     return (
         <div
             ref={wrapperRef}
@@ -448,10 +491,17 @@ function VideoPlay({
                 [styles.fullscreen]: dataSetting.isFullscreen,
             })}
         >
-            {isNextVideo && isAutoSkip && (
-                <div className={clsx(styles.nextVideo)}>
-                    <NextVideo size={sizeVideo} handleNextVideo={handleNextVideo} />
-                </div>
+            {isNextVideo && isAutoSkip && nextVideoInfo?.id && (
+                <>
+                    <div className={clsx(styles.overlay)}></div>
+                    <div className={clsx(styles.nextVideo)}>
+                        <NextVideo
+                            size={sizeVideo}
+                            handleNextVideo={handleNextVideo}
+                            videoInfo={nextVideoInfo}
+                        />
+                    </div>
+                </>
             )}
             {isPreview && (
                 <div className={clsx(styles.volume)} onClick={handleChangeVolumePreview}>
@@ -536,6 +586,7 @@ function VideoPlay({
                         dataSetting={dataSetting}
                         currentTimeRef={currentTimeRef}
                         totalTimeRef={totalTimeRef}
+                        nextVideoInfo={nextVideoInfo}
                         handleClickVideo={handleClickVideo}
                         handleClickVolume={handleClickVolume}
                         handleChangeVolume={handleChangeVolume}
@@ -548,6 +599,7 @@ function VideoPlay({
                         dataSetting={dataSetting}
                         handleChangeDataSetting={handleChangeDataSetting}
                         handleClickFullscreen={handleClickFullscreen}
+                        handlePictureInPicture={handlePictureInPicture}
                     />
                 </div>
             </div>
@@ -569,13 +621,7 @@ function VideoPlay({
                 playsInline={!dataSetting.isFullscreen}
                 {...attributes}
             >
-                <source
-                    src={
-                        videoLink ||
-                        'http://res.cloudinary.com/anh169/video/upload/v1689606050/video-list/vuvoqqs8kn9nx0jykjq5.mp4'
-                    }
-                    type="video/mp4"
-                ></source>
+                <source src={videoLink} type="video/mp4"></source>
             </video>
         </div>
     );

@@ -9,6 +9,9 @@
 .toastItem + .toastItem {
     margin-top: 10px;
 }
+.toastItem.hidden {
+    display: none;
+}
 .toastItem .body {
     display: flex;
     position: relative;

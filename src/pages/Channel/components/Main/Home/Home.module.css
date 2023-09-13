@@ -15,12 +15,14 @@
     margin-top: 20px;
     display: flex;
     align-items: center;
+    position: relative;
 }
-.category a {
+
+.category label {
     color: #000;
     font-size: 1.6rem;
 }
-.category button {
+.category .btn {
     padding: 7px 14px;
     margin-left: 5px;
     display: flex;
@@ -32,10 +34,11 @@
     cursor: pointer;
     border-radius: 30px;
     background-color: transparent;
+    color: #000;
 }
-.category button:hover {
+.category .btn:hover {
     background-color: #e5e5e5;
 }
-.category button svg {
+.category .btn svg {
     margin-right: 5px;
 }

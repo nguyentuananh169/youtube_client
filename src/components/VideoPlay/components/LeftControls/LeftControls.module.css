@@ -16,6 +16,9 @@
     position: relative;
     flex-shrink: 0;
 }
+.wrapper a.btn {
+    text-decoration: none;
+}
 .volumeLine {
     width: auto;
     height: 100%;

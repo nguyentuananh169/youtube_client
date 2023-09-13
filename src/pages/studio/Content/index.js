@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import clsx from 'clsx';
 import TitlePage from '../components/TitlePage';
-import styles from './Content.module.css';
 import Upload from './tabs/Upload';
 import Live from './tabs/Live';
 import PlayList from './tabs/PlayList';
 import Podcast from './tabs/Podcast';
+import styles from './Content.module.css';
 function Content() {
     const tabs = [
         {

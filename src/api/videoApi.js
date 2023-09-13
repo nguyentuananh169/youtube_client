@@ -1,12 +1,16 @@
 import axiosClient from './axiosClient';
 
-const categoryApi = {
+const videoApi = {
     add: (params) => {
         const url = '/video/add.php';
         return axiosClient.post(url, params);
     },
     update: (params) => {
         const url = '/video/update.php';
+        return axiosClient.post(url, params);
+    },
+    updateView: (params) => {
+        const url = '/video/update_view.php';
         return axiosClient.post(url, params);
     },
     get: (params) => {
@@ -18,4 +22,4 @@ const categoryApi = {
         return axiosClient.get(url, { params });
     },
 };
-export default categoryApi;
+export default videoApi;

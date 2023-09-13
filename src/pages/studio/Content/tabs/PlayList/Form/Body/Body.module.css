@@ -1,0 +1,73 @@
+.wrapper {
+    width: 100%;
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 24px;
+}
+.inputContainer {
+    width: 100%;
+}
+.inputContainer + .inputContainer {
+    margin-top: 25px;
+}
+.inputContainer .errorMessage {
+    font-size: 1.2rem;
+    color: #c00;
+    margin-top: 5px;
+}
+
+.group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    position: relative;
+}
+.group.focus:not(.error) {
+    border: 1px solid #065fd4;
+}
+.group.error {
+    border: 1px solid #c00;
+}
+.group.focus:not(.error) label {
+    color: #065fd4;
+}
+.group.error label {
+    color: #c00;
+}
+.group label {
+    font-size: 1.2rem;
+    color: #606060;
+}
+.group .input {
+    width: 100%;
+    outline: none;
+    border: none;
+    margin-top: 2px;
+    line-height: 2rem;
+    font-size: 1.5rem;
+    height: 30px;
+}
+.group textarea.input {
+    resize: none;
+    min-height: 104px;
+}
+.group .input::placeholder {
+    color: #909090;
+    font-size: 1.4rem;
+}
+.group .charCounter {
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.group [data-class='tooltip'] {
+    display: none;
+}
+.group.focus.error [data-class='tooltip'] {
+    display: block;
+}

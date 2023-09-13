@@ -2,14 +2,33 @@
     width: 100%;
     max-width: 1096px;
     margin: 0 auto;
+    position: relative;
+}
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: calc(100% + 60px);
+    left: 0;
+    top: -60px;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 100;
 }
 .filter {
     width: 100%;
 }
-.title {
-    margin: 26px 0;
+.category {
+    width: 100%;
 }
-.title h3 {
-    font-size: 1.6rem;
-    font-weight: 500;
+.fixed {
+    position: fixed;
+    top: 54px;
+    padding: 5px 0;
+    background-color: #fff;
+    z-index: 99;
+    transition: top 0.3s linear;
+}
+@media only screen and (max-width: 768px) {
+    .fixed.hidden {
+        top: -60px;
+    }
 }

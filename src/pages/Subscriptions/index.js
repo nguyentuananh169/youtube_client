@@ -1,22 +1,25 @@
-import { useParams } from 'react-router-dom';
-import Videos from './Videos';
+import useStore from '../../hook/useStore';
 import Channels from './Channels';
+import Unavailable from '../../components/Unavailable';
+import img from '../../assets/img/subscriptions.png';
 
 function Subscriptions() {
-    const { page } = useParams();
-    let component;
-    switch (page) {
-        case 'videos':
-            component = <Videos />;
-            break;
-        case 'channels':
-            component = <Channels />;
-            break;
-        default:
-            component = <Channels />;
-            break;
-    }
-    return <>{component}</>;
+    const [state] = useStore();
+    return (
+        <>
+            {!state.isLogin && !state.user?.user_id ? (
+                <Unavailable
+                    img={img}
+                    title={'Đừng bỏ lỡ video mới'}
+                    text={'Đăng nhập để xem cập nhật từ các kênh YouTube yêu thích của bạn'}
+                    linkUrl={'/login'}
+                    linkText={'Đăng nhập'}
+                />
+            ) : (
+                <Channels />
+            )}
+        </>
+    );
 }
 
 export default Subscriptions;

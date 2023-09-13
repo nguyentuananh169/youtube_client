@@ -2,6 +2,9 @@
     width: 100%;
     margin-top: 70px;
 }
+.wrapper.noData {
+    margin-top: 0;
+}
 .item {
     max-width: 852px;
     width: 100%;

@@ -1,0 +1,21 @@
+.main {
+    flex: 1;
+    width: 100%;
+    max-width: 980px;
+    padding: 20px 20px 0 0;
+}
+.video {
+    width: 100%;
+    aspect-ratio: 16/9;
+}
+.title,
+.owner,
+.des {
+    width: 100%;
+    margin-top: 10px;
+}
+@media only screen and (max-width: 1024px) {
+    .main {
+        padding: 0;
+    }
+}

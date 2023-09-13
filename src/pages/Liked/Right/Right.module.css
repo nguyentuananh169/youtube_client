@@ -8,7 +8,15 @@
     padding: 10px 0;
     border-radius: 10px;
 }
-.item:hover {
+.item.active {
+    background: linear-gradient(
+        to bottom,
+        rgba(89, 89, 89, 0.4) 0%,
+        rgba(89, 89, 89, 0.1) 33%,
+        rgba(89, 89, 89, 0.4) 100%
+    );
+}
+.item:not(.active):hover {
     background-color: rgba(0, 0, 0, 0.05);
 }
 .count {
@@ -19,6 +27,7 @@
 }
 .card {
     flex: 1;
+    padding-right: 20px;
 }
 @media only screen and (max-width: 1070px) {
     .wrapper {
@@ -29,6 +38,9 @@
     }
 }
 @media only screen and (max-width: 500px) {
+    .card {
+        padding: 0 10px;
+    }
     .count {
         display: none;
     }

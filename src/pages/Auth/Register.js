@@ -12,7 +12,7 @@ function Register() {
     const validates = [
         {
             name: 'name',
-            rules: { isRequired: true, maxLength: 30 },
+            rules: { isRequired: true, minLength: 6, maxLength: 25 },
         },
         {
             name: 'avatar',

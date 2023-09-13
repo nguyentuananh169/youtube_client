@@ -4,8 +4,8 @@ import clsx from 'clsx';
 import styles from './FilterSlider.module.css';
 import Item from './Item';
 import { useEffect, useRef, useState } from 'react';
-function FilterSlider({ itemList = [], width }) {
-    const [numberActive, setNumberActive] = useState(0);
+function FilterSlider({ itemList = [], width, handleClick = () => {} }) {
+    const [itemId, setItemId] = useState(itemList.length > 0 ? itemList[0].id : '');
     const [listWidth, setListWidth] = useState(0);
     const [wrapperWidth, setWrapperWidth] = useState(0);
     const [number, setNumber] = useState(0);
@@ -18,9 +18,10 @@ function FilterSlider({ itemList = [], width }) {
         if (listRef.current) {
             setListWidth(listRef.current.scrollWidth);
         }
-    }, [width]);
-    const handleChangeNumberActive = (number) => {
-        setNumberActive(number);
+    }, [width, itemList]);
+    const handleChangeItemId = (id) => {
+        setItemId(id);
+        handleClick(id);
     };
     const handleNextSlider = () => {
         const numberCurrent = number + 250;
@@ -65,10 +66,10 @@ function FilterSlider({ itemList = [], width }) {
                 {itemList.map((item, index) => (
                     <Item
                         key={index}
-                        text={item}
+                        item={item}
                         index={index}
-                        active={numberActive === index}
-                        onChangeNumberActive={handleChangeNumberActive}
+                        active={itemId === item.id}
+                        onChangeItemId={handleChangeItemId}
                     />
                 ))}
             </div>

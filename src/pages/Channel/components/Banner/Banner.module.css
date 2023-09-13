@@ -1,9 +1,36 @@
-.wrapper {
-    background-image: url(https://i.imgur.com/T0S0bL6.png);
+.banner {
     height: 0;
     padding-top: 17%;
     position: relative;
     background-size: 100% 100%;
     background-position: 0 0;
     background-repeat: no-repeat;
+}
+.noBanner {
+    width: 100%;
+    padding-top: 17%;
+    position: relative;
+    background-color: #283046;
+    overflow: hidden;
+}
+.noBanner span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #e6e6e6;
+    font-size: 30px;
+    font-weight: 600;
+    text-shadow: 0 2px 0 #8400ff;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+.banner.loading > div {
+    padding-top: 17%;
+    margin-top: -17%;
+}
+@media only screen and (max-width: 415px) {
+    .noBanner span {
+        font-size: 25px;
+    }
 }

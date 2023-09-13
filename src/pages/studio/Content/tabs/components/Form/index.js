@@ -1,18 +1,17 @@
 import { IoWarningOutline } from 'react-icons/io5';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import Modal from '../../../../components/Modal';
 import Body from './Body';
 import { useValidateForm } from '../../../../../../hook/useValidateForm';
 import categoryApi from '../../../../../../api/categoryApi';
-import { useEffect } from 'react';
 import playlistApi from '../../../../../../api/playlistApi';
 import videoApi from '../../../../../../api/videoApi';
 import cloudinaryApi from '../../../../../../api/cloudinaryApi';
 import useStore from '../../../../../../hook/useStore';
 import { addToastMessage } from '../../../../../../store/actions';
-import styles from './Form.module.css';
 import Error from './Error';
+import styles from './Form.module.css';
 
 function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
     const validates = [
@@ -33,7 +32,7 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
             rules: { isRequired: true },
         },
     ];
-    if (modal.type === 'update') {
+    if (modal.type === 'update_video') {
         validates[2] = {
             name: 'posterFile',
             rules: { isFileImg: true },
@@ -65,7 +64,7 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
             if (response2[0].error) {
                 distpatch(addToastMessage('error', 'Thất bại', response2[0].message));
             } else {
-                // distpatch(addToastMessage('success', 'Thành công', response2[0].message));
+                distpatch(addToastMessage('success', 'Thành công', response2[0].message));
                 handleCloseModal();
                 getVideoApi();
             }
@@ -97,9 +96,9 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
         if (isLoadingSubmit) {
             return;
         }
-        if (modal.type === 'upload') {
+        if (modal.type === 'upload_video') {
             handleAddVideo();
-        } else if (modal.type === 'update') {
+        } else if (modal.type === 'update_video') {
             handleUpdateVideo();
         }
     };
@@ -107,16 +106,18 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
     useEffect(() => {
         const getAllCategory = async () => {
             setIsLoadingCate(true);
-            const response = await categoryApi.getAll();
+            const response = await categoryApi.get();
             setIsLoadingCate(false);
             setCategoryList(response);
         };
-
         const getAllPlaylist = async () => {
             setIsLoadingPlaylist(true);
-            const response = await playlistApi.getAll();
+            const obj = {
+                type: 'get_by_token',
+            };
+            const response = await playlistApi.get(obj);
             setIsLoadingPlaylist(false);
-            setPlaylist(response);
+            setPlaylist(response.playlist);
         };
 
         getAllCategory();
@@ -126,7 +127,7 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
         <Modal title={dataForm.title} handleCloseModal={handleCloseModal}>
             <form className={clsx(styles.wrapper)} onSubmit={(e) => formSubmit(e, values)}>
                 <div className={clsx(styles.body)}>
-                    {modal.type === 'update' && !values.id ? (
+                    {modal.type === 'update_video' && !values.id ? (
                         <Error />
                     ) : (
                         <Body
@@ -147,7 +148,7 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
                             Sẽ mất chút thời gian. Vui lòng đợi ...
                         </span>
                     )}
-                    {modal.type === 'update' && !values.id ? (
+                    {modal.type === 'update_video' && !values.id ? (
                         <div className={clsx(styles.error)}>
                             <IoWarningOutline size={17} color="#c00" />
                             <span>Chúng tôi gặp phải vấn đề không mong muốn</span>

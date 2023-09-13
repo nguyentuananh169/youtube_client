@@ -15,7 +15,28 @@
     margin-left: 16px;
     margin-bottom: 34px;
 }
-
+.loading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loading .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #999;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s infinite linear;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 @media only screen and (max-width: 1200px) {
     .item {
         width: calc(33.333% - 16px);

@@ -5,6 +5,8 @@ import styles from './FilterList.module.css';
 function FilterList({ item, handleRemoveFilterList }) {
     let text = item.title;
     if (item.code === 'copyright') {
+    } else if (item.code === 'views') {
+        text = `${text} ${item.valueText[0]} ${item.valueText[1]}`;
     } else if (Array.isArray(item.valueText)) {
         const arr = item.valueText;
         if (arr.length >= 3) {
@@ -25,12 +27,9 @@ function FilterList({ item, handleRemoveFilterList }) {
                     data-class="tooltip"
                     content={text}
                     customStyle={{
-                        maxWidth: '290px',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
+                        whiteSpace: 'pre-line',
                         top: 'calc(100% + 17px)',
                         left: '0',
-                        whiteSpace: 'nowrap',
                         fontSize: '1.1rem',
                         fontWeight: '500',
                         padding: '7px',

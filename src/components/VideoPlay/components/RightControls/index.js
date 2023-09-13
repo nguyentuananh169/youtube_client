@@ -17,6 +17,7 @@ function RightControls({
     menuSetting,
     handleClickFullscreen,
     handleChangeDataSetting,
+    handlePictureInPicture,
 }) {
     const [elementRef, isShow, setShow] = useClickOutSide(false);
     return (
@@ -72,7 +73,10 @@ function RightControls({
                 </div>
                 <MdSettings />
             </div>
-            <div className={clsx(styles.btn, styles.movie, styles.tooltip)}>
+            <div
+                className={clsx(styles.btn, styles.movie, styles.tooltip)}
+                onClick={handlePictureInPicture}
+            >
                 <Tooltip
                     content={'Trình phát thu nhỏ (i)'}
                     customStyle={{

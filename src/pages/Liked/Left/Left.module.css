@@ -12,12 +12,17 @@
     padding: 24px;
     overflow-y: auto;
 }
+.wrapper.hidden {
+    display: none;
+}
 .img {
     display: block;
     aspect-ratio: 16/9;
     border-radius: 15px;
     overflow: hidden;
     position: relative;
+    user-select: none;
+    cursor: pointer;
 }
 .img img {
     width: 100%;
@@ -135,7 +140,7 @@
     display: flex;
     justify-content: space-between;
 }
-.btns button {
+.btns .btn {
     width: 48%;
     height: 36px;
     outline: none;
@@ -147,20 +152,20 @@
     font-size: 1.5rem;
     cursor: pointer;
 }
-.btns button:first-child {
+.btns .btn:first-child {
     background-color: #fff;
 }
-.btns button:first-child:hover {
+.btns .btn:first-child:hover {
     background-color: #eeecec;
 }
-.btns button:last-child {
+.btns .btn:last-child {
     background-color: #888889;
     color: #fff;
 }
-.btns button:last-child:hover {
+.btns .btn:last-child:hover {
     background-color: #b5b5b5;
 }
-.btns button svg {
+.btns .btn svg {
     margin-right: 10px;
 }
 @media only screen and (max-width: 1070px) {
@@ -168,6 +173,7 @@
         position: relative;
         width: 100%;
         height: auto;
+        margin-bottom: 20px;
     }
     .location {
         max-width: 724px;
@@ -175,7 +181,8 @@
         display: flex;
     }
     .img {
-        width: 338px;
+        width: 100%;
+        max-width: 338px;
     }
     .info {
         width: 100%;
@@ -213,10 +220,10 @@
     .btns {
         flex-direction: column;
     }
-    .btns button {
+    .btns .btn {
         width: 100%;
     }
-    .btns button:last-child {
+    .btns .btn:last-child {
         margin-top: 15px;
     }
 }

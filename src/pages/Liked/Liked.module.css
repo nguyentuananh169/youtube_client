@@ -1,5 +1,7 @@
 .wrapper {
     margin-top: 18px;
 }
-@media only screen and (max-width: 1070px) {
+.noData {
+    font-size: 1.4rem;
+    text-align: center;
 }

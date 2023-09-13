@@ -11,14 +11,22 @@
     object-fit: cover;
     border-radius: 50%;
 }
+.avatar .noAvatar {
+    width: 40px;
+    height: 40px;
+}
 .formContainer.lv2 .avatar {
     width: 39px;
 }
-.formContainer.lv2 .avatar img {
+.formContainer.lv2 .avatar img,
+.formContainer.lv2 .avatar .noAvatar {
     width: 24px;
     height: 24px;
     object-fit: cover;
     border-radius: 50%;
+}
+.formContainer.lv2 .avatar .noAvatar [data-class='no-avatar'] {
+    font-size: 1.4rem;
 }
 .form {
     width: 100%;
@@ -49,7 +57,7 @@
     height: 2px;
     background-color: #000;
     bottom: 2px;
-    z-index: 1000;
+    z-index: 1;
     left: 50%;
     transition: all 0.3s linear;
 }
@@ -61,45 +69,49 @@
     width: 100%;
     margin-top: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     visibility: hidden;
 }
 .bottomRow.show {
     visibility: visible;
 }
-.bottomRow .icon button {
-    border-radius: 50%;
-    width: 36px;
+.bottomRow .actions {
+    display: flex;
+}
+.bottomRow .actions .btn {
+    width: 100px;
     height: 36px;
-    font-size: 20px;
     border: none;
-    background-color: #f2f2f2;
+    border-radius: 20px;
+
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.4rem;
 }
-.bottomRow .icon button:hover {
-    background-color: #e5e5e5;
+.bottomRow .actions .btn.disable {
+    cursor: no-drop;
 }
-.bottomRow .actions button {
-    padding: 10px 17px;
-    border: none;
-    border-radius: 20px;
-    font-weight: 600;
-}
-.bottomRow .actions button + button {
+.bottomRow .actions .btn + .btn {
     margin-left: 10px;
 }
-.bottomRow .actions button:first-child {
+.bottomRow .actions .btn:first-child {
     background-color: transparent;
 }
-.bottomRow .actions button:first-child:hover {
+.bottomRow .actions .btn:first-child:hover {
     background-color: #e5e5e5;
 }
-.bottomRow .actions button:last-child {
+.bottomRow .actions .btn:last-child {
     background-color: #e5e5e5;
 }
-.bottomRow .actions.active button:last-child {
+.bottomRow .actions.active .btn:last-child {
     background-color: #065fd4;
     color: #fff;
+}
+.textLogin {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 1.4rem;
+    color: #065fd4;
 }

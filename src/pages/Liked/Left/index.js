@@ -8,8 +8,10 @@ import Tooltip from '../../../components/Tooltip';
 import DotMenu from '../../../components/DotMenu';
 import MenuFixed from '../../../components/MenuFixed';
 import useClickOutSide from '../../../hook/useClickOutSide';
+import SkeletonLoading from '../../../components/SkeletonLoading';
 import styles from './Left.module.css';
-function Left() {
+import useTimeConversion from '../../../hook/useTimeConversion';
+function Left({ isLoading, index, videoData, handleOpenModal }) {
     const menu = [
         {
             icon: <SlEye size={17} color="#000" />,
@@ -17,25 +19,30 @@ function Left() {
         },
     ];
     const [elementRef, isShow, setShow] = useClickOutSide();
+    const { date, month, year } = useTimeConversion(videoData?.vote_updated_at, 'object');
     return (
-        <div className={clsx(styles.wrapper)}>
+        <div className={clsx(styles.wrapper, { [styles.hidden]: !isLoading && !videoData })}>
+            {isLoading && <SkeletonLoading />}
+
             <div className={clsx(styles.location)}>
-                <Link className={clsx(styles.img)}>
-                    <img src="https://tse3.mm.bing.net/th?id=OIP.wkIkPgS_pmHkzs_Pw2mhuQHaEK&pid=Api&P=0&h=180" />
+                <div className={clsx(styles.img)} onClick={() => handleOpenModal(index)}>
+                    <img src={videoData?.video_poster} />
                     <div className={clsx(styles.overlay)}>
                         <FaPlay size={17} />
-                        <p>Phát tất cả</p>
+                        <p>Phát ngay</p>
                     </div>
-                </Link>
+                </div>
                 <div className={clsx(styles.info)}>
                     <div className={clsx(styles.text)}>
                         <div className={clsx(styles.title)}>
                             <span>Video đã thích</span>
                         </div>
                         <div className={clsx(styles.name)}>
-                            <Link to={'#'}>Nguyễn Tuấn Anh</Link>
+                            <Link to={`/channel/${videoData?.user_id}/home`}>
+                                {videoData?.user_name}
+                            </Link>
                             <Tooltip
-                                content={'Nguyễn Tuấn Anh'}
+                                content={videoData?.user_name}
                                 customStyle={{
                                     bottom: 'calc(100%)',
                                     left: '50%',
@@ -46,9 +53,8 @@ function Left() {
                             />
                         </div>
                         <div className={clsx(styles.statistical)}>
-                            <p>29 video</p>
-                            <p>0 lượt xem</p>
-                            <p>Cập nhật lần cuối vào 16 thg 6, 2023</p>
+                            <p>{videoData?.video_views} lượt xem</p>
+                            <p>{`Ngày cập nhật cuối vào ${date} thg ${month}, ${year}`}</p>
                         </div>
                     </div>
                     <div className={clsx(styles.actions)}>
@@ -76,11 +82,11 @@ function Left() {
                 </div>
             </div>
             <div className={clsx(styles.btns)}>
-                <button>
+                <button className={clsx(styles.btn)} onClick={() => handleOpenModal(0)}>
                     <FaPlay size={17} />
                     <span>Phát tất cả</span>
                 </button>
-                <button>
+                <button className={clsx(styles.btn)}>
                     <FaRandom size={17} />
                     <span>Trộn bài</span>
                 </button>

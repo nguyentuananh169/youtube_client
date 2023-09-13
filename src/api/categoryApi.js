@@ -1,7 +1,7 @@
 import axiosClient from './axiosClient';
 
 const categoryApi = {
-    getAll: (params) => {
+    get: (params) => {
         const url = '/category/show.php';
         return axiosClient.get(url, { params });
     },

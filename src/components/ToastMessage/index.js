@@ -1,7 +1,7 @@
 import useStore from '../../hook/useStore';
-import './ToastMessage.css';
-import Item from './Item';
 import { removeToastMessage } from '../../store/actions';
+import Item from './Item';
+import './ToastMessage.css';
 function ToastMessage() {
     const [store, dispatch] = useStore();
     const handleRemoveMessage = (id) => {

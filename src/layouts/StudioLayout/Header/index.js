@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import Logo from './Logo';
 import SearchBox from './SearchBox';
@@ -17,7 +15,7 @@ function Header({ headerRef }) {
             <Logo />
             <SearchBox />
             <Actions />
-            <Loading />
+            {/* <Loading /> */}
         </div>
     );
 }

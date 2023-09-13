@@ -1,6 +1,7 @@
 import { RiVideoAddLine, RiPlayListAddLine } from 'react-icons/ri';
 import { TfiUpload } from 'react-icons/tfi';
 import { MdOutlinePodcasts, MdOutlineStream } from 'react-icons/md';
+import { BsNewspaper } from 'react-icons/bs';
 
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
@@ -17,7 +18,7 @@ function CreateContent() {
             {isShow && (
                 <ul className={clsx(styles.dropdownMenu)}>
                     <li>
-                        <Link to={'/studio/videos/upload?type=upload'}>
+                        <Link to={'/studio/videos/upload?type=upload_video'}>
                             <TfiUpload size={19} color="#606060" />
                             <span>Tải video lên</span>
                         </Link>
@@ -29,7 +30,7 @@ function CreateContent() {
                         </Link>
                     </li>
                     <li>
-                        <Link to={'#'}>
+                        <Link to={'/studio/videos/playlist?type=add_playlist'}>
                             <RiPlayListAddLine size={19} color="#606060" />
                             <span>Danh sách phát mới</span>
                         </Link>

@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import styles from './Upload.module.css';
 import { Link } from 'react-router-dom';
 import Tooltip from '../components/Tooltip';
+import formatDuration from '../../../../../hook/formatDuration';
 import Actions from './Actions';
 function Item({ item, tab, handleClickBtnUpdate, handleClickBtnDelete }) {
     return (
@@ -14,12 +15,18 @@ function Item({ item, tab, handleClickBtnUpdate, handleClickBtnDelete }) {
             </td>
             <td>
                 <div className={clsx(styles.main)}>
-                    <Link to={'#'} className={clsx(styles.img)}>
+                    <Link
+                        to={`/watch?category=${item.category_id}&id=${item.video_id}`}
+                        className={clsx(styles.img)}
+                    >
                         <img src={item.video_poster} />
-                        <p>0:45</p>
+                        <p>{formatDuration(item.video_duration)}</p>
                     </Link>
                     <div className={clsx(styles.info)}>
-                        <Link to={'#'} className={clsx(styles.title)}>
+                        <Link
+                            to={`/watch?category=${item.category_id}&id=${item.video_id}`}
+                            className={clsx(styles.title)}
+                        >
                             {item.video_title}
                         </Link>
                         <p

@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import Tooltip from '../../../../components/Tooltip';
 import useStore from '../../../../hook/useStore';
 import { setIsToggleNavBar2 } from '../../../../store/actions';
+import NoAvatar from '../../../../components/NoAvatar';
 import styles from './Image.module.css';
 function Image() {
     const [state, dispatch] = useStore();
@@ -18,8 +19,13 @@ function Image() {
                 </button>
             </div>
             <div className={clsx(styles.img)}>
-                <Link to="/channel/@buichill/home" target="_blank">
-                    <span>S</span>
+                <Link to={`/channel/${state.user.user_id}/home`} target="_blank">
+                    {state.user.user_avatar ? (
+                        <img src={state.user.user_avatar} />
+                    ) : (
+                        <NoAvatar userName={state.user.user_name} />
+                    )}
+
                     <div className={clsx(styles.overlay)}>
                         <MdOutlineOpenInNew fontSize={22} />
                     </div>
@@ -40,7 +46,7 @@ function Image() {
             </div>
             <div className={clsx(styles.name)}>
                 <p className={clsx(styles.title)}>Kênh của bạn</p>
-                <p className={clsx(styles.text)}>Say nang</p>
+                <p className={clsx(styles.text)}>{state.user.user_name}</p>
             </div>
         </div>
     );
