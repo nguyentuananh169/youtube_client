@@ -11,14 +11,75 @@
     width: 128px;
     height: 128px;
     border-radius: 50%;
-    overflow: hidden;
     margin-right: 24px;
+    position: relative;
+    border: 1px solid #efeeee;
+}
+.img .selectFile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.img .selectFile.loading {
+    cursor: no-drop;
+}
+.img .selectFile.loading::after {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    border: 1px solid #636262;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    z-index: -1;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.img .selectFile input {
+    width: 0;
+    height: 0;
+}
+.img .selectFile [data-class='tooltip'] {
+    display: none;
+}
+.img .selectFile:hover [data-class='tooltip'] {
+    display: block;
+}
+.img .selectFile .icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 35px;
+    height: 35px;
+    background-color: #efeeee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.img .selectFile .icon svg {
+    font-size: 2rem;
+    color: #000;
 }
 .img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
+    border-radius: 50%;
 }
 .owner {
     flex: 1;
@@ -54,6 +115,11 @@
 }
 .containerBtn {
     margin-bottom: 7px;
+}
+.containerBtn a.btn {
+    display: inline-block;
+    text-align: center;
+    line-height: 37px;
 }
 .containerBtn .btn {
     min-width: 83px;
@@ -106,10 +172,9 @@
     color: #606060;
     display: inline-block;
     display: -webkit-box;
-    -webkit-line-clamp: 1; /* số dòng hiển thị */
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 .about.noDes a span {
     margin-right: 5px;
@@ -125,7 +190,19 @@
     }
 }
 @media only screen and (max-width: 550px) {
+    .container {
+        flex-direction: column;
+    }
     .img {
-        display: none;
+        display: block;
+        margin: 0 auto;
+    }
+    .owner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .containerName {
+        flex-direction: column;
     }
 }

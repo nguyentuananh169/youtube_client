@@ -19,6 +19,10 @@ function TableTop({ tab }) {
                 <span>Chế độ hiển thị</span>
             </th>
             <th>
+                {tab === 'playlist' && <Tooltip headingText={'Ngày tạo của danh sách phát này'} />}
+                <span>Ngày tạo danh sách</span>
+            </th>
+            <th>
                 {tab === 'playlist' && (
                     <Tooltip headingText={'Lần cập nhật mới nhất của danh sách phát này'} />
                 )}

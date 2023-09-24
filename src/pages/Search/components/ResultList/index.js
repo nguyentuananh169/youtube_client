@@ -7,8 +7,10 @@ import VideoCardLoading from '../../../../components/VideoCard/Loading';
 import UserLoading from '../ResultList/UserResults/Loading';
 import Loading from './Loading';
 import NoResult from '../../../../components/NoResult';
+import PlayListResult from './PlayListResult';
 import videoApi from '../../../../api/videoApi';
 import userApi from '../../../../api/userApi';
+import playlistApi from '../../../../api/playlistApi';
 import styles from './ResultList.module.css';
 function ResultList({ categoryId, isLoadingPage, setIsLoadingPage }) {
     const [isLoadingFirst, setIsLoadingFirst] = useState(true);
@@ -66,7 +68,22 @@ function ResultList({ categoryId, isLoadingPage, setIsLoadingPage }) {
         setIsLoadingFirst(false);
         isChangeCategory.current = false;
     };
-    const fetchPlaylist = () => {
+    const fetchPlaylist = async () => {
+        setIsLoading(true);
+        const obj = {
+            _keyword: keyword,
+            _page: isChangeCategory.current ? 1 : page,
+            _limit: 20,
+        };
+        const response = await playlistApi.search(obj);
+        if (hasMore && !isChangeCategory.current) {
+            setResultList((state) => [...state, ...response.userList]);
+        } else {
+            setResultList(response.playlist);
+            window.scrollTo(0, 0);
+        }
+        setPage(response.page + 1);
+        setTotalPage(response.totalPage);
         setIsLoadingPage(false);
         setIsLoading(false);
         setHasMore(false);
@@ -112,8 +129,10 @@ function ResultList({ categoryId, isLoadingPage, setIsLoadingPage }) {
         handleFetchData();
     }, [keyword, categoryId]);
     useEffect(() => {
-        setIsLoadingFirst(true);
-        setIsLoadingPage(true);
+        if (categoryId !== 'playlist' && categoryId !== 'live') {
+            setIsLoadingFirst(true);
+            setIsLoadingPage(true);
+        }
     }, [keyword]);
     useEffect(() => {
         if (hasMore && !isLoading && page <= totalPage) {
@@ -135,6 +154,9 @@ function ResultList({ categoryId, isLoadingPage, setIsLoadingPage }) {
             )}
             {categoryId === '' && !isLoadingPage && <VideoResults resultList={resultList} />}
             {categoryId === 'user' && !isLoadingPage && <UserResults resultList={resultList} />}
+            {categoryId === 'playlist' && !isLoadingPage && (
+                <PlayListResult resultList={resultList} />
+            )}
             {!isLoading && !resultList.length && (
                 <NoResult text="Không tìm thấy video nào. Hãy thử tìm kiếm với từ khóa khác" />
             )}

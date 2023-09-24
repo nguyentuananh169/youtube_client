@@ -1,0 +1,52 @@
+.overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.body {
+    min-width: 250px;
+    max-width: 400px;
+    width: calc(100% - 20px);
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+}
+.title {
+    width: 100%;
+    font-size: 1.5rem;
+}
+.content {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1.3rem;
+    color: #606060;
+    line-height: 1.9rem;
+}
+.bottom {
+    width: 100%;
+    margin-top: 20px;
+    text-align: right;
+}
+.bottom button {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    width: 50px;
+    height: 30px;
+    color: #065fd4;
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+.bottom button:hover {
+    background-color: rgba(6, 95, 212, 0.1);
+}
+.bottom button + button {
+    margin-left: 5px;
+}

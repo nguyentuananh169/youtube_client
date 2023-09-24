@@ -17,6 +17,7 @@ function Channel() {
     useEffect(() => {
         if (id) {
             const fetchUserById = async () => {
+                setIsLoading(true);
                 const formData = {
                     _type: 'get_by_id',
                     _id: id,
@@ -35,11 +36,7 @@ function Channel() {
     return (
         <div className={clsx(styles.wrapper)}>
             <div className={clsx(styles.banner)}>
-                {isLoading ? (
-                    <BannerLoading />
-                ) : (
-                    <Banner banner={user.banner} name={user.user_name} />
-                )}
+                {isLoading ? <BannerLoading /> : <Banner user={user} setUser={setUser} />}
             </div>
             <div className={clsx(styles.header)}>
                 {isLoading ? <HeaderLoading /> : <Header user={user} />}

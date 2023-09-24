@@ -11,7 +11,7 @@ function TableBottom({ params, handleChangeLimit, handleChangepage }) {
     };
     return (
         <tr data-class="no-hover">
-            <td colSpan={8}>
+            <td colSpan={9}>
                 <div className={clsx(styles.tableBottom)}>
                     <div className={clsx(styles.item)}>Số hàng trên mỗi trang:</div>
                     <div className={clsx(styles.item, styles.select)}>

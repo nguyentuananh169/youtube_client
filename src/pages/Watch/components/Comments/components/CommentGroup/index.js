@@ -5,9 +5,11 @@ import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import Item from '../Item';
 import commentApi from '../../../../../../api/commentApi';
+import postCommentApi from '../../../../../../api/postCommentApi';
 import LoadingHasMore from '../../../../../../components/LoadingHasMore';
 import styles from './CommentGroup.module.css';
 function CommentGroup({
+    isPostsPage,
     item,
     index,
     videoId,
@@ -35,13 +37,19 @@ function CommentGroup({
         }
         setIsLoading(true);
         const formData = {
-            _video_id: videoId,
             _parent_id: item.cmt_id,
             _page: params.page,
             _order_type: 'ASC',
             _limit: params.limit,
         };
-        const response = await commentApi.get(formData);
+        if (isPostsPage) {
+            formData._post_id = videoId;
+        } else {
+            formData._video_id = videoId;
+        }
+        const response = isPostsPage
+            ? await postCommentApi.get(formData)
+            : await commentApi.get(formData);
         setCommentList([...commentList, ...response.commentList]);
         setParams({ page: response.page + 1, totalPage: response.totalPage });
         setIsLoading(false);
@@ -77,6 +85,7 @@ function CommentGroup({
         <div className={clsx(styles.wrapper)}>
             <div className={clsx(styles.comment)}>
                 <Item
+                    isPostsPage={isPostsPage}
                     item={item}
                     index={index}
                     handleAddSuccess={handleAddSuccess}
@@ -114,6 +123,7 @@ function CommentGroup({
                 {commentList.map((item, index) => (
                     <Item
                         key={item.cmt_id}
+                        isPostsPage={isPostsPage}
                         isLv2
                         item={item}
                         index={index}

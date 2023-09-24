@@ -6,7 +6,9 @@ function Loading() {
     return (
         <div className={clsx(styles.main)}>
             <div className={clsx(styles.video)}>
-                <SkeletonLoading />
+                <div className={clsx(styles.aspectRatio)}>
+                    <SkeletonLoading />
+                </div>
             </div>
             <div className={clsx(styles.title)}>
                 <SkeletonLoading height="30px" />

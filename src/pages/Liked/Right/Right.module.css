@@ -4,9 +4,9 @@
 .item {
     width: 100%;
     display: flex;
-    align-items: center;
     padding: 10px 0;
     border-radius: 10px;
+    position: relative;
 }
 .item.active {
     background: linear-gradient(
@@ -21,9 +21,12 @@
 }
 .count {
     width: 36px;
-    text-align: center;
     font-size: 1.4rem;
     color: #606060;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 .card {
     flex: 1;
@@ -42,6 +45,13 @@
         padding: 0 10px;
     }
     .count {
-        display: none;
+        position: absolute;
+        height: 36px;
+        top: 10px;
+        left: 10px;
+        border-radius: 9px 0 0 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        color: #fff;
+        z-index: 3;
     }
 }

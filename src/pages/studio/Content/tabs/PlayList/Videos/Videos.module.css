@@ -72,8 +72,20 @@
 }
 .poster .img {
     width: 168px;
-    aspect-ratio: 16/9;
     position: relative;
+    overflow: hidden;
+}
+.poster .img::before {
+    content: '';
+    padding-top: 56.25%;
+    display: block;
+}
+.poster .img .aspectRatio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 .poster .img img {
     width: 100%;

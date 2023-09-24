@@ -11,9 +11,10 @@ import DotMenu from '../../../../components/DotMenu';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import commentApi from '../../../../api/commentApi';
+import postCommentApi from '../../../../api/postCommentApi';
 import LoadingHasMore from '../../../../components/LoadingHasMore';
 import CommentGroup from './components/CommentGroup';
-function Comments({ ownerId, ownerName, ownerAvatar, loadingPage }) {
+function Comments({ isPostsPage = false, ownerId, ownerName, ownerAvatar, loadingPage }) {
     const [isShow, setIsShow] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [totalComment, setTotalComment] = useState(0);
@@ -33,14 +34,20 @@ function Comments({ ownerId, ownerName, ownerAvatar, loadingPage }) {
     const fetchComments = async (pageValue, orderTypeValue) => {
         setIsLoading(true);
         const formData = {
-            _video_id: urlParams.id,
             _page: pageValue || params.page,
             _totalPage: params.totalPage,
             _order_by: 'cmt_id',
             _order_type: orderTypeValue || params.order_type,
             _limit: 15,
         };
-        const response = await commentApi.get(formData);
+        if (isPostsPage) {
+            formData._post_id = urlParams.id;
+        } else {
+            formData._video_id = urlParams.id;
+        }
+        const response = isPostsPage
+            ? await postCommentApi.get(formData)
+            : await commentApi.get(formData);
         if (isReset.current) {
             setCommentList(response.commentList);
         } else {
@@ -120,18 +127,21 @@ function Comments({ ownerId, ownerName, ownerAvatar, loadingPage }) {
         let scrollTop;
         let scrollHeight;
         let clientHeight;
-        if (screenWidth <= 768) {
+        if (screenWidth <= 768 && !isPostsPage) {
             scrollTop = mainEl.scrollTop;
             scrollHeight = Math.floor(scrollTop + mainEl.clientHeight);
             clientHeight = Math.floor(mainEl.scrollHeight - 50);
-        } else if (screenWidth > 1024) {
+        } else if (screenWidth > 1024 || isPostsPage) {
             scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
             scrollHeight = Math.floor(scrollTop + screenHeight);
             clientHeight = Math.floor(
                 mainEl.getBoundingClientRect().top + window.scrollY + mainEl.clientHeight,
             );
         }
-        if (scrollHeight >= clientHeight && (screenWidth <= 768 || screenWidth > 1024)) {
+        if (
+            scrollHeight >= clientHeight &&
+            (screenWidth <= 768 || screenWidth > 1024 || isPostsPage)
+        ) {
             setHasMore(true);
         }
     };
@@ -146,13 +156,13 @@ function Comments({ ownerId, ownerName, ownerAvatar, loadingPage }) {
         }
     }, [hasMore]);
     useEffect(() => {
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= 768 && !isPostsPage) {
             const mailEl = mainRef.current;
             mailEl.addEventListener('scroll', handleInfiniteScroll);
             return () => {
                 mailEl.removeEventListener('scroll', handleInfiniteScroll);
             };
-        } else if (window.innerWidth > 1024) {
+        } else if (window.innerWidth > 1024 || isPostsPage) {
             window.addEventListener('scroll', handleInfiniteScroll);
             return () => {
                 window.removeEventListener('scroll', handleInfiniteScroll);
@@ -169,7 +179,12 @@ function Comments({ ownerId, ownerName, ownerAvatar, loadingPage }) {
     return (
         <>
             {isShow && <div ref={overlayRef} className={clsx(styles.overlay)}></div>}
-            <div className={clsx(styles.wrapper, { [styles.show]: isShow })}>
+            <div
+                className={clsx(styles.wrapper, {
+                    [styles.show]: isShow,
+                    [styles.postsPage]: isPostsPage,
+                })}
+            >
                 <div className={clsx(styles.btnComments)} onClick={handleClickBtnComments}>
                     <div className={clsx(styles.text)}>
                         <span>Bình luận</span>
@@ -190,7 +205,10 @@ function Comments({ ownerId, ownerName, ownerAvatar, loadingPage }) {
                         totalComment={totalComment}
                         handleChangeTypeFilter={handleChangeTypeFilter}
                     />
-                    <Form handleAddCommentSuccess={handleAddCommentSuccess} />
+                    <Form
+                        isPostsPage={isPostsPage}
+                        handleAddCommentSuccess={handleAddCommentSuccess}
+                    />
 
                     {!isReset.current &&
                         commentList.map((item, index) => (
@@ -200,6 +218,7 @@ function Comments({ ownerId, ownerName, ownerAvatar, loadingPage }) {
                                         ? `${item.cmt_id}${item.cmt_time}`
                                         : item.cmt_id
                                 }
+                                isPostsPage={isPostsPage}
                                 index={index}
                                 item={item}
                                 ownerId={ownerId}
@@ -218,6 +237,7 @@ function Comments({ ownerId, ownerName, ownerAvatar, loadingPage }) {
                             [styles.loading]: isLoading,
                             [styles.show]:
                                 !loadingPage &&
+                                !isPostsPage &&
                                 window.innerWidth > 768 &&
                                 window.innerWidth <= 1024 &&
                                 params.page <= params.totalPage,

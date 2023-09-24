@@ -90,7 +90,6 @@
 }
 .moreBtn {
     flex: 1;
-    min-width: 40px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -200,7 +199,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 21vw;
+        width: 20vw;
         padding: 8px 10px;
     }
     .wrapper:not(.toggle) ul li a .icon {

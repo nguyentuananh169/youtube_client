@@ -1,0 +1,11 @@
+.editor-comp {
+    width: 100%;
+}
+.editor-comp .tox .tox-statusbar,
+.editor-comp .tox .tox-statusbar .tox-statusbar__branding,
+.editor-comp .tox .tox-statusbar .tox-statusbar__text-container {
+    display: none;
+}
+.editor-comp .tox-tinymce {
+    border: none;
+}

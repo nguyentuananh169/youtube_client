@@ -17,5 +17,9 @@ const playlistApi = {
         const url = '/playlist/delete.php';
         return axiosClient.get(url, { params });
     },
+    search: (params) => {
+        const url = '/playlist/search.php';
+        return axiosClient.get(url, { params });
+    },
 };
 export default playlistApi;

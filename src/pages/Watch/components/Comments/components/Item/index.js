@@ -9,6 +9,7 @@ import NoAvatar from '../../../../../../components/NoAvatar';
 import Form from '../Form';
 import useStore from '../../../../../../hook/useStore';
 import commentApi from '../../../../../../api/commentApi';
+import postCommentApi from '../../../../../../api/postCommentApi';
 import useClickOutSide from '../../../../../../hook/useClickOutSide';
 import DotMenu from '../../../../../../components/DotMenu';
 import MenuFixed from '../../../../../../components/MenuFixed';
@@ -17,7 +18,10 @@ import LoadingHasMore from '../../../../../../components/LoadingHasMore';
 import { addToastMessage } from '../../../../../../store/actions';
 import Actions from './Actions';
 import useTimeConversion from '../../../../../../hook/useTimeConversion';
+import ConfirmationDialog from '../../../../../../components/ConfirmationDialog';
+import { useEffect } from 'react';
 function Item({
+    isPostsPage,
     isLv2 = false,
     item = {},
     index,
@@ -35,31 +39,42 @@ function Item({
     const [isShowForm, setIsShowForm] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
+    const [isShowDialog, setIsShowDialog] = useState(false);
+    const [isConfirm, setIsConfirm] = useState(false);
+
     const [elementRef, isShow, setShow] = useClickOutSide();
     const convertTime = useTimeConversion;
     const handleAddCommentSuccess = (data) => {
         setIsShowForm(false);
         handleAddSuccess(data);
     };
-
-    const hanldeDelete = async () => {
-        const text = isLv2
-            ? 'Bạn có chắc muốn xóa vĩnh viễn bình luận này ?'
-            : 'Bạn có chắc muốn xóa vĩnh viễn bình luận và phản hồi này ?';
-        if (window.confirm(text)) {
-            setIsLoading(true);
-            const params = {
-                _cmt_id: item.cmt_id,
-                _cmt_parent_id: item.cmt_parent_id,
-            };
-            const response = await commentApi.delete(params);
-            setIsLoading(false);
-            if (response[0].error) {
-                return dispatch(addToastMessage('error', 'Thất bại', response[0].message));
-            }
-            handleDeleteCommentSuccess(index);
-        }
+    const handleClickDelete = () => {
+        setShow(false);
+        setIsShowDialog(true);
     };
+    const hanldeDelete = async () => {
+        if (isLoading) {
+            return;
+        }
+        setIsLoading(true);
+        const params = {
+            _cmt_id: item.cmt_id,
+            _cmt_parent_id: item.cmt_parent_id,
+        };
+        const response = isPostsPage
+            ? await postCommentApi.delete(params)
+            : await commentApi.delete(params);
+        setIsLoading(false);
+        if (response[0].error) {
+            return dispatch(addToastMessage('error', 'Thất bại', response[0].message));
+        }
+        handleDeleteCommentSuccess(index);
+    };
+    useEffect(() => {
+        if (isConfirm) {
+            hanldeDelete();
+        }
+    }, [isConfirm]);
     const handleScrollToElementComments = (boolean) => {
         if (commentRef?.current && boolean) {
             const scrollY = commentRef.current.offsetTop;
@@ -71,7 +86,9 @@ function Item({
         const params = new FormData();
         params.append('_type', isPin ? 'unpin' : 'pin');
         params.append('_cmt_id', item.cmt_id);
-        const response = await commentApi.pin(params);
+        const response = isPostsPage
+            ? await postCommentApi.pin(params)
+            : await commentApi.pin(params);
         if (!response[0].error) {
             setShow(false);
             handleScrollToElementComments(!isPin);
@@ -99,7 +116,7 @@ function Item({
             icon: <RiDeleteBin6Line />,
             text: 'Xóa',
             isHidden: state.user?.user_id !== item.user_id,
-            onClick: hanldeDelete,
+            onClick: handleClickDelete,
         },
         {
             icon: <BsFlag />,
@@ -110,10 +127,16 @@ function Item({
     const handleEdit = async (value) => {
         setIsLoading(true);
         const params = new FormData();
-        params.append('_video_id', item.video_id);
+        if (isPostsPage) {
+            params.append('_post_id', item.post_id);
+        } else {
+            params.append('_video_id', item.video_id);
+        }
         params.append('_cmt_id', item.cmt_id);
         params.append('_content', value);
-        const response = await commentApi.update(params);
+        const response = isPostsPage
+            ? await postCommentApi.update(params)
+            : await commentApi.update(params);
         setIsLoading(false);
         setIsEdit(false);
         if (response[0].error) {
@@ -123,6 +146,18 @@ function Item({
     };
     return (
         <>
+            {isShowDialog && (
+                <ConfirmationDialog
+                    setIsShowDialog={setIsShowDialog}
+                    setIsConfirm={setIsConfirm}
+                    title="Xóa bình luận"
+                    content={
+                        isLv2
+                            ? 'Bạn có chắc muốn xóa vĩnh viễn bình luận này ?'
+                            : 'Bạn có chắc muốn xóa vĩnh viễn bình luận và phản hồi này ?'
+                    }
+                />
+            )}
             <div className={clsx(styles.itemList, { [styles.itemLv2]: isLv2 })}>
                 <div className={clsx(styles.avatar)}>
                     <Link to={`/channel/${item.user_id}/home`}></Link>
@@ -157,6 +192,7 @@ function Item({
                     <div className={clsx(styles.content)}>
                         {isEdit ? (
                             <Form
+                                isPostsPage={isPostsPage}
                                 isFocusTextare
                                 lv2={isLv2}
                                 initValueForm={item.cmt_content}
@@ -170,6 +206,7 @@ function Item({
                         )}
                     </div>
                     <Actions
+                        isPostsPage={isPostsPage}
                         item={item}
                         ownerId={ownerId}
                         ownerAvatar={ownerAvatar}
@@ -179,6 +216,7 @@ function Item({
                     />
                     {isShowForm && !isLoading && !isEdit && (
                         <Form
+                            isPostsPage={isPostsPage}
                             isFocusTextare
                             lv2
                             parentId={item.cmt_parent_id > 0 ? item.cmt_parent_id : item.cmt_id}

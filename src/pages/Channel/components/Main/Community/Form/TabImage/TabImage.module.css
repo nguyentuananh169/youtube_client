@@ -69,8 +69,20 @@
 }
 .showFiles .left .img {
     width: 100%;
-    aspect-ratio: 16/9;
+    position: relative;
     cursor: pointer;
+}
+.showFiles .left .img::before {
+    content: '';
+    padding-top: 56.25%;
+    display: block;
+}
+.showFiles .left .img .aspectRatio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 .showFiles .left .img img {
     width: 100%;
@@ -87,6 +99,32 @@
     display: flex;
     align-items: center;
     padding: 10px;
+    position: relative;
+}
+.showFiles .right .btnSl {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 0 5px #b7b6b6;
+    top: 50%;
+    transform: translate(0, -50%);
+    outline: none;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    display: none;
+}
+.showFiles .right .btnSl.prev {
+    left: 10px;
+}
+.showFiles .right .btnSl.next {
+    right: 10px;
+}
+.showFiles .right .btnSl.hidden {
+    display: none;
 }
 .showFiles .right img {
     max-width: 100%;
@@ -94,4 +132,12 @@
     display: block;
     margin: 0 auto;
     object-fit: cover;
+}
+@media only screen and (max-width: 768px) {
+    .showFiles .left {
+        display: none;
+    }
+    .showFiles .right .btnSl:not(.hidden) {
+        display: flex;
+    }
 }

@@ -6,7 +6,19 @@
 }
 .video {
     width: 100%;
-    aspect-ratio: 16/9;
+    position: relative;
+}
+.video::before {
+    content: '';
+    padding-top: 56.25%;
+    display: block;
+}
+.aspectRatio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 .title,
 .owner,

@@ -58,7 +58,7 @@ function VideoPlayer() {
                                 videoLink={videoData.video_link}
                                 autoPlay
                                 mute="true"
-                                size="medium"
+                                maxSize="medium"
                             />
                         )}
                         <div className={clsx(styles.top)}>

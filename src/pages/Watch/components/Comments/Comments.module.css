@@ -58,10 +58,10 @@
     color: #606060;
 }
 @media only screen and (max-width: 768px) {
-    .btnComments {
+    .wrapper:not(.postsPage) .btnComments {
         display: flex;
     }
-    .main {
+    .wrapper:not(.postsPage) .main {
         display: none;
     }
     .wrapper.show {

@@ -1,10 +1,9 @@
-import { IoIosArrowBack, IoIosArrowForward, IoIosSearch } from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import useStore from '../../../../hook/useStore';
 import styles from './Tabs.module.css';
-import Search from './Search';
 function Tabs() {
     const data = [
         {
@@ -30,10 +29,6 @@ function Tabs() {
         {
             text: 'Giới thiệu',
             page: 'about',
-        },
-        {
-            text: <IoIosSearch size={18} color="#606060" />,
-            page: 'search',
         },
     ];
     const [number, setNumber] = useState(0);
@@ -129,21 +124,17 @@ function Tabs() {
                         className={clsx(styles.list)}
                         style={{ transform: `translate(-${number}px)` }}
                     >
-                        {data.map((item, index) =>
-                            item.page === 'search' ? (
-                                <Search key={index} icon={item.text} />
-                            ) : (
-                                <Link
-                                    to={`/channel/${params.id}/${item.page}`}
-                                    key={index}
-                                    className={clsx(styles.tab, {
-                                        [styles.active]: item.page === params.page,
-                                    })}
-                                >
-                                    {item.text}
-                                </Link>
-                            ),
-                        )}
+                        {data.map((item, index) => (
+                            <Link
+                                to={`/channel/${params.id}/${item.page}`}
+                                key={index}
+                                className={clsx(styles.tab, {
+                                    [styles.active]: item.page === params.page,
+                                })}
+                            >
+                                {item.text}
+                            </Link>
+                        ))}
 
                         <div ref={lineRef} className={clsx(styles.line)}></div>
                     </div>

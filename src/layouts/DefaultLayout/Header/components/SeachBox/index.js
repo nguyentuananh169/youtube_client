@@ -45,11 +45,11 @@ function SearchBox() {
         if (value) {
             timeoutRef.current = setTimeout(() => {
                 const data = [
-                    { id: 1, keyword: `Gợi ý "${value}"` },
-                    { id: 2, keyword: `Gợi ý "${value}"` },
-                    { id: 3, keyword: `Gợi ý "${value}"` },
-                    { id: 4, keyword: `Gợi ý "${value}"` },
-                    { id: 5, keyword: `Gợi ý "${value}"` },
+                    { id: 1, keyword: `${value}1` },
+                    { id: 2, keyword: `${value}2` },
+                    { id: 3, keyword: `${value}3` },
+                    { id: 4, keyword: `${value}4` },
+                    { id: 5, keyword: `${value}5` },
                 ];
                 setDataList({ type: 'search', list: data });
             }, 500);
@@ -57,6 +57,7 @@ function SearchBox() {
             setDataList(init);
         }
     };
+
     const handleClearInput = () => {
         handleChangeInput('');
         inputRef.current.focus();

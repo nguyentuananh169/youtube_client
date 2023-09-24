@@ -1,5 +1,6 @@
 .wrapper {
     width: 100%;
+    max-width: 852px;
     height: auto;
     border: 1px solid#D8D8D8;
     margin-top: 30px;
@@ -24,6 +25,7 @@
 }
 .owner .name {
     font-size: 1.4rem;
+    font-weight: 500;
     margin-left: 10px;
 }
 .content {

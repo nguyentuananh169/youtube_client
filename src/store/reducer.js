@@ -97,6 +97,7 @@ const reducer = (state, action) => {
                 videoData: {},
             };
             return { ...state, pictureInPicture: obj2 };
+
         default:
             return state;
     }

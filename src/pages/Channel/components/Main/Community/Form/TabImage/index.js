@@ -18,7 +18,7 @@ function TabImage({ errors, removeError, valueForm, setValueForm, invalid, handl
     };
     return (
         <div className={clsx(styles.wrapper)}>
-            <div className={clsx(styles.close)} onClick={() => handleCloseTab('imgs')}>
+            <div className={clsx(styles.close)} onClick={() => handleCloseTab('img')}>
                 <TfiClose size={17} />
             </div>
             {isNext && !errors.imgs ? (

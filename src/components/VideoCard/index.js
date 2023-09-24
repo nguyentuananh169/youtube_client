@@ -103,49 +103,55 @@ function VideoCard({
                 onMouseOver={handleMouseOver}
                 onMouseLeave={handleMouseLeave}
             >
-                <Link
-                    className={clsx(styles.link)}
-                    to={url || `/watch?category=${item.category_id}&id=${item.video_id}`}
-                ></Link>
-                {isPlayVideo ? (
-                    <VideoPlay
-                        videoId={item.video_id}
-                        videoLink={item.video_link}
-                        isPreview
-                        isMuteVoLumePreview={isMuteVolume}
-                        autoPlay
-                        muted={isMuteVolume}
-                        handleChangeVolumePreview={handleChangeVolume}
-                    />
-                ) : (
-                    <>
-                        <img src={item.video_poster} />
-                        <div className={clsx(styles.duration)}>
-                            {formatDuration(item.video_duration)}
-                        </div>
-                        {isPreview && (
-                            <div className={clsx(styles.tooltip)}>Tiếp tục di chuột để phát</div>
-                        )}
-                        {!isPreview && !hidenBtnIcon && (
-                            <>
-                                <div className={clsx(styles.btnIcon)}>
-                                    <div className={clsx(styles.icon)}>
-                                        <RiHistoryFill size={20} color="#fff" />
-                                        <p className={clsx(styles.text, styles.text1)}>Xem sau</p>
-                                    </div>
+                <div className={clsx(styles.aspectRatio)}>
+                    <Link
+                        className={clsx(styles.link)}
+                        to={url || `/watch?category=${item.category_id}&id=${item.video_id}`}
+                    ></Link>
+                    {isPlayVideo ? (
+                        <VideoPlay
+                            videoId={item.video_id}
+                            videoLink={item.video_link}
+                            isPreview
+                            isMuteVoLumePreview={isMuteVolume}
+                            autoPlay
+                            muted={isMuteVolume}
+                            handleChangeVolumePreview={handleChangeVolume}
+                        />
+                    ) : (
+                        <>
+                            <img src={item.video_poster} />
+                            <div className={clsx(styles.duration)}>
+                                {formatDuration(item.video_duration)}
+                            </div>
+                            {isPreview && (
+                                <div className={clsx(styles.tooltip)}>
+                                    Tiếp tục di chuột để phát
                                 </div>
-                                <div className={clsx(styles.btnIcon)}>
-                                    <div className={clsx(styles.icon)}>
-                                        <RiPlayList2Fill size={20} color="#fff" />
-                                        <p className={clsx(styles.text, styles.text2)}>
-                                            Thêm vào danh sách chờ
-                                        </p>
+                            )}
+                            {!isPreview && !hidenBtnIcon && (
+                                <>
+                                    <div className={clsx(styles.btnIcon)}>
+                                        <div className={clsx(styles.icon)}>
+                                            <RiHistoryFill size={20} color="#fff" />
+                                            <p className={clsx(styles.text, styles.text1)}>
+                                                Xem sau
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </>
-                        )}
-                    </>
-                )}
+                                    <div className={clsx(styles.btnIcon)}>
+                                        <div className={clsx(styles.icon)}>
+                                            <RiPlayList2Fill size={20} color="#fff" />
+                                            <p className={clsx(styles.text, styles.text2)}>
+                                                Thêm vào danh sách chờ
+                                            </p>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </>
+                    )}
+                </div>
             </div>
             <div className={clsx(styles.details)}>
                 {pathname === '/' && (

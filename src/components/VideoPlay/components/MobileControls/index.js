@@ -10,7 +10,14 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import styles from './MobileControls.module.css';
-function MobileControls({ menuSetting, dataSetting, handleClickVideo, handleChangeDataSetting }) {
+function MobileControls({
+    menuSetting,
+    dataSetting,
+    handleClickVideo,
+    handleChangeDataSetting,
+    handleNextTimeVideo,
+    handlePrevTimeVideo,
+}) {
     const [isShowSettings, setIsShowSettings] = useState(false);
     const [isShowControls, setIsShowControls] = useState(false);
     const timeoutRef = useRef(null);
@@ -21,9 +28,7 @@ function MobileControls({ menuSetting, dataSetting, handleClickVideo, handleChan
             document.body.style.overflow = '';
         }
     }, [isShowSettings]);
-    const handleToggleVideo = (e) => {
-        e.stopPropagation();
-        handleClickVideo();
+    const handleTimeout = () => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
@@ -32,16 +37,13 @@ function MobileControls({ menuSetting, dataSetting, handleClickVideo, handleChan
             setIsShowControls(false);
         }, 3000);
     };
+    const handleToggleVideo = (e) => {
+        e.stopPropagation();
+        handleClickVideo();
+        handleTimeout();
+    };
     const handleToggleControls = () => {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-            timeoutRef.current = null;
-        }
-        if (!isShowControls) {
-            timeoutRef.current = setTimeout(() => {
-                setIsShowControls(false);
-            }, 3000);
-        }
+        handleTimeout();
         setIsShowControls(!isShowControls);
     };
     return (
@@ -104,7 +106,12 @@ function MobileControls({ menuSetting, dataSetting, handleClickVideo, handleChan
                     >
                         <MdSettings size={30} color="#fff" />
                     </div>
-                    <div className={clsx(styles.btn)} onClick={(e) => e.stopPropagation()}>
+                    <div
+                        className={clsx(styles.btn)}
+                        onClick={(e) => (
+                            e.stopPropagation(), handlePrevTimeVideo(), handleTimeout()
+                        )}
+                    >
                         <BsFillSkipStartFill size={30} color="#fff" />
                     </div>
                     <div className={clsx(styles.btn, styles.play)} onClick={handleToggleVideo}>
@@ -114,7 +121,12 @@ function MobileControls({ menuSetting, dataSetting, handleClickVideo, handleChan
                             <BsFillPlayFill size={60} color="#fff" />
                         )}
                     </div>
-                    <div className={clsx(styles.btn)}>
+                    <div
+                        className={clsx(styles.btn)}
+                        onClick={(e) => (
+                            e.stopPropagation(), handleNextTimeVideo(), handleTimeout()
+                        )}
+                    >
                         <BsFillSkipEndFill size={30} color="#fff" />
                     </div>
                 </div>

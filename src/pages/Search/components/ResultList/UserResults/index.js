@@ -1,4 +1,3 @@
-import Loading from './Loading';
 import Item from './Item';
 
 function UserResults({ resultList = [] }) {

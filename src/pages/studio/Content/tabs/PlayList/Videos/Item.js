@@ -1,16 +1,20 @@
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+import useTimeConversion from '../../../../../../hook/useTimeConversion';
 import styles from './Videos.module.css';
 function Item({ item, stt }) {
+    const timeAgo = useTimeConversion(item.playlist_update_time, 'ago');
     return (
         <div className={clsx(styles.item)}>
             <div className={clsx(styles.poster)}>
                 <div className={clsx(styles.number)}>{stt}</div>
                 <div className={clsx(styles.img)}>
-                    <img src={item.video_poster} />
-                    <Link
-                        to={`/watch?category=${item.category_id}&id=${item.video_id}&list=${item.playlist_id}&index=${stt}`}
-                    ></Link>
+                    <div className={clsx(styles.aspectRatio)}>
+                        <img src={item.video_poster} />
+                        <Link
+                            to={`/watch?category=${item.category_id}&id=${item.video_id}&list=${item.playlist_id}&index=${stt}`}
+                        ></Link>
+                    </div>
                 </div>
             </div>
             <div className={clsx(styles.info)}>
@@ -28,8 +32,7 @@ function Item({ item, stt }) {
                     }}
                 ></div>
                 <div className={clsx(styles.date)}>
-                    {/* <span>{item.playlist_update_time}</span> */}
-                    <span>Cập nhật 2 ngày trước</span>
+                    <span>Cập nhật {timeAgo}</span>
                 </div>
             </div>
         </div>

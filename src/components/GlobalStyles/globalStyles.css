@@ -7,6 +7,9 @@ html {
     font-family: 'Roboto', 'Arial', sans-serif;
     font-size: 10px;
 }
+body {
+    overflow-x: hidden;
+}
 /* width */
 ::-webkit-scrollbar {
     width: 8px;

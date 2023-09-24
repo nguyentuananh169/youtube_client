@@ -21,8 +21,8 @@ function Login() {
     ];
     const [isLoading, setLoading] = useState(false);
     const [values, setValues] = useState({
-        email: '',
-        password: '',
+        email: 'nextsports@gmail.com',
+        password: '123123',
     });
     const [state, dispatch] = useStore();
     const { isLogin } = state;

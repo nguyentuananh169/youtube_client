@@ -9,7 +9,7 @@ import NoAvatar from '../../../../../components/NoAvatar';
 function Item({ item }) {
     return (
         <div className={clsx(styles.wrapper)}>
-            <Link to={`/channel/${item.user_tag}/home`} className={clsx(styles.link)}></Link>
+            <Link to={`/channel/${item.user_id}/home`} className={clsx(styles.link)}></Link>
             <div className={clsx(styles.avatar)}>
                 {item.user_avatar ? (
                     <img src={item.user_avatar} />

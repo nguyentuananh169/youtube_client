@@ -30,7 +30,9 @@ function NextVideo({ size, handleNextVideo, videoInfo }) {
             </div>
             <div className={clsx(styles.main)}>
                 <div className={clsx(styles.img)}>
-                    <img src={videoInfo.poster} />
+                    <div className={clsx(styles.aspectRatio)}>
+                        <img src={videoInfo.poster} />
+                    </div>
                 </div>
                 <div className={clsx(styles.info)}>
                     <div className={clsx(styles.title)}>
@@ -42,7 +44,7 @@ function NextVideo({ size, handleNextVideo, videoInfo }) {
                 </div>
             </div>
             <div className={clsx(styles.actions)}>
-                <button className={clsx(styles.btn)} onClick={handleNextVideo}>
+                <button className={clsx(styles.btn)} onClick={() => handleNextVideo(false)}>
                     Hủy
                 </button>
                 <Link to={urlParams} className={clsx(styles.btn)}>

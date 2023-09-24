@@ -32,14 +32,32 @@ function Liked() {
         setVideoData(videoList[index]);
         setIsShowModal(true);
     };
-    const handleEndedVideo = () => {
-        if (indexVideo + 1 < videoList.length) {
-            setIndexVideo(indexVideo + 1);
-            setVideoData(videoList[indexVideo + 1]);
+    const handleNextVideo = () => {
+        if (isNextVideo) {
+            return;
+        }
+        const index = indexVideo + 1;
+        if (index < videoList.length) {
+            setIndexVideo(index);
+            setVideoData(videoList[index]);
             setIsNextVideo(true);
         } else {
             setIsShowModal(false);
-            dispatch(addToastMessage('success', '', 'Đã phát hết video trong danh sách'));
+            dispatch(addToastMessage('warning', '', 'Đã phát hết video trong danh sách'));
+        }
+    };
+    const handlePrevVideo = () => {
+        if (isNextVideo) {
+            return;
+        }
+        const index = indexVideo - 1;
+        console.log(index);
+        if (index >= 0) {
+            setIndexVideo(index);
+            setVideoData(videoList[index]);
+            setIsNextVideo(true);
+        } else {
+            dispatch(addToastMessage('error', 'Thất bại', 'Không còn video để quay lại'));
         }
     };
     useEffect(() => {
@@ -56,11 +74,14 @@ function Liked() {
         <div className={clsx(styles.wrapper)}>
             {isShowModal && !isLoading && (
                 <Modal
+                    indexVideo={indexVideo}
                     isNextVideo={isNextVideo}
                     setIsNextVideo={setIsNextVideo}
                     videoData={videoData}
+                    setIndexVideo={setIndexVideo}
                     setIsShowModal={setIsShowModal}
-                    handleEndedVideo={handleEndedVideo}
+                    handleNextVideo={handleNextVideo}
+                    handlePrevVideo={handlePrevVideo}
                 />
             )}
             <Left
@@ -69,7 +90,12 @@ function Liked() {
                 videoData={videoList[indexVideo]}
                 handleOpenModal={handleOpenModal}
             />
-            <Right isLoading={isLoading} indexVideo={indexVideo} videoList={videoList} />
+            <Right
+                isLoading={isLoading}
+                indexVideo={indexVideo}
+                videoList={videoList}
+                handleOpenModal={handleOpenModal}
+            />
             {!isLoading && videoList.length === 0 && (
                 <NoResult text="Chưa có video nào trong danh sách phát này" />
             )}

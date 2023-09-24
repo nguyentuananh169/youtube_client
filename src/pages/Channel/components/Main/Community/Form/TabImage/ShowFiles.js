@@ -1,3 +1,4 @@
+import { GrPrevious, GrNext } from 'react-icons/gr';
 import clsx from 'clsx';
 import styles from './TabImage.module.css';
 import { useEffect, useState } from 'react';
@@ -21,16 +22,44 @@ function ShowFiles({ imgs }) {
             }
         };
     }, [linkImgs]);
+    const handleNext = () => {
+        if (index < linkImgs.length - 1) {
+            setIndex(index + 1);
+        }
+    };
+    const handlePrev = () => {
+        if (index > 0) {
+            setIndex(index - 1);
+        }
+    };
     return (
         <div className={clsx(styles.showFiles)}>
             <div className={clsx(styles.left)}>
                 <div className={clsx(styles.img)}>
-                    {linkImgs.map((item, index) => (
-                        <img key={index} src={item} onClick={() => setIndex(index)} />
-                    ))}
+                    <div className={clsx(styles.aspectRatio)}>
+                        {linkImgs.map((item, index) => (
+                            <img key={index} src={item} onClick={() => setIndex(index)} />
+                        ))}
+                    </div>
                 </div>
             </div>
             <div className={clsx(styles.right)}>
+                <button
+                    type="button"
+                    className={clsx(styles.btnSl, styles.prev, { [styles.hidden]: index <= 0 })}
+                    onClick={handlePrev}
+                >
+                    <GrPrevious />
+                </button>
+                <button
+                    type="button"
+                    className={clsx(styles.btnSl, styles.next, {
+                        [styles.hidden]: index >= linkImgs.length - 1,
+                    })}
+                    onClick={handleNext}
+                >
+                    <GrNext size={17} />
+                </button>
                 <img src={linkImgs[index]} />
             </div>
         </div>

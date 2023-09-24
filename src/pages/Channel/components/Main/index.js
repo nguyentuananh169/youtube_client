@@ -7,7 +7,6 @@ import PlayList from './PlayList';
 import Community from './Community';
 import Channels from './Channels';
 import About from './About';
-import Search from './Search';
 
 function Main({ user }) {
     const { page } = useParams();
@@ -32,9 +31,6 @@ function Main({ user }) {
                     </div>
                     <div className={clsx(styles.group, { [styles.show]: page === 'about' })}>
                         <About user={user} />
-                    </div>
-                    <div className={clsx(styles.group, { [styles.show]: page === 'search' })}>
-                        <Search user={user} />
                     </div>
                 </>
             )}

@@ -38,12 +38,12 @@ const parseTimeObject = (time) => {
     };
     return object;
 };
-const useTimeConversion = (init, type) => {
+const useTimeConversion = (time, type) => {
     switch (type) {
         case 'ago':
-            return convertToRelativeTime(init);
+            return convertToRelativeTime(time);
         case 'object':
-            return parseTimeObject(init);
+            return parseTimeObject(time);
         default:
             return '';
     }

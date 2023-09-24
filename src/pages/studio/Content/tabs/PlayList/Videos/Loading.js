@@ -9,7 +9,9 @@ function Loading() {
                     <SkeletonLoading width="10px" height="10px" />
                 </div>
                 <div className={clsx(styles.img)}>
-                    <SkeletonLoading />
+                    <div className={clsx(styles.aspectRatio)}>
+                        <SkeletonLoading />
+                    </div>
                 </div>
             </div>
             <div className={clsx(styles.info)}>

@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import SkeletonLoading from '../../../../components/SkeletonLoading';
+
 import styles from './Banner.module.css';
 function Loading() {
     return (

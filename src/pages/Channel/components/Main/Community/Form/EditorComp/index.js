@@ -1,7 +1,7 @@
 import { Editor } from '@tinymce/tinymce-react';
 import { useRef } from 'react';
 import './EditorComp.css';
-function EditorComp({ handleChange, invalid }) {
+function EditorComp({ handleChange, invalid, initValue }) {
     const editorRef = useRef(null);
     const handleEditorChange = () => {
         handleChange('contentText', editorRef.current.getContent({ format: 'text' }));
@@ -13,6 +13,7 @@ function EditorComp({ handleChange, invalid }) {
     return (
         <div className="editor-comp">
             <Editor
+                initialValue={initValue}
                 onInit={(event, editor) => (editorRef.current = editor)}
                 init={{
                     menubar: ' view | insert | format ',

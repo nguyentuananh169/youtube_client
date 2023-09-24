@@ -19,6 +19,7 @@ function Actions({ item, handleClickBtnUpdate, handleClickBtnDelete }) {
         {
             icon: <MdOutlineEdit size={17} />,
             text: 'Chỉnh sửa tiêu đề và thông tin mô tả',
+            onClick: () => handleClickBtnUpdate(item),
         },
         {
             icon: <RxLink2 size={17} />,

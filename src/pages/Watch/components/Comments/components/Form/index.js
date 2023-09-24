@@ -5,10 +5,12 @@ import useStore from '../../../../../../hook/useStore';
 import NoAvatar from '../../../../../../components/NoAvatar';
 import queryString from 'query-string';
 import commentApi from '../../../../../../api/commentApi';
+import postCommentApi from '../../../../../../api/postCommentApi';
 import { addToastMessage } from '../../../../../../store/actions';
 import LoadingHasMore from '../../../../../../components/LoadingHasMore';
 import styles from './Form.module.css';
 function Form({
+    isPostsPage,
     isHiddenAvatar = false,
     isFocusTextare = false,
     lv2 = false,
@@ -45,10 +47,17 @@ function Form({
         setIsLoading(true);
         const content = valueForm.trim();
         const params = new FormData();
-        params.append('_video_id', urlParams.id);
+        if (isPostsPage) {
+            params.append('_post_id', urlParams.id);
+        } else {
+            params.append('_video_id', urlParams.id);
+        }
+
         params.append('_parent_id', parentId);
         params.append('_content', content);
-        const response = await commentApi.add(params);
+        const response = isPostsPage
+            ? await postCommentApi.add(params)
+            : await commentApi.add(params);
         setIsLoading(false);
         if (response[0].error) {
             return dispatch(addToastMessage('error', 'Thất bại', response[0].message));

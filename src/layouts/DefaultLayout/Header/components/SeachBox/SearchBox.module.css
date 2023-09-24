@@ -131,7 +131,6 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 .dropdown ul li.disabled .btn .text {
     font-weight: 400;

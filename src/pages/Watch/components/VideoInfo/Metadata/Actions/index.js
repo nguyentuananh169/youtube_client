@@ -2,13 +2,14 @@ import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'reac
 import { RiShareForwardLine } from 'react-icons/ri';
 import { TfiDownload } from 'react-icons/tfi';
 
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Tooltip from '../../../../../../components/Tooltip';
-import styles from './Actions.module.css';
-import { useEffect, useState } from 'react';
 import videoVotesApi from '../../../../../../api/videoVotesApi';
 import useStore from '../../../../../../hook/useStore';
 import { addToastMessage } from '../../../../../../store/actions';
+import useNumberConversion from '../../../../../../hook/useNumberConversion';
+import styles from './Actions.module.css';
 function Actions({ videoId, like, dislike }) {
     const [isLoading, setIsLoading] = useState(false);
     const [voteType, setVoteType] = useState('');
@@ -17,6 +18,7 @@ function Actions({ videoId, like, dislike }) {
         dislike: 0,
     });
     const [state, dispatch] = useStore();
+    const numberConversion = useNumberConversion;
     useEffect(() => {
         setNumber({
             like: 0,
@@ -136,7 +138,9 @@ function Actions({ videoId, like, dislike }) {
                         }}
                     />
                     {voteType === 'like' ? <AiFillLike /> : <AiOutlineLike />}
-                    {(like > 0 || number.like > 0) && <span>{+like + number.like}</span>}
+                    {+like + number.like > 0 && (
+                        <span>{numberConversion(+like + number.like, 'compression')}</span>
+                    )}
                 </button>
                 <button onClick={() => handleClickVoteBtn('dislike', 1)}>
                     <Tooltip
@@ -149,8 +153,8 @@ function Actions({ videoId, like, dislike }) {
                         }}
                     />
                     {voteType === 'dislike' ? <AiFillDislike /> : <AiOutlineDislike />}
-                    {(dislike > 0 || number.dislike > 0) && (
-                        <span>{+dislike + number.dislike}</span>
+                    {+dislike + number.dislike > 0 && (
+                        <span>{numberConversion(+dislike + number.dislike, 'compression')}</span>
                     )}
                 </button>
             </div>

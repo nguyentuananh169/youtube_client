@@ -56,31 +56,36 @@ function MenuFixed({
         }
     }, [isDisableScroll]);
     return (
-        <div
-            ref={wrapperRef}
-            className={clsx(styles.wrapper)}
-            style={{ ...position, ...customStyle }}
-            onMouseDown={(e) => e.stopPropagation()}
-        >
-            <ul className={clsx(styles.menu)} onClick={(e) => e.stopPropagation()}>
-                {menulist.length > 0 && (
-                    <>
-                        {menulist.map((item, index) => (
-                            <li
-                                className={clsx(styles.item, { [styles.hidden]: item?.isHidden })}
-                                style={item.customStyle}
-                                key={index}
-                                onClick={item.onClick}
-                            >
-                                {item.icon}
-                                <span>{item.text}</span>
-                            </li>
-                        ))}
-                    </>
-                )}
-                {children}
-            </ul>
-        </div>
+        <>
+            <div className={clsx(styles.overlay)}></div>
+            <div
+                ref={wrapperRef}
+                className={clsx(styles.wrapper)}
+                style={{ ...position, ...customStyle }}
+                onMouseDown={(e) => e.stopPropagation()}
+            >
+                <ul className={clsx(styles.menu)} onClick={(e) => e.stopPropagation()}>
+                    {menulist.length > 0 && (
+                        <>
+                            {menulist.map((item, index) => (
+                                <li
+                                    className={clsx(styles.item, {
+                                        [styles.hidden]: item?.isHidden,
+                                    })}
+                                    style={item.customStyle}
+                                    key={index}
+                                    onClick={item.onClick}
+                                >
+                                    {item.icon}
+                                    <span>{item.text}</span>
+                                </li>
+                            ))}
+                        </>
+                    )}
+                    {children}
+                </ul>
+            </div>
+        </>
     );
 }
 

@@ -10,6 +10,7 @@ import subscriptionApi from '../../../../api/subscriptionApi';
 import { addSubscription, addToastMessage, deleteSubscription } from '../../../../store/actions';
 import useNumberConversion from '../../../../hook/useNumberConversion';
 import styles from './Header.module.css';
+import SelectFile from './SelectFile';
 function Header({ user }) {
     const { id } = useParams();
     const [state, dispatch] = useStore();
@@ -76,8 +77,17 @@ function Header({ user }) {
         <div className={clsx(styles.wrapper)}>
             <div className={clsx(styles.container)}>
                 <div className={clsx(styles.img)}>
-                    {user.user_avatar ? (
-                        <img src={user.user_avatar} />
+                    {state.isLogin && state.user?.user_id && state.user?.user_id === id && (
+                        <SelectFile />
+                    )}
+                    {user.user_avatar || state.user.user_avatar ? (
+                        <img
+                            src={
+                                state.user?.user_id === id
+                                    ? state.user.user_avatar
+                                    : user.user_avatar
+                            }
+                        />
                     ) : (
                         <NoAvatar
                             userName={user.user_name || ''}
@@ -121,8 +131,15 @@ function Header({ user }) {
                             {state.isLogin &&
                                 (user.user_id === state.user?.user_id ? (
                                     <>
-                                        <button className={clsx(styles.btn)}>Tùy chỉnh kênh</button>
-                                        <button className={clsx(styles.btn)}>Quản lý video</button>
+                                        <Link to="/studio/editing" className={clsx(styles.btn)}>
+                                            Tùy chỉnh kênh
+                                        </Link>
+                                        <Link
+                                            to="/studio/videos/upload"
+                                            className={clsx(styles.btn)}
+                                        >
+                                            Quản lý video
+                                        </Link>
                                     </>
                                 ) : isSubscribed ? (
                                     <button

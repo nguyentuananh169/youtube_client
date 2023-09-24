@@ -45,8 +45,17 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
     const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
     const [categoryList, setCategoryList] = useState([]);
     const [playlist, setPlaylist] = useState([]);
-    const [, distpatch] = useStore();
+    const [state, distpatch] = useStore();
     const handleAddVideo = async () => {
+        if (state.user.user_id === '7') {
+            return distpatch(
+                addToastMessage(
+                    'error',
+                    'Thất bại',
+                    'Không thực hiện được, bạn hãy dùng tài khoản khác',
+                ),
+            );
+        }
         setIsLoadingSubmit(true);
         try {
             const response1 = await cloudinaryApi.upload(values.videoFile);

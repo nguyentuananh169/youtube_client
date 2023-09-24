@@ -3,7 +3,9 @@ import clsx from 'clsx';
 import styles from './Filter.module.css';
 import { useState } from 'react';
 import useClickOutSide from '../../../../../../hook/useClickOutSide';
+import { useLocation } from 'react-router-dom';
 function Filter({ totalComment, handleChangeTypeFilter }) {
+    const { pathname } = useLocation();
     const [type, setType] = useState('DESC');
     const [elementRef, isShow, setShow] = useClickOutSide();
     const handleSetType = (value) => {
@@ -11,7 +13,11 @@ function Filter({ totalComment, handleChangeTypeFilter }) {
         handleChangeTypeFilter(value);
     };
     return (
-        <div className={clsx(styles.filterContainer)}>
+        <div
+            className={clsx(styles.filterContainer, {
+                [styles.hiddenOnMobile]: pathname.startsWith('/watch'),
+            })}
+        >
             <span className={clsx(styles.count)}>{totalComment} bình luận</span>
             <span
                 ref={elementRef}

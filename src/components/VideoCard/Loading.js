@@ -14,7 +14,9 @@ function Loading({
     return (
         <div className={clsx(styles.videoCard, { [styles.row]: row, [styles.preview]: isPreview })}>
             <div className={clsx(styles.img)} style={{ width }}>
-                <SkeletonLoading />
+                <div className={clsx(styles.aspectRatio)}>
+                    <SkeletonLoading />
+                </div>
             </div>
             <div className={clsx(styles.details)}>
                 {pathname === '/' && (

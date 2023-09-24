@@ -40,7 +40,9 @@ function ResultSearch({ dataList, setValueInput, setDataList }) {
                         <span className={clsx(styles.btnIcon)}>
                             {dataList.type === 'history' ? <VscHistory /> : <TfiSearch />}
                         </span>
-                        <span className={clsx(styles.text)}>{item.keyword}</span>
+                        <span className={clsx(styles.text)}>
+                            {dataList.type === 'history' ? item.keyword : `Gợi ý "${item.keyword}"`}
+                        </span>
                     </div>
                     {dataList.type === 'history' && (
                         <span

@@ -189,7 +189,7 @@ function Body({
                 </div>
             </div>
             <div className={clsx(styles.right)}>
-                <VideoPlay size="medium" videoLink={values.videoLink} />
+                <VideoPlay maxSize="medium" videoLink={values.videoLink} />
                 <div className={clsx(styles.videoInfo)}>
                     {values.videoFile ? (
                         <>

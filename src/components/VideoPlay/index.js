@@ -28,7 +28,7 @@ function VideoPlay({
     videoLink = '',
     isPreview = false,
     isAutoSkip = false,
-    size = '',
+    maxSize = '',
     isMuteVoLumePreview,
     handleChangeVolumePreview,
     handleEndedVideo = () => {},
@@ -116,7 +116,7 @@ function VideoPlay({
     const [loading, setLoading] = useState({ type: 'loading', isLoading: true });
     const [menuSetting, setMenuSetting] = useState(menu);
     const [dataSetting, setDataSetting] = useState(data);
-    const [sizeVideo, setSizeVideo] = useState(size);
+    const [sizeVideo, setSizeVideo] = useState(maxSize);
     const [isNextVideo, setNextVideo] = useState(false);
     const [isUpdateView, setIsUpdateView] = useState(false);
 
@@ -140,24 +140,36 @@ function VideoPlay({
     const isTouchDevice =
         'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
     const userAgent = window.navigator.userAgent;
+    const isIOS = userAgent.match(/iPhone|iPad|iPod/i);
+    const isAndroid = userAgent.match(/Android/i);
+    const handleSetVideoHeight = () => {
+        const wrapperEl = wrapperRef.current;
+        if (wrapperEl) {
+            document.body.style.setProperty('--videoHeight', `${wrapperEl.clientHeight}px`);
+        }
+    };
     useEffect(() => {
-        if (!size) {
+        if (!dataSetting.isFullscreen) {
             const handleResize = () => {
                 const width = window.innerWidth;
-                if (width <= 992 && width > 768) {
+                if (width <= 992 && width > 768 && maxSize !== 'small') {
                     setSizeVideo('medium');
                 } else if (width <= 768) {
                     setSizeVideo('small');
-                } else {
+                } else if (!maxSize || maxSize === 'large') {
                     setSizeVideo('large');
                 }
+                handleSetVideoHeight();
             };
             handleResize();
             window.addEventListener('resize', handleResize);
             return () => window.removeEventListener('resize', handleResize);
         }
-    }, [size]);
+    }, [maxSize, dataSetting.isFullscreen]);
 
+    useEffect(() => {
+        handleSetVideoHeight();
+    }, []);
     useEffect(() => {
         if (!isPreview) {
             const handleKeyDown = (e) => {
@@ -221,15 +233,38 @@ function VideoPlay({
         };
     }, []);
     useEffect(() => {
+        if (dataSetting.isFullscreen && isAndroid) {
+            // Kiểm tra xem trình duyệt hỗ trợ chế độ quay ngang không
+            if (window.screen.orientation) {
+                // Kiểm tra xem màn hình hiện tại đã ở chế độ ngang chưa
+                if (window.screen.orientation.type !== 'landscape-primary') {
+                    // Chuyển sang chế độ ngang
+                    window.screen.orientation
+                        .lock('landscape-primary')
+                        .then(function () {
+                            // Xử lý khi đã chuyển sang chế độ ngang thành công
+                            console.log('Màn hình đã chuyển sang chế độ ngang.');
+                        })
+                        .catch(function (error) {
+                            // Xử lý khi có lỗi xảy ra
+                            console.error('Lỗi khi chuyển chế độ ngang:', error);
+                        });
+                }
+            } else {
+                console.log('Trình duyệt không hỗ trợ chế độ quay ngang.');
+            }
+        }
+    }, [dataSetting.isFullscreen]);
+    useEffect(() => {
         const videoEl = videoRef.current;
         if (videoEl) {
             const handleSetIsPlayVideo = () => {
                 const duration = Math.floor(videoEl.duration) / 2;
                 if (videoEl.paused) {
-                    setDataSetting({ ...dataSetting, isPlay: false });
+                    setDataSetting((state) => ({ ...state, isPlay: false }));
                     clearInterval(intervalRef.current);
                 } else {
-                    if (!isUpdateView) {
+                    if (!isUpdateView && videoId) {
                         intervalRef.current = setInterval(() => {
                             timePlayRef.current += 1;
                             if (timePlayRef.current >= duration) {
@@ -237,7 +272,7 @@ function VideoPlay({
                             }
                         }, 1000);
                     }
-                    setDataSetting({ ...dataSetting, isPlay: true });
+                    setDataSetting((state) => ({ ...state, isPlay: true }));
                 }
             };
             handleSetIsPlayVideo();
@@ -263,13 +298,6 @@ function VideoPlay({
             handleUpdateView();
         }
     }, [isUpdateView]);
-    useEffect(() => {
-        const wrapperEl = wrapperRef.current;
-        if (wrapperEl) {
-            document.body.style.setProperty('--videoHeight', `${wrapperEl.clientHeight}px`);
-        }
-    }, []);
-
     const handlePlayVideo = () => {
         videoRef.current.play();
     };
@@ -404,8 +432,7 @@ function VideoPlay({
         setDataSetting({ ...dataSetting, [key]: value });
     };
     const handleOpenFullscreen = () => {
-        const isIos = userAgent.match(/iPhone|iPad|iPod/i);
-        const element = isTouchDevice && isIos ? videoRef.current : wrapperRef.current;
+        const element = isTouchDevice && isIOS ? videoRef.current : wrapperRef.current;
         if (element.requestFullscreen) {
             element.requestFullscreen();
         } else if (element.mozRequestFullScreen) {
@@ -448,7 +475,7 @@ function VideoPlay({
             handleExitFullscreen();
         }
     };
-    const handleNextVideo = () => {
+    const handleNextVideo = (boolean = true) => {
         if (
             document.fullscreenElement ||
             document.mozFullScreenElement ||
@@ -462,7 +489,9 @@ function VideoPlay({
             document.exitPictureInPicture();
         }
         handlePauseVideo();
-        setNextVideo(true);
+        setIsUpdateView(false);
+        timePlayRef.current = 0;
+        setNextVideo(boolean);
     };
     const handlePictureInPicture = () => {
         const videoEl = videoRef.current;
@@ -491,138 +520,142 @@ function VideoPlay({
                 [styles.fullscreen]: dataSetting.isFullscreen,
             })}
         >
-            {isNextVideo && isAutoSkip && nextVideoInfo?.id && (
-                <>
-                    <div className={clsx(styles.overlay)}></div>
-                    <div className={clsx(styles.nextVideo)}>
-                        <NextVideo
-                            size={sizeVideo}
-                            handleNextVideo={handleNextVideo}
-                            videoInfo={nextVideoInfo}
+            <div className={clsx(styles.aspectRatio)}>
+                {isNextVideo && isAutoSkip && nextVideoInfo?.id && (
+                    <>
+                        <div className={clsx(styles.overlay)}></div>
+                        <div className={clsx(styles.nextVideo)}>
+                            <NextVideo
+                                size={sizeVideo}
+                                handleNextVideo={handleNextVideo}
+                                videoInfo={nextVideoInfo}
+                            />
+                        </div>
+                    </>
+                )}
+                {isPreview && (
+                    <div className={clsx(styles.volume)} onClick={handleChangeVolumePreview}>
+                        <Tooltip
+                            content={isMuteVoLumePreview ? 'Tắt tiếng (m)' : 'Mở tiếng (m)'}
+                            customStyle={{
+                                right: '0',
+                                top: 'calc(100% + 5px)',
+                                whiteSpace: 'nowrap',
+                                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                            }}
                         />
+                        {isMuteVoLumePreview ? (
+                            <BsVolumeMuteFill size={17} color="#fff" />
+                        ) : (
+                            <BsFillVolumeUpFill size={17} color="#fff" />
+                        )}
                     </div>
-                </>
-            )}
-            {isPreview && (
-                <div className={clsx(styles.volume)} onClick={handleChangeVolumePreview}>
-                    <Tooltip
-                        content={isMuteVoLumePreview ? 'Tắt tiếng (m)' : 'Mở tiếng (m)'}
-                        customStyle={{
-                            right: '0',
-                            top: 'calc(100% + 5px)',
-                            whiteSpace: 'nowrap',
-                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        }}
+                )}
+
+                {loading.isLoading && (
+                    <Spinner
+                        customStyle={
+                            loading.type === 'loading' && { backgroundColor: 'rgba(0, 0, 0, 1)' }
+                        }
                     />
-                    {isMuteVoLumePreview ? (
-                        <BsVolumeMuteFill size={17} color="#fff" />
+                )}
+
+                <div ref={atPlayVideoRef} className={clsx(styles.animation, styles.atPlayVideo)}>
+                    {dataSetting.isPlay ? (
+                        <BsFillPauseFill color="#fff" />
                     ) : (
-                        <BsFillVolumeUpFill size={17} color="#fff" />
+                        <BsFillPlayFill color="#fff" />
                     )}
                 </div>
-            )}
-
-            {loading.isLoading && (
-                <Spinner
-                    customStyle={
-                        loading.type === 'loading' && { backgroundColor: 'rgba(0, 0, 0, 1)' }
-                    }
-                />
-            )}
-
-            <div ref={atPlayVideoRef} className={clsx(styles.animation, styles.atPlayVideo)}>
-                {dataSetting.isPlay ? (
-                    <BsFillPauseFill color="#fff" />
-                ) : (
-                    <BsFillPlayFill color="#fff" />
-                )}
-            </div>
-            <div ref={prevTimeRef} className={clsx(styles.animation, styles.prevTime)}>
-                <div className={clsx(styles.icons)}>
-                    <TiMediaPlayReverse />
-                    <TiMediaPlayReverse />
-                    <TiMediaPlayReverse />
+                <div ref={prevTimeRef} className={clsx(styles.animation, styles.prevTime)}>
+                    <div className={clsx(styles.icons)}>
+                        <TiMediaPlayReverse />
+                        <TiMediaPlayReverse />
+                        <TiMediaPlayReverse />
+                    </div>
+                    <span>10 giây</span>
                 </div>
-                <span>10 giây</span>
-            </div>
-            <div ref={nextTimeRef} className={clsx(styles.animation, styles.nextTime)}>
-                <div className={clsx(styles.icons)}>
-                    <TiMediaPlay />
-                    <TiMediaPlay />
-                    <TiMediaPlay />
+                <div ref={nextTimeRef} className={clsx(styles.animation, styles.nextTime)}>
+                    <div className={clsx(styles.icons)}>
+                        <TiMediaPlay />
+                        <TiMediaPlay />
+                        <TiMediaPlay />
+                    </div>
+                    <span>10 giây</span>
                 </div>
-                <span>10 giây</span>
-            </div>
-            {!isNextVideo && !isPreview && sizeVideo === 'small' && (
-                <MobileControls
-                    menuSetting={menuSetting}
-                    dataSetting={dataSetting}
-                    handleClickVideo={handleClickVideo}
-                    handleChangeDataSetting={handleChangeDataSetting}
-                />
-            )}
-
-            <div
-                className={clsx(styles.controls, {
-                    [styles.hidden]: isNextVideo && sizeVideo === 'small',
-                })}
-            >
-                <TimeLine
-                    isTouchDevice={isTouchDevice}
-                    isPreview={isPreview}
-                    size={sizeVideo}
-                    timeLineRef={timeLineRef}
-                    handlePauseVideo={handlePauseVideo}
-                    handlePlayVideo={handlePlayVideo}
-                    handleMouseMoveTimeLine={handleMouseMoveTimeLine}
-                    handleMouseOutTimeLine={handleMouseOutTimeLine}
-                    handleClickTimeLine={handleClickTimeLine}
-                />
-                <div className={clsx(styles.actions)}>
-                    <LeftControls
-                        isAutoSkip={isAutoSkip}
-                        isPreview={isPreview}
-                        size={sizeVideo}
-                        dataSetting={dataSetting}
-                        currentTimeRef={currentTimeRef}
-                        totalTimeRef={totalTimeRef}
-                        nextVideoInfo={nextVideoInfo}
-                        handleClickVideo={handleClickVideo}
-                        handleClickVolume={handleClickVolume}
-                        handleChangeVolume={handleChangeVolume}
-                    />
-                    <RightControls
-                        isPreview={isPreview}
-                        size={sizeVideo}
-                        videoEl={videoRef.current}
+                {(!isNextVideo || !nextVideoInfo?.id) && !isPreview && sizeVideo === 'small' && (
+                    <MobileControls
                         menuSetting={menuSetting}
                         dataSetting={dataSetting}
+                        handleClickVideo={handleClickVideo}
                         handleChangeDataSetting={handleChangeDataSetting}
-                        handleClickFullscreen={handleClickFullscreen}
-                        handlePictureInPicture={handlePictureInPicture}
+                        handleNextTimeVideo={handleNextTimeVideo}
+                        handlePrevTimeVideo={handlePrevTimeVideo}
                     />
-                </div>
-            </div>
+                )}
 
-            <video
-                className={clsx(styles.video)}
-                ref={videoRef}
-                onClick={() => {
-                    sizeVideo !== 'small' && handleClickVideo();
-                }}
-                onLoadedMetadata={handleLoadMeatdata}
-                onTimeUpdate={handleTimeUpdate}
-                onLoadedData={() => handleSetLoading('loading', false)}
-                onWaiting={() => handleSetLoading('waiting', true)}
-                onPlaying={() => handleSetLoading('playing', false)}
-                onEnded={handleNextVideo}
-                controls={false}
-                webkit-playsinline="true"
-                playsInline={!dataSetting.isFullscreen}
-                {...attributes}
-            >
-                <source src={videoLink} type="video/mp4"></source>
-            </video>
+                <div
+                    className={clsx(styles.controls, {
+                        [styles.hidden]: isNextVideo && nextVideoInfo?.id && sizeVideo === 'small',
+                    })}
+                >
+                    <TimeLine
+                        isTouchDevice={isTouchDevice}
+                        isPreview={isPreview}
+                        size={sizeVideo}
+                        timeLineRef={timeLineRef}
+                        handlePauseVideo={handlePauseVideo}
+                        handlePlayVideo={handlePlayVideo}
+                        handleMouseMoveTimeLine={handleMouseMoveTimeLine}
+                        handleMouseOutTimeLine={handleMouseOutTimeLine}
+                        handleClickTimeLine={handleClickTimeLine}
+                    />
+                    <div className={clsx(styles.actions)}>
+                        <LeftControls
+                            isAutoSkip={isAutoSkip}
+                            isPreview={isPreview}
+                            size={sizeVideo}
+                            dataSetting={dataSetting}
+                            currentTimeRef={currentTimeRef}
+                            totalTimeRef={totalTimeRef}
+                            nextVideoInfo={nextVideoInfo}
+                            handleClickVideo={handleClickVideo}
+                            handleClickVolume={handleClickVolume}
+                            handleChangeVolume={handleChangeVolume}
+                        />
+                        <RightControls
+                            isPreview={isPreview}
+                            size={sizeVideo}
+                            videoEl={videoRef.current}
+                            menuSetting={menuSetting}
+                            dataSetting={dataSetting}
+                            handleChangeDataSetting={handleChangeDataSetting}
+                            handleClickFullscreen={handleClickFullscreen}
+                            handlePictureInPicture={handlePictureInPicture}
+                        />
+                    </div>
+                </div>
+
+                <video
+                    className={clsx(styles.video)}
+                    ref={videoRef}
+                    onClick={() => {
+                        sizeVideo !== 'small' && handleClickVideo();
+                    }}
+                    onLoadedMetadata={handleLoadMeatdata}
+                    onTimeUpdate={handleTimeUpdate}
+                    onLoadedData={() => handleSetLoading('loading', false)}
+                    onWaiting={() => handleSetLoading('waiting', true)}
+                    onPlaying={() => handleSetLoading('playing', false)}
+                    onEnded={handleNextVideo}
+                    controls={false}
+                    webkit-playsinline="true"
+                    playsInline={true}
+                    {...attributes}
+                >
+                    <source src={videoLink} type="video/mp4"></source>
+                </video>
+            </div>
         </div>
     );
 }

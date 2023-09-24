@@ -6,9 +6,19 @@ import useStore from '../../../../../../hook/useStore';
 import NoAvatar from '../../../../../../components/NoAvatar';
 import commentApi from '../../../../../../api/commentApi';
 import commentVotesApi from '../../../../../../api/commentVotesApi';
+import postCommentApi from '../../../../../../api/postCommentApi';
+import postCommentVotesApi from '../../../../../../api/postCommentVotesApi';
 import { addToastMessage } from '../../../../../../store/actions';
 import styles from './Item.module.css';
-function Actions({ item, ownerId, ownerAvatar, ownerName, isShowForm, setIsShowForm }) {
+function Actions({
+    isPostsPage,
+    item,
+    ownerId,
+    ownerAvatar,
+    ownerName,
+    isShowForm,
+    setIsShowForm,
+}) {
     const [state, dispatch] = useStore();
     const [isHeart, setIsHeart] = useState(item.cmt_heart);
     const [isLoading, setIsLoading] = useState(false);
@@ -27,18 +37,27 @@ function Actions({ item, ownerId, ownerAvatar, ownerName, isShowForm, setIsShowF
         const params = new FormData();
         params.append('_cmt_id', item.cmt_id);
         params.append('_value', isHeart ? 0 : 1);
-        const response = await commentApi.heart(params);
+
+        const response = isPostsPage
+            ? await postCommentApi.heart(params)
+            : await commentApi.heart(params);
         setIsHeart(response[0].is_heart);
         setIsLoadingHeart(false);
     };
     const handleVote = async (valueType) => {
         setIsLoading(true);
         const params = new FormData();
-        params.append('_video_id', item.video_id);
+        if (isPostsPage) {
+            params.append('_post_id', item.post_id);
+        } else {
+            params.append('_video_id', item.video_id);
+        }
         params.append('_cmt_id', item.cmt_id);
         params.append('_cmt_parent_id', item.cmt_parent_id);
         params.append('_vote_type', valueType);
-        const response = await commentVotesApi.vote(params);
+        const response = isPostsPage
+            ? await postCommentVotesApi.vote(params)
+            : await commentVotesApi.vote(params);
         if (response[0].error) {
             dispatch(addToastMessage('error', 'Thất bại', response[0].message));
         } else {
@@ -51,10 +70,16 @@ function Actions({ item, ownerId, ownerAvatar, ownerName, isShowForm, setIsShowF
     const handleChangeVote = async (valueType) => {
         setIsLoading(true);
         const params = new FormData();
-        params.append('_video_id', item.video_id);
+        if (isPostsPage) {
+            params.append('_post_id', item.post_id);
+        } else {
+            params.append('_video_id', item.video_id);
+        }
         params.append('_cmt_id', item.cmt_id);
         params.append('_vote_type', valueType);
-        const response = await commentVotesApi.changeVote(params);
+        const response = isPostsPage
+            ? await postCommentVotesApi.changeVote(params)
+            : await commentVotesApi.changeVote(params);
         setIsLoading(false);
         if (response[0].error) {
             return dispatch(addToastMessage('error', 'Thất bại', response[0].message));
@@ -70,10 +95,16 @@ function Actions({ item, ownerId, ownerAvatar, ownerName, isShowForm, setIsShowF
     const handleRemoveVote = async (actionTpye) => {
         setIsLoading(true);
         const params = {
-            _video_id: item.video_id,
             _cmt_id: item.cmt_id,
         };
-        const response = await commentVotesApi.removeVote(params);
+        if (isPostsPage) {
+            params._post_id = item.post_id;
+        } else {
+            params._video_id = item.video_id;
+        }
+        const response = isPostsPage
+            ? await postCommentVotesApi.removeVote(params)
+            : await commentVotesApi.removeVote(params);
         setIsLoading(false);
         if (response[0].error) {
             return dispatch(addToastMessage('error', 'Thất bại', response[0].message));
@@ -86,7 +117,7 @@ function Actions({ item, ownerId, ownerAvatar, ownerName, isShowForm, setIsShowF
         setVoteType('');
     };
     const handleClickVoteBtn = (actionTpye, valueType) => {
-        if (isLoading || !item.video_id || !state.isLogin || !state.user?.user_id) {
+        if (isLoading || !state.isLogin || !state.user?.user_id) {
             return;
         }
         switch (actionTpye) {

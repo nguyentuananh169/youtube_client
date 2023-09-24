@@ -121,12 +121,12 @@ function Owner({ id, avatar, name, subscriber, isOfficial = false }) {
                 <div className={clsx(styles.subscribeButton, { [styles.loading]: isLoading })}>
                     {id === state.user?.user_id ? (
                         <>
-                            <Button
-                                href={`/channel/${id}/home`}
+                            <Link
+                                to={`/channel/${id}/home`}
                                 className={clsx(styles.btn, styles.link)}
                             >
                                 Truy cập kênh
-                            </Button>
+                            </Link>
                         </>
                     ) : isSubscribed ? (
                         <Button onClick={handleClickUnsubscribe} className={clsx(styles.btn)}>

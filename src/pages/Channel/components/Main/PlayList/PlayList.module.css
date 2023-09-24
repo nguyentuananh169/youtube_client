@@ -30,12 +30,23 @@
 }
 .img {
     width: 100%;
-    aspect-ratio: 16/9;
     position: relative;
     border-radius: 5px;
     overflow: hidden;
 }
-.img img {
+.img::before {
+    content: '';
+    padding-top: 56.25%;
+    display: block;
+}
+.img .aspectRatio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+.img .aspectRatio img {
     width: 100%;
     height: 100%;
     object-fit: cover;

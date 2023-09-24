@@ -15,10 +15,6 @@ function Register() {
             rules: { isRequired: true, minLength: 6, maxLength: 25 },
         },
         {
-            name: 'avatar',
-            rules: { isFileImg: true },
-        },
-        {
             name: 'email',
             rules: { isRequired: true, isEmail: true },
         },
@@ -30,7 +26,6 @@ function Register() {
     const [isLoading, setLoading] = useState(false);
     const [values, setValues] = useState({
         name: '',
-        avatar: '',
         email: '',
         password: '',
     });
@@ -44,7 +39,6 @@ function Register() {
         setLoading(true);
         const params = new FormData();
         params.append('_name', values.name);
-        params.append('_avatar', values.avatar[0] || '');
         params.append('_email', values.email);
         params.append('_password', values.password);
         const response = await authApi.register(params);
@@ -87,17 +81,6 @@ function Register() {
                             onBlur={(e) => invalid('name', e.target.value)}
                         />
                         {errors.name && <p className={clsx(styles.valid)}>{errors.name}</p>}
-                    </div>
-                    <div className={clsx(styles.group)}>
-                        <label>Hình ảnh đại diện</label>
-                        <input
-                            className={clsx(styles.avatar, { [styles.inputVaild]: errors.avatar })}
-                            name="avatar"
-                            type="file"
-                            onChange={(e) => handleChange('avatar', e.target.files)}
-                            onBlur={(e) => invalid('avatar', e.target.files)}
-                        />
-                        {errors.avatar && <p className={clsx(styles.valid)}>{errors.avatar}</p>}
                     </div>
                     <div className={clsx(styles.group)}>
                         <label>Email *</label>

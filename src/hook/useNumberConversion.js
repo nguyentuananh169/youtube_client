@@ -18,7 +18,15 @@ const numberCompression = (number) => {
         return result;
     } else if (number >= 1000) {
         // Nếu số lớn hơn hoặc bằng 1 nghìn, chuyển thành nghìn (N)
-        let result = Math.floor(number / 1000) + ' N';
+        const num = number / 1000;
+        let roundedNumber = '';
+        if (num < 100) {
+            roundedNumber = Math.floor(num * 10) / 10;
+        } else {
+            roundedNumber = Math.floor(num);
+        }
+        const result = roundedNumber + ' N';
+
         return result;
     } else {
         // Nếu số nhỏ hơn 1 nghìn, giữ nguyên số

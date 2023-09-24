@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import VideoCard from '../../../components/VideoCard';
 import VideoCardLoading from '../../../components/VideoCard/Loading';
 import styles from './Right.module.css';
-function Right({ isLoading, indexVideo, videoList }) {
+function Right({ isLoading, indexVideo, videoList, handleOpenModal }) {
     return (
         <div className={clsx(styles.wrapper)}>
             {isLoading &&
@@ -25,7 +25,9 @@ function Right({ isLoading, indexVideo, videoList }) {
                         key={item.vote_id}
                         className={clsx(styles.item, { [styles.active]: index === indexVideo })}
                     >
-                        <div className={clsx(styles.count)}>{index + 1}</div>
+                        <div className={clsx(styles.count)} onClick={() => handleOpenModal(index)}>
+                            {index + 1}
+                        </div>
                         <div className={clsx(styles.card)}>
                             <VideoCard
                                 item={item}

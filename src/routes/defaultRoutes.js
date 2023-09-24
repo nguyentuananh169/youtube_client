@@ -24,7 +24,7 @@ const defaultRoutes = [
     },
     { path: '/search/:keyword', component: Search, layout: DefaultLayout },
     { path: '/channel/:id/:page', component: Channel, layout: DefaultLayout },
-    { path: '/post/:id', component: Post, layout: DefaultLayout },
+    { path: '/posts', component: Post, layout: DefaultLayout },
     { path: '/subscriptions', component: Subscriptions, layout: DefaultLayout },
     { path: '/library', component: Library, layout: DefaultLayout },
     { path: '/history', component: History, layout: DefaultLayout },

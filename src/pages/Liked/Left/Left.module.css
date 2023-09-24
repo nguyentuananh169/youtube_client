@@ -17,19 +17,30 @@
 }
 .img {
     display: block;
-    aspect-ratio: 16/9;
     border-radius: 15px;
     overflow: hidden;
     position: relative;
     user-select: none;
     cursor: pointer;
 }
-.img img {
+.img::before {
+    content: '';
+    padding-top: 56.25%;
+    display: block;
+}
+.img .aspectRatio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+.img .aspectRatio img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.img .overlay {
+.img .aspectRatio .overlay {
     position: absolute;
     left: 0;
     top: 0;
@@ -43,10 +54,10 @@
     opacity: 0;
     transition: opacity 0.3s ease;
 }
-.img:hover .overlay {
+.img:hover .aspectRatio .overlay {
     opacity: 1;
 }
-.img .overlay p {
+.img .aspectRatio .overlay p {
     font-size: 1.3rem;
     margin-left: 5px;
     text-transform: uppercase;

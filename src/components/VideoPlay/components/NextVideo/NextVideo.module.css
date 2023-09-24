@@ -20,13 +20,25 @@
 }
 .img {
     width: 100%;
-    aspect-ratio: 16/9;
     border-radius: 7px;
     overflow: hidden;
     box-shadow: 0 0 3px #848484;
     margin-top: 10px;
+    position: relative;
 }
-.img img {
+.img::before {
+    content: '';
+    padding-top: 56.25%;
+    display: block;
+}
+.img .aspectRatio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+.img .aspectRatio img {
     width: 100%;
     height: 100%;
     object-fit: cover;

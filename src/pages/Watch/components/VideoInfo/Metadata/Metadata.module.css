@@ -17,3 +17,8 @@
         flex-direction: column-reverse;
     }
 }
+@media screen and (orientation: landscape) {
+    .wrapper {
+        margin-top: 0;
+    }
+}

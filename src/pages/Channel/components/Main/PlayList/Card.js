@@ -26,15 +26,17 @@ function Card({ item }) {
                 <label className={clsx(styles.posAbsolute)} onClick={handleAlert}></label>
             )}
             <div className={clsx(styles.img)}>
-                <div className={clsx(styles.total)}>
-                    <span>{item.total_video}</span>
-                    <RiPlayList2Line size={17} color="#fff" />
+                <div className={clsx(styles.aspectRatio)}>
+                    <div className={clsx(styles.total)}>
+                        <span>{item.total_video}</span>
+                        <RiPlayList2Line size={17} color="#fff" />
+                    </div>
+                    <div className={clsx(styles.playAll)}>
+                        <ImPlay3 size={22} color="#fff" />
+                        <span>Phát tất cả</span>
+                    </div>
+                    <img src={item.video_poster || noImg} />
                 </div>
-                <div className={clsx(styles.playAll)}>
-                    <ImPlay3 size={22} color="#fff" />
-                    <span>Phát tất cả</span>
-                </div>
-                <img src={item.video_poster || noImg} />
             </div>
             <div className={clsx(styles.title)}>
                 <strong>{item.playlist_name}</strong>

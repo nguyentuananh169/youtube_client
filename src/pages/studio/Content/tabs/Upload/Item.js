@@ -1,13 +1,24 @@
 import { SlEye } from 'react-icons/sl';
 import { IoMdArrowDropdown } from 'react-icons/io';
 
-import clsx from 'clsx';
-import styles from './Upload.module.css';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 import Tooltip from '../components/Tooltip';
 import formatDuration from '../../../../../hook/formatDuration';
 import Actions from './Actions';
+import useTimeConversion from '../../../../../hook/useTimeConversion';
+import useNumberConversion from '../../../../../hook/useNumberConversion';
+import styles from './Upload.module.css';
 function Item({ item, tab, handleClickBtnUpdate, handleClickBtnDelete }) {
+    const { date, month, year } = useTimeConversion(item.video_created_at, 'object');
+    const numberConversion = useNumberConversion;
+    const like = +item.video_like;
+    const dislike = +item.video_dislike;
+    let precentLike = 0;
+    if (like > 0 || dislike > 0) {
+        precentLike = (like / (like + dislike)) * 100;
+        precentLike = precentLike.toFixed(1);
+    }
     return (
         <tr>
             <td data-textalign="center">
@@ -19,10 +30,17 @@ function Item({ item, tab, handleClickBtnUpdate, handleClickBtnDelete }) {
                         to={`/watch?category=${item.category_id}&id=${item.video_id}`}
                         className={clsx(styles.img)}
                     >
-                        <img src={item.video_poster} />
-                        <p>{formatDuration(item.video_duration)}</p>
+                        <div className={clsx(styles.aspectRatio)}>
+                            <img src={item.video_poster} />
+                            <p>{formatDuration(item.video_duration)}</p>
+                        </div>
                     </Link>
                     <div className={clsx(styles.info)}>
+                        <Actions
+                            item={item}
+                            handleClickBtnUpdate={handleClickBtnUpdate}
+                            handleClickBtnDelete={handleClickBtnDelete}
+                        />
                         <Link
                             to={`/watch?category=${item.category_id}&id=${item.video_id}`}
                             className={clsx(styles.title)}
@@ -46,11 +64,6 @@ function Item({ item, tab, handleClickBtnUpdate, handleClickBtnDelete }) {
                         </p>
                     </div>
                 </div>
-                <Actions
-                    item={item}
-                    handleClickBtnUpdate={handleClickBtnUpdate}
-                    handleClickBtnDelete={handleClickBtnDelete}
-                />
             </td>
             <td>
                 {tab === 'upload' && (
@@ -71,12 +84,14 @@ function Item({ item, tab, handleClickBtnUpdate, handleClickBtnDelete }) {
             </td>
             <td>Không có</td>
             <td className={clsx(styles.time)}>
-                <p>23 thg 5, 2023</p>
+                <p>
+                    {date} thg {month}, {year}
+                </p>
                 <p>Đã xuất bản</p>
             </td>
-            <td data-textalign="center">{item.video_views}</td>
-            <td data-textalign="center">0</td>
-            <td data-textalign="center">100%</td>
+            <td data-textalign="center">{numberConversion(item.video_views, 'compression')}</td>
+            <td data-textalign="center">{numberConversion(item.video_cmt, 'compression')}</td>
+            <td data-textalign="center">{precentLike}%</td>
         </tr>
     );
 }

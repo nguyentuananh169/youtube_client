@@ -5,7 +5,9 @@ function Unavailable({ img, title, text, linkUrl, linkText }) {
     return (
         <div className={clsx(styles.wrapper)}>
             <div className={clsx(styles.img)}>
-                <img src={img} />
+                <div className={clsx(styles.aspectRatio)}>
+                    <img src={img} />
+                </div>
             </div>
             <div className={clsx(styles.title)}>
                 <h3>{title}</h3>

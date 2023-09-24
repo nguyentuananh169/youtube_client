@@ -1,0 +1,22 @@
+.wrapper {
+    width: 100%;
+    margin-top: 25px;
+    position: relative;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+}
+.close {
+    position: absolute;
+    top: -17px;
+    right: -15px;
+    width: 35px;
+    height: 35px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 2px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
