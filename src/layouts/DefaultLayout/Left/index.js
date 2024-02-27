@@ -1,5 +1,7 @@
-import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import clsx from 'clsx';
 
 import {
     AiFillHome,
@@ -37,15 +39,18 @@ import { ImPlay } from 'react-icons/im';
 
 import HeaderMenu from '../Header/components/Menu';
 import Menu from './Components/Menu';
-import useStore from '../../../hook/useStore';
-import { addSubscriptionList, setIsToggleNavBar } from '../../../store/actions';
+import { addSubscriptionList } from '../../../store/actions/subscription';
+import { setIsToggleNavBar } from '../../../store/actions/toggleNavbar';
 import Login from '../Header/components/Actions/Login';
-import styles from './Left.module.css';
-import { useEffect, useState } from 'react';
 import subscriptionApi from '../../../api/subscriptionApi';
+import styles from './Left.module.css';
+
 function Left({ isMobile }) {
-    const [state, dispatch] = useStore();
-    const { isToggleNavbar } = state;
+    const dispatch = useDispatch();
+    const isToggleNavbar = useSelector((state) => state.toggleNavbar.isToggleNavbar);
+    const isLogin = useSelector((state) => state.auth.isLogin);
+    const user = useSelector((state) => state.auth.user);
+    const subscriptionList = useSelector((state) => state.subscription);
     const initMenuData = [
         {
             title: null,
@@ -100,7 +105,7 @@ function Left({ isMobile }) {
                     icon1: <AiOutlinePlaySquare />,
                     icon2: <AiFillPlaySquare />,
                     type: null,
-                    isHidden: !state.isLogin || !state.user?.user_id,
+                    isHidden: !isLogin || !user?.user_id,
                 },
                 {
                     path: '/watch-later',
@@ -108,7 +113,7 @@ function Left({ isMobile }) {
                     icon1: <AiOutlineClockCircle />,
                     icon2: <AiFillClockCircle />,
                     type: null,
-                    isHidden: !state.isLogin || !state.user?.user_id,
+                    isHidden: !isLogin || !user?.user_id,
                 },
                 {
                     path: '/liked',
@@ -116,13 +121,13 @@ function Left({ isMobile }) {
                     icon1: <AiOutlineLike />,
                     icon2: <AiFillLike />,
                     type: null,
-                    isHidden: !state.isLogin || !state.user?.user_id,
+                    isHidden: !isLogin || !user?.user_id,
                 },
             ],
         },
         {
             title2: 'Hãy đăng nhập để thích video, bình luận và đăng ký kênh',
-            isHidden: state.isLogin && state.user?.user_id,
+            isHidden: isLogin && user?.user_id,
             menu: [
                 {
                     component: <Login />,
@@ -132,7 +137,7 @@ function Left({ isMobile }) {
         },
         {
             title: 'Kênh đăng ký',
-            isHidden: !state.isLogin || !state.user?.user_id,
+            isHidden: !isLogin || !user?.user_id,
             menu: [],
         },
         {
@@ -238,9 +243,12 @@ function Left({ isMobile }) {
     const [menuData, setMenuData] = useState(initMenuData);
 
     useEffect(() => {
-        if (state.isLogin && state.user?.user_id) {
+        if (isLogin && user?.user_id) {
             const fetchSubscribed = async () => {
-                const response = await subscriptionApi.showSubscribed();
+                const formData = {
+                    _limit: 5,
+                };
+                const response = await subscriptionApi.showSubscribed(formData);
                 const subList = response.list;
                 dispatch(addSubscriptionList(subList));
             };
@@ -248,7 +256,7 @@ function Left({ isMobile }) {
         }
     }, []);
     useEffect(() => {
-        const subList = state.subscriptionList.map((item) => ({
+        const subList = subscriptionList.map((item) => ({
             path: `/channel/${item.user_id}/home`,
             text: item.user_name,
             avatar: item.user_avatar,
@@ -258,7 +266,7 @@ function Left({ isMobile }) {
         const newData = [...menuData];
         newData[3].menu = subList;
         setMenuData(newData);
-    }, [state.subscriptionList]);
+    }, [subscriptionList]);
     return (
         <>
             <div

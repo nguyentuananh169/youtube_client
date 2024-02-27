@@ -1,7 +1,7 @@
-import clsx from 'clsx';
-import imgv1 from '../../../../assets/img/no_content_v1.png';
-import styles from './UploadVideo.module.css';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
+import imgv1 from '../../../../../assets/img/no_content_v1.png';
+import styles from './UploadVideo.module.css';
 function UploadVideo() {
     return (
         <div className={clsx(styles.wrapper)}>

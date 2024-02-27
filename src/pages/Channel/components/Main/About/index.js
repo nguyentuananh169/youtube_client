@@ -1,5 +1,4 @@
-import { HiOutlineFlag } from 'react-icons/hi';
-import { RiShareForwardLine } from 'react-icons/ri';
+import { Flag, Share2 } from 'react-feather';
 
 import clsx from 'clsx';
 import Tooltip from '../../../../../components/Tooltip';
@@ -57,7 +56,7 @@ function About({ user }) {
                                         transform: 'translate(-50%,120%)',
                                     }}
                                 />
-                                <HiOutlineFlag size={22} />
+                                <Flag size={22} strokeWidth={1} />
                             </button>
                             <button>
                                 <Tooltip
@@ -68,7 +67,7 @@ function About({ user }) {
                                         transform: 'translate(-50%,120%)',
                                     }}
                                 />
-                                <RiShareForwardLine size={22} />
+                                <Share2 size={22} strokeWidth={1} />
                             </button>
                         </li>
                     </ul>

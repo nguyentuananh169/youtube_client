@@ -1,0 +1,88 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.heading {
+    width: 100%;
+    position: relative;
+}
+.heading .loading {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    left: 0;
+    top: 100%;
+    background-color: #d1cfcf;
+}
+.heading .loading::after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #606060;
+    animation: leftToRight 1s linear infinite;
+}
+@keyframes leftToRight {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+.body {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.actions {
+    width: 100%;
+    height: 53px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.action {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+}
+.action + .action {
+    margin-left: 15px;
+}
+.action select {
+    margin-left: 10px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    min-width: 50px;
+}
+.action.btn {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+.action.btn [data-class='tooltip'] {
+    display: none;
+}
+.action.btn:hover [data-class='tooltip'] {
+    display: block;
+}
+.action.btn.disable {
+    cursor: no-drop;
+}
+.action span {
+    font-size: 1.2rem;
+}
+.bottom {
+    width: 100%;
+    height: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}

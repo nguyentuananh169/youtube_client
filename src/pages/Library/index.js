@@ -1,14 +1,14 @@
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import styles from './Library.module.css';
 import Contents from './Contents';
 import Unavailable from '../../components/Unavailable';
-import useStore from '../../hook/useStore';
 import img from '../../assets/img/library.png';
 function Library() {
-    const [state] = useStore();
+    const auth = useSelector((state) => state.auth);
     return (
         <div className={clsx(styles.wrapper)}>
-            {!state.isLogin && !state.user?.user_id ? (
+            {!auth.isLogin && !auth.user?.user_id ? (
                 <Unavailable
                     img={img}
                     title={'Thưởng thức các video yêu thích của bạn'}

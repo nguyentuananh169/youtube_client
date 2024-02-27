@@ -3,21 +3,21 @@ import { SlArrowDown } from 'react-icons/sl';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import styles from './InputMenu.module.css';
-function InputMenu({ code, valueInput = '', handleSetFilterData, handleSetCodeRef }) {
+function InputMenu({ code, compLv, valueInput = '', handleSetFilterData, handleSetCodeRef }) {
     const [isFocus, setFocus] = useState(false);
     const [isShow, setShow] = useState(false);
-    const [value, setValue] = useState(code === 'views' ? ['>=', ''] : valueInput);
+    const [value, setValue] = useState(compLv === 2 ? ['>=', ''] : valueInput);
     const inputRef = useRef(null);
     useEffect(() => {
         handleSetCodeRef(code);
     }, []);
-    const handleSetValue = (valueInput) => {
-        if (code === 'views') {
-            setValue([value[0], valueInput]);
-            handleSetFilterData(code, [value[0], valueInput]);
+    const handleSetValue = (text) => {
+        if (compLv === 2) {
+            setValue([value[0], text]);
+            handleSetFilterData(code, [value[0], text]);
         } else {
-            setValue(valueInput);
-            handleSetFilterData(code, valueInput);
+            setValue(text);
+            handleSetFilterData(code, text);
         }
     };
     const handleSetValue2 = (value1, value2 = '') => {
@@ -31,10 +31,10 @@ function InputMenu({ code, valueInput = '', handleSetFilterData, handleSetCodeRe
     }, []);
     return (
         <div
-            className={clsx(styles.wrapper, { [styles.row]: code === 'views' })}
+            className={clsx(styles.wrapper, { [styles.row]: compLv === 2 })}
             onClick={() => setShow(!isShow)}
         >
-            {code === 'views' ? (
+            {compLv === 2 ? (
                 <div
                     className={clsx(styles.selector, { [styles.focus]: isShow })}
                     onClick={() => setShow(!isShow)}
@@ -74,7 +74,7 @@ function InputMenu({ code, valueInput = '', handleSetFilterData, handleSetCodeRe
                     onBlur={() => setFocus(false)}
                     type="text"
                     placeholder="Giá trị"
-                    value={code === 'views' ? value[1] : value}
+                    value={compLv === 2 ? value[1] : value}
                     onChange={(e) => handleSetValue(e.target.value)}
                 />
             </div>

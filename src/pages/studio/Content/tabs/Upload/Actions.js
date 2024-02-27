@@ -73,7 +73,7 @@ function Actions({ item, handleClickBtnUpdate, handleClickBtnDelete }) {
                     />
                     <SiSimpleanalytics size={20} />
                 </Link>
-                <Link to={'#'} className={clsx(styles.icon)}>
+                <Link to={`/studio/comments/${item.video_id}`} className={clsx(styles.icon)}>
                     <Tooltip
                         data-class="tooltip"
                         content={'Bình luận'}

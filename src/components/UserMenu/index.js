@@ -10,15 +10,14 @@ import { FiUserPlus } from 'react-icons/fi';
 
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Menu from './Menu';
 import useClickOutSide from '../../hook/useClickOutSide';
-import styles from './UserMenu.module.css';
-import useStore from '../../hook/useStore';
 import NoAvatar from '../NoAvatar';
+import styles from './UserMenu.module.css';
 function UserMenu() {
-    const [state] = useStore();
-    const { user } = state;
+    const user = useSelector((state) => state.auth.user);
     const menuData = {
         deviceInterface: 'default',
         language: 'vn',

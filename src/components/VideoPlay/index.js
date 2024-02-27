@@ -11,6 +11,7 @@ import { AiOutlineCheck } from 'react-icons/ai';
 import { BiAbacus } from 'react-icons/bi';
 
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Tooltip from '../Tooltip';
 import TimeLine from './components/TimeLine';
@@ -19,7 +20,6 @@ import RightControls from './components/RightControls';
 import Spinner from '../Spinner';
 import MobileControls from './components/MobileControls';
 import NextVideo from './components/NextVideo';
-import useStore from '../../hook/useStore';
 import formatDuration from '../../hook/formatDuration';
 import videoApi from '../../api/videoApi';
 import styles from './VideoPlay.module.css';
@@ -134,8 +134,7 @@ function VideoPlay({
     const timePlayRef = useRef(0);
     const intervalRef = useRef(0);
 
-    const [state] = useStore();
-    const { nextVideoInfo } = state;
+    const nextVideoInfo = useSelector((state) => state.nextVideoInfo);
 
     const isTouchDevice =
         'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;

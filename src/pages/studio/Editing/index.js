@@ -1,21 +1,19 @@
 import { BsFillCheckCircleFill, BsExclamationCircle } from 'react-icons/bs';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
+import { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
-import NoData from '../components/NoData';
 import TitlePage from '../components/TitlePage';
-import imgv2 from '../../../assets/img/no_content_v2.png';
-import styles from './Editing.module.css';
 import { useValidateForm } from '../../../hook/useValidateForm';
-import { useState } from 'react';
 import EditorComp from './EditComp';
-import useStore from '../../../hook/useStore';
 import userApi from '../../../api/userApi';
-import { useRef } from 'react';
-import { addToastMessage, changeUserInfo } from '../../../store/actions';
+import { addToastMessage } from '../../../store/actions/toastMessage';
+import { changeUserInfo } from '../../../store/actions/auth';
+import styles from './Editing.module.css';
 function Editing() {
-    const [state, dispatch] = useStore();
-    const { user } = state;
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.user);
     const [isLoadingCheck, setLoadingCheck] = useState(false);
     const [isTagExists, setIsTagExists] = useState(false);
     const [isLoadingSubmit, setLoadingSubmit] = useState(false);
@@ -138,10 +136,12 @@ function Editing() {
                             onBlur={(e) => invalid('tag', e.target.value)}
                         />
                         <div className={clsx(styles.icon)}>
-                            {!isLoadingCheck && !isTagExists && (
+                            {(errors.tag || isTagExists) && !isLoadingCheck && (
+                                <BsExclamationCircle size={17} color="#d01313" />
+                            )}
+                            {!isLoadingCheck && !isTagExists && !errors.tag && (
                                 <BsFillCheckCircleFill size="17" color="#007800" />
                             )}
-                            {errors.tag && <BsExclamationCircle size={17} color="#d01313" />}
                             {isLoadingCheck && (
                                 <AiOutlineLoading3Quarters
                                     className={clsx(styles.loading)}

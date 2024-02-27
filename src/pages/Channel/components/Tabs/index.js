@@ -1,8 +1,8 @@
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
-import useStore from '../../../../hook/useStore';
 import styles from './Tabs.module.css';
 function Tabs() {
     const data = [
@@ -43,7 +43,8 @@ function Tabs() {
     const btnPrevRef = useRef(null);
 
     const params = useParams();
-    const [state] = useStore();
+    const isHiddenHeader = useSelector((state) => state.hiddenHeader.isHiddenHeader);
+    const isToggleNavbar = useSelector((state) => state.toggleNavbar.isToggleNavbar);
     useEffect(() => {
         if (listRef.current) {
             setListWidthEl(listRef.current.scrollWidth);
@@ -71,7 +72,7 @@ function Tabs() {
     useEffect(() => {
         containerRef.current.style.width = `${wrapperRef.current.clientWidth}px`;
         containerRef.current.style.left = `${wrapperRef.current.offsetLeft}px`;
-    }, [state.isToggleNavbar]);
+    }, [isToggleNavbar]);
     useEffect(() => {
         const handleScroll = () => {
             const offsetTop = wrapperRef.current.offsetTop - 54;
@@ -110,7 +111,7 @@ function Tabs() {
         <div ref={wrapperRef} className={clsx(styles.wrapper)}>
             <div
                 ref={containerRef}
-                className={clsx(styles.container, { [styles.hidden]: state.isHiddenHeader })}
+                className={clsx(styles.container, { [styles.hidden]: isHiddenHeader })}
             >
                 <div
                     ref={listContainerRef}

@@ -14,7 +14,14 @@ import commentApi from '../../../../api/commentApi';
 import postCommentApi from '../../../../api/postCommentApi';
 import LoadingHasMore from '../../../../components/LoadingHasMore';
 import CommentGroup from './components/CommentGroup';
-function Comments({ isPostsPage = false, ownerId, ownerName, ownerAvatar, loadingPage }) {
+function Comments({
+    isPostsPage = false,
+    ownerId,
+    ownerName,
+    ownerAvatar,
+    hostUserId,
+    loadingPage,
+}) {
     const [isShow, setIsShow] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [totalComment, setTotalComment] = useState(0);
@@ -207,6 +214,7 @@ function Comments({ isPostsPage = false, ownerId, ownerName, ownerAvatar, loadin
                     />
                     <Form
                         isPostsPage={isPostsPage}
+                        hostUserId={hostUserId}
                         handleAddCommentSuccess={handleAddCommentSuccess}
                     />
 

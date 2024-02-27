@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import FilterSlider from '../../components/FilterSlider';
 import styles from './Search.module.css';
 import { useRef } from 'react';
-import useStore from '../../hook/useStore';
 import ResultList from './components/ResultList';
 function Search() {
     const menuList = [
@@ -28,7 +28,8 @@ function Search() {
     const [width, setWidth] = useState(0);
     const [categoryId, setCatgoryId] = useState('');
     const categoryRef = useRef(null);
-    const [state] = useStore();
+    const isHiddenHeader = useSelector((state) => state.hiddenHeader.isHiddenHeader);
+    const isToggleNavbar = useSelector((state) => state.toggleNavbar.isToggleNavbar);
 
     useEffect(() => {
         const handleResize = () => {
@@ -41,7 +42,7 @@ function Search() {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [state.isToggleNavbar]);
+    }, [isToggleNavbar]);
     const handleSetCatgoryId = (id) => {
         setCatgoryId(id);
         setIsLoading(true);
@@ -51,7 +52,7 @@ function Search() {
         <div className={clsx(styles.wrapper)}>
             {isLoading && <div className={clsx(styles.overlay)}></div>}
             <div ref={categoryRef} className={clsx(styles.category)}>
-                <div className={clsx(styles.fixed, { [styles.hidden]: state.isHiddenHeader })}>
+                <div className={clsx(styles.fixed, { [styles.hidden]: isHiddenHeader })}>
                     <FilterSlider
                         itemList={menuList}
                         width={width}

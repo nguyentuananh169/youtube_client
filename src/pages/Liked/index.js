@@ -4,11 +4,11 @@ import Left from './Left';
 import Right from './Right';
 import videoVotesApi from '../../api/videoVotesApi';
 import Modal from './Modal';
-import { addToastMessage } from '../../store/actions';
-import useStore from '../../hook/useStore';
+import { addToastMessage } from '../../store/actions/toastMessage';
 import styles from './Liked.module.css';
 import { Navigate } from 'react-router-dom';
 import NoResult from '../../components/NoResult';
+import { useDispatch, useSelector } from 'react-redux';
 function Liked() {
     const [isLoading, setIsLoading] = useState(true);
     const [videoList, setVideoList] = useState([]);
@@ -17,7 +17,8 @@ function Liked() {
     const [indexVideo, setIndexVideo] = useState(0);
     const [isNextVideo, setIsNextVideo] = useState(false);
 
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
     useEffect(() => {
         const fetchVideoByVote = async () => {
             setIsLoading(true);
@@ -67,7 +68,7 @@ function Liked() {
             document.body.style.overflow = '';
         }
     }, [isShowModal]);
-    if (!state.isLogin && !state.user?.user_id) {
+    if (!auth.isLogin && !auth.user?.user_id) {
         return <Navigate to={'/'} replace />;
     }
     return (

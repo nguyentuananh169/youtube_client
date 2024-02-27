@@ -1,14 +1,14 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import Modal from '../../../../../components/Modal';
 import videoApi from '../../../../../../../api/videoApi';
+import { addToastMessage } from '../../../../../../../store/actions/toastMessage';
 import styles from './DeleteForm.module.css';
-import useStore from '../../../../../../../hook/useStore';
-import { addToastMessage } from '../../../../../../../store/actions';
 function DeleteForm({ dataForm, handleResetDataForm, setModal, getVideoApi }) {
     const [isCheckBox, setIsCheckBox] = useState(false);
     const [isLoading, setIsloading] = useState(false);
-    const [, distpatch] = useStore();
+    const distpatch = useDispatch();
     const handleCloseModal = () => {
         handleResetDataForm();
         setModal({ isShow: false, type: '' });

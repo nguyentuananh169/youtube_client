@@ -88,7 +88,7 @@ function SearchBox() {
                 {isShow && !isLoading && (
                     <div className={clsx(styles.menu)}>
                         <div className={clsx(styles.title)}>
-                            {!isSearch
+                            {!isSearch && result.length === 0
                                 ? 'Nhập từ khóa tìm kiếm'
                                 : `5 kết quả gần nhất (${result.length})`}
                         </div>

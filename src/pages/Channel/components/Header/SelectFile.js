@@ -1,14 +1,15 @@
 import { AiFillCamera } from 'react-icons/ai';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Tooltip from '../../../../components/Tooltip';
-import useStore from '../../../../hook/useStore';
 import styles from './Header.module.css';
-import { addToastMessage, changeUserInfo } from '../../../../store/actions';
+import { addToastMessage } from '../../../../store/actions/toastMessage';
+import { changeUserInfo } from '../../../../store/actions/auth';
 import userApi from '../../../../api/userApi';
-import { useState } from 'react';
 function SelectFile() {
-    const [state, dispatch] = useStore();
-    const { user } = state;
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.user);
     const [isLoading, setIsLoading] = useState(false);
     const handleChangeFile = async (e) => {
         const file = e.target.files[0];

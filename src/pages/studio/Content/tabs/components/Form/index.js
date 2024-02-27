@@ -1,5 +1,6 @@
 import { IoWarningOutline } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import Modal from '../../../../components/Modal';
 import Body from './Body';
@@ -8,8 +9,7 @@ import categoryApi from '../../../../../../api/categoryApi';
 import playlistApi from '../../../../../../api/playlistApi';
 import videoApi from '../../../../../../api/videoApi';
 import cloudinaryApi from '../../../../../../api/cloudinaryApi';
-import useStore from '../../../../../../hook/useStore';
-import { addToastMessage } from '../../../../../../store/actions';
+import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import Error from './Error';
 import styles from './Form.module.css';
 
@@ -45,17 +45,8 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
     const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
     const [categoryList, setCategoryList] = useState([]);
     const [playlist, setPlaylist] = useState([]);
-    const [state, distpatch] = useStore();
+    const distpatch = useDispatch();
     const handleAddVideo = async () => {
-        if (state.user.user_id === '7') {
-            return distpatch(
-                addToastMessage(
-                    'error',
-                    'Thất bại',
-                    'Không thực hiện được, bạn hãy dùng tài khoản khác',
-                ),
-            );
-        }
         setIsLoadingSubmit(true);
         try {
             const response1 = await cloudinaryApi.upload(values.videoFile);

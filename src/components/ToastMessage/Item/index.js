@@ -22,17 +22,17 @@ function Item({ id, type, title, message, duration, handleRemoveMessage }) {
             style={{ animation: animationStyle }}
         >
             <div className="body">
-                <div className="line"></div>
                 <div className="content">
-                    <div className="title">
-                        <strong>{title}</strong>
-                    </div>
                     <div className="message">
                         <span>{message}</span>
                     </div>
                 </div>
                 <div className="close">
-                    <TfiClose onClick={() => handleRemoveMessage(id)} />
+                    <TfiClose
+                        cursor="pointer"
+                        color="#fff"
+                        onClick={() => handleRemoveMessage(id)}
+                    />
                 </div>
                 <div className="timeLine" style={{ animation: animationTimeLine }}></div>
             </div>

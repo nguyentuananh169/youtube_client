@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { useValidateForm } from '../../hook/useValidateForm';
-import useStore from '../../hook/useStore';
-import { addToastMessage } from '../../store/actions';
+import { addToastMessage } from '../../store/actions/toastMessage';
 import authApi from '../../api/authApi';
 import logo from '../../assets/img/logo-small.png';
 import bg from '../../assets/img/social-media.jpg';
@@ -29,8 +29,8 @@ function Register() {
         email: '',
         password: '',
     });
-    const [state, dispatch] = useStore();
-    const { isLogin } = state;
+    const dispatch = useDispatch();
+    const { isLogin } = useSelector((state) => state.auth.isLogin);
     const navigate = useNavigate();
     const handleSubmit = async () => {
         if (isLoading) {

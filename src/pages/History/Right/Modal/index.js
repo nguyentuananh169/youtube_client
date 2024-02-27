@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import styles from './Modal.module.css';
 function Modal({ isOnHistory, setIsOnHistory, setIsShowModal }) {
+    const user = useSelector((state) => state.auth.user);
     const handleClickBtnOk = () => {
         setIsOnHistory(!isOnHistory);
         setIsShowModal(false);
@@ -15,7 +17,9 @@ function Modal({ isOnHistory, setIsOnHistory, setIsShowModal }) {
                     </span>
                 </div>
                 <div className={clsx(styles.userName)}>
-                    <span>Nguyễn Tuấn Anh (tuannguyen6032@gmail.com)</span>
+                    <span>
+                        {user.user_name} ({user.user_email})
+                    </span>
                 </div>
                 <div className={clsx(styles.body)}>
                     {isOnHistory ? (

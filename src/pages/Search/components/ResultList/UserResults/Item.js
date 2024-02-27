@@ -22,7 +22,7 @@ function Item({ item }) {
             <div className={clsx(styles.info)}>
                 <div className={clsx(styles.channel)}>
                     <div className={clsx(styles.name)}>
-                        <Link to={`/channel/${item.user_tag}/home`}>{item.user_name}</Link>
+                        <Link to={`/channel/${item.user_id}/home`}>{item.user_name}</Link>
                         <Tooltip
                             content={item.user_name}
                             customStyle={{
@@ -34,7 +34,7 @@ function Item({ item }) {
                         />
                     </div>
                     <div className={clsx(styles.offical)}>
-                        <Link to={`/channel/${item.user_tag}/home`}>
+                        <Link to={`/channel/${item.user_id}/home`}>
                             <AiFillCheckCircle size={14} color="#606060" />
                         </Link>
                         <Tooltip

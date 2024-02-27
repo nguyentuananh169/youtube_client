@@ -1,16 +1,16 @@
 import { useEffect, useRef } from 'react';
 import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Header from './Header';
 import Left from './Left';
 import Right from './Right';
-import useStore from '../../hook/useStore';
 import styles from './Studio.module.css';
 function StudioLayout({ children }) {
     const wrapperRef = useRef(null);
     const headerRef = useRef(null);
-    const [state] = useStore();
-    const { isLogin } = state;
+    const isToggleNavbar2 = useSelector((state) => state.toggleNavbar.isToggleNavbar2);
+    const isLogin = useSelector((state) => state.auth.isLogin);
     useEffect(() => {
         if (headerRef.current && wrapperRef.current) {
             const headerEl = headerRef.current;
@@ -25,7 +25,7 @@ function StudioLayout({ children }) {
     return (
         <div
             ref={wrapperRef}
-            className={clsx(styles.wrapper, { [styles.toggleNavbar]: state.isToggleNavbar2 })}
+            className={clsx(styles.wrapper, { [styles.toggleNavbar]: isToggleNavbar2 })}
         >
             <Header headerRef={headerRef} />
             <main className={clsx(styles.main)}>

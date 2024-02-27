@@ -1,0 +1,76 @@
+.actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    margin-left: -12px;
+}
+.actions .btns {
+    display: flex;
+    margin-top: 5px;
+}
+.actions .btns + .btns {
+    flex: 1;
+}
+.actions .btn {
+    padding: 0 12px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    white-space: nowrap;
+}
+.actions .btn.loading {
+    cursor: no-drop;
+}
+.actions .btn > svg,
+.actions .btn.replyCount {
+    color: #909090;
+    font-weight: 500;
+}
+.actions .btn + .btn {
+    margin-left: 10px;
+}
+.actions .btn.reply {
+    text-transform: uppercase;
+    color: #606060;
+    font-weight: 500;
+}
+.actions .btn.reply:hover,
+.actions .btn.active {
+    color: #065fd4;
+}
+.actions .btn.replyCount svg {
+    margin-left: 5px;
+}
+.actions .btn.like > span,
+.actions .btn.dislike > span {
+    font-size: 1.2rem;
+    color: #909090;
+    display: inline-block;
+    margin-left: 5px;
+}
+.actions .btn [data-class='tooltip'] {
+    display: none;
+}
+.actions .btn:hover [data-class='tooltip'] {
+    display: block;
+}
+.actions .heart .img {
+    width: 25px;
+    height: 25px;
+    position: relative;
+}
+.actions .heart .img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.actions .heart .img svg {
+    position: absolute;
+    bottom: -4px;
+    right: 2px;
+}

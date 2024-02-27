@@ -38,12 +38,46 @@ const parseTimeObject = (time) => {
     };
     return object;
 };
+const parseTimeAgoObject = (time) => {
+    let ms1 = new Date(time).getTime();
+    let ms2 = new Date().getTime();
+    let ms = ms2 - ms1;
+
+    const msPerSecond = 1000;
+    const msPerMinute = msPerSecond * 60;
+    const msPerHour = msPerMinute * 60;
+    const msPerDay = msPerHour * 24;
+    const msPerMonth = msPerDay * 30;
+    const msPerYear = msPerDay * 365;
+
+    const year = Math.floor(ms / msPerYear);
+    const month = Math.floor((ms % msPerYear) / msPerMonth);
+    const day = Math.floor((ms % msPerMonth) / msPerDay);
+    const hours = Math.floor((ms % msPerDay) / msPerHour);
+    const minutes = Math.floor((ms % msPerHour) / msPerMinute);
+    const seconds = Math.floor((ms % msPerMinute) / msPerSecond);
+
+    const object = {
+        day,
+        month,
+        year,
+        hours,
+        minutes,
+        seconds,
+    };
+    return object;
+};
 const useTimeConversion = (time, type) => {
+    if (!time) {
+        return time;
+    }
     switch (type) {
         case 'ago':
             return convertToRelativeTime(time);
         case 'object':
             return parseTimeObject(time);
+        case 'ago-object':
+            return parseTimeAgoObject(time);
         default:
             return '';
     }

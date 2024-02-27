@@ -2,22 +2,24 @@ import { BsCheckCircleFill } from 'react-icons/bs';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Tooltip from '../../../../components/Tooltip';
 import NoAvatar from '../../../../components/NoAvatar';
-import useStore from '../../../../hook/useStore';
 import subscriptionApi from '../../../../api/subscriptionApi';
-import { addSubscription, addToastMessage, deleteSubscription } from '../../../../store/actions';
+import { addSubscription, deleteSubscription } from '../../../../store/actions/subscription';
+import { addToastMessage } from '../../../../store/actions/toastMessage';
 import useNumberConversion from '../../../../hook/useNumberConversion';
 import styles from './Header.module.css';
 import SelectFile from './SelectFile';
 function Header({ user }) {
     const { id } = useParams();
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        if (state.isLogin && state.user?.user_id && state.user?.user_id !== id) {
+        if (auth.isLogin && auth.user?.user_id && auth.user?.user_id !== id) {
             const checkSubscribe = async () => {
                 setIsLoading(true);
                 const formData = {
@@ -44,7 +46,7 @@ function Header({ user }) {
             dispatch(addToastMessage('success', 'Thành công', response[0].message));
             dispatch(
                 addSubscription({
-                    subscriber_id: state.user.user_id,
+                    subscriber_id: auth.user.user_id,
                     user_avatar: user.user_avatar,
                     user_name: user.user_name,
                     user_id: id,
@@ -77,15 +79,13 @@ function Header({ user }) {
         <div className={clsx(styles.wrapper)}>
             <div className={clsx(styles.container)}>
                 <div className={clsx(styles.img)}>
-                    {state.isLogin && state.user?.user_id && state.user?.user_id === id && (
+                    {auth.isLogin && auth.user?.user_id && auth.user?.user_id === id && (
                         <SelectFile />
                     )}
-                    {user.user_avatar || state.user.user_avatar ? (
+                    {user.user_avatar || (auth.user?.user_avatar && auth.user?.user_id === id) ? (
                         <img
                             src={
-                                state.user?.user_id === id
-                                    ? state.user.user_avatar
-                                    : user.user_avatar
+                                auth.user?.user_id === id ? auth.user.user_avatar : user.user_avatar
                             }
                         />
                     ) : (
@@ -125,11 +125,11 @@ function Header({ user }) {
                         </div>
                         <div
                             className={clsx(styles.containerBtn, {
-                                [styles.loading]: isLoading && state.user?.user_id !== id,
+                                [styles.loading]: isLoading && auth.user?.user_id !== id,
                             })}
                         >
-                            {state.isLogin &&
-                                (user.user_id === state.user?.user_id ? (
+                            {auth.isLogin &&
+                                (user.user_id === auth.user?.user_id ? (
                                     <>
                                         <Link to="/studio/editing" className={clsx(styles.btn)}>
                                             Tùy chỉnh kênh

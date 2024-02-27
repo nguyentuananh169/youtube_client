@@ -27,7 +27,8 @@ function DropdownMenu({
         if (code) {
             let isAllowed = true;
             const objectValidates = currentMenu.validates || {};
-            const data = code === 'views' ? currentData[1] : currentData;
+            const isArray = Array.isArray(currentData);
+            const data = isArray ? currentData[currentData.length - 1] : currentData;
             for (let item in objectValidates) {
                 const error = objectRules[item](code, data);
                 if (error) {
@@ -81,6 +82,7 @@ function DropdownMenu({
                             return;
                         }
                         const isParent = !!item.children;
+                        const valueType = currentMenu.valueType || item.valueType;
                         const code = currentMenu.code || item.code;
                         const title = currentMenu.title || item.title;
                         return (
@@ -95,7 +97,12 @@ function DropdownMenu({
                                         return handleNextMenu(item.children);
                                     } else {
                                         handleSetCodeRef(code);
-                                        handleSetFilterData(code, item.valueText, item.valueCode);
+                                        handleSetFilterData(
+                                            code,
+                                            item.valueText,
+                                            item.valueCode,
+                                            valueType,
+                                        );
                                     }
                                 }}
                             />
@@ -107,6 +114,7 @@ function DropdownMenu({
                 <div className={clsx(styles.menu2)}>
                     <InputMenu
                         code={currentMenu.code}
+                        compLv={currentMenu.compLv || 1}
                         valueInput={currentData}
                         handleSetFilterData={handleSetFilterData}
                         handleSetCodeRef={handleSetCodeRef}

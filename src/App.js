@@ -1,15 +1,14 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { defaultRoutes, studioRoutes, errorRoutes } from './routes';
 import ToastMessage from './components/ToastMessage';
 import authApi from './api/authApi';
-import { changeUserInfo, checkLogin } from './store/actions';
-import { useEffect } from 'react';
-import useStore from './hook/useStore';
+import { changeUserInfo, checkLogin } from './store/actions/auth';
 import CheckLogin from './components/CheckLogin';
 function App() {
-    const [state, dispatch] = useStore();
-    const { isCheckLogin } = state;
+    const dispatch = useDispatch();
+    const isCheckLogin = useSelector((state) => state.auth.isCheckLogin);
     const token = localStorage.getItem('access_token');
     useEffect(() => {
         if (token && isCheckLogin) {

@@ -6,12 +6,13 @@ import App from './App';
 import GlobalStyles from './components/GlobalStyles';
 import ScrollTop from './components/ScrollTop';
 import reportWebVitals from './reportWebVitals';
-import ContextProvider from './store/ContextProvider';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <React.StrictMode>
-    <ContextProvider>
+    <Provider store={store}>
         <Router>
             <GlobalStyles>
                 <ScrollTop>
@@ -19,7 +20,7 @@ root.render(
                 </ScrollTop>
             </GlobalStyles>
         </Router>
-    </ContextProvider>,
+    </Provider>,
     // </React.StrictMode>,
 );
 

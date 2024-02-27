@@ -1,15 +1,16 @@
-import useStore from '../../hook/useStore';
-import { removeToastMessage } from '../../store/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeToastMessage } from '../../store/actions/toastMessage';
 import Item from './Item';
 import './ToastMessage.css';
 function ToastMessage() {
-    const [store, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const toastMessageList = useSelector((state) => state.toastMessage);
     const handleRemoveMessage = (id) => {
         dispatch(removeToastMessage(id));
     };
     return (
         <div id="toastMessage">
-            {store.toastMessages.map((item) => (
+            {toastMessageList.map((item) => (
                 <Item
                     key={item.id}
                     id={item.id}

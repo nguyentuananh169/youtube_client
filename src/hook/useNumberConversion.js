@@ -34,6 +34,9 @@ const numberCompression = (number) => {
     }
 };
 const useNumberConversion = (number, type) => {
+    if (!number) {
+        return number;
+    }
     switch (type) {
         case 'commas':
             return toStringWithCommas(number);

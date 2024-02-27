@@ -6,12 +6,13 @@ import clsx from 'clsx';
 import styles from './Menu.module.css';
 import Button from '../../../../../components/Button';
 import logo from '../../../../../assets/img/logo.png';
-import useStore from '../../../../../hook/useStore';
-import { setIsToggleNavBar } from '../../../../../store/actions';
+import { setIsToggleNavBar } from '../../../../../store/actions/toggleNavbar';
+import { useDispatch, useSelector } from 'react-redux';
 function Menu() {
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const isToggleNavbar = useSelector((state) => state.toggleNavbar.isToggleNavbar);
     return (
-        <div className={clsx(styles.wrapper, { [styles.toggle]: state.isToggleNavbar })}>
+        <div className={clsx(styles.wrapper, { [styles.toggle]: isToggleNavbar })}>
             <div className={clsx(styles.icon)} onClick={() => dispatch(setIsToggleNavBar())}>
                 <Button>
                     <FaBars />

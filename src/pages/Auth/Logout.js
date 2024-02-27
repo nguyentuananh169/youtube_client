@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import useStore from '../../hook/useStore';
-import { changeUserInfo } from '../../store/actions';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { changeUserInfo } from '../../store/actions/auth';
 function Logout() {
-    const [, dispatch] = useStore();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
         const handleLogOut = () => {

@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import NoAvatar from '../../../../../../components/NoAvatar';
 import Form from '../Form';
-import useStore from '../../../../../../hook/useStore';
 import commentApi from '../../../../../../api/commentApi';
 import postCommentApi from '../../../../../../api/postCommentApi';
 import useClickOutSide from '../../../../../../hook/useClickOutSide';
@@ -15,11 +14,12 @@ import DotMenu from '../../../../../../components/DotMenu';
 import MenuFixed from '../../../../../../components/MenuFixed';
 import styles from './Item.module.css';
 import LoadingHasMore from '../../../../../../components/LoadingHasMore';
-import { addToastMessage } from '../../../../../../store/actions';
+import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import Actions from './Actions';
 import useTimeConversion from '../../../../../../hook/useTimeConversion';
 import ConfirmationDialog from '../../../../../../components/ConfirmationDialog';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 function Item({
     isPostsPage,
     isLv2 = false,
@@ -34,7 +34,8 @@ function Item({
     handleResetComments = () => {},
     commentRef,
 }) {
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
 
     const [isShowForm, setIsShowForm] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -95,18 +96,17 @@ function Item({
             handleResetComments();
         }
     };
-
     const dataMenuFixed = [
         {
             icon: <BsPin />,
             text: item.cmt_pin ? 'Bỏ ghim' : 'Ghim',
-            isHidden: ownerId !== state.user?.user_id || isLv2,
+            isHidden: ownerId !== auth.user?.user_id || isLv2,
             onClick: handlePin,
         },
         {
             icon: <CiEdit />,
             text: 'Chỉnh sửa',
-            isHidden: state.user?.user_id !== item.user_id,
+            isHidden: auth.user?.user_id !== item.user_id,
             onClick: () => {
                 setIsEdit(true);
                 setShow(false);
@@ -115,13 +115,13 @@ function Item({
         {
             icon: <RiDeleteBin6Line />,
             text: 'Xóa',
-            isHidden: state.user?.user_id !== item.user_id,
+            isHidden: auth.user?.user_id !== item.user_id,
             onClick: handleClickDelete,
         },
         {
             icon: <BsFlag />,
             text: 'Báo cáo vi phạm',
-            isHidden: state.user?.user_id === item.user_id,
+            isHidden: auth.user?.user_id === item.user_id,
         },
     ];
     const handleEdit = async (value) => {
@@ -225,7 +225,7 @@ function Item({
                     )}
                 </div>
 
-                {state.isLogin && !isLoading && !isEdit && (
+                {auth.isLogin && !isLoading && !isEdit && (
                     <div
                         ref={elementRef}
                         className={clsx(styles.dotMenu, { [styles.active]: isShow })}

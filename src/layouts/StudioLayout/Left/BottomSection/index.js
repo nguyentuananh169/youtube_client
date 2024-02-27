@@ -1,12 +1,11 @@
 import { SlSettings } from 'react-icons/sl';
 import { MdOutlineFeedback } from 'react-icons/md';
 
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
-import useStore from '../../../../hook/useStore';
 import styles from './BottomSection.module.css';
 function BottomSection() {
-    const [state] = useStore();
-    const { isToggleNavbar2 } = state;
+    const isToggleNavbar2 = useSelector((state) => state.toggleNavbar.isToggleNavbar2);
     const menuList = [
         {
             icon: <SlSettings fontSize="20" color="#909090" />,

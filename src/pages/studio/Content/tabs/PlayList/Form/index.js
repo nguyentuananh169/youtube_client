@@ -1,12 +1,12 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { useValidateForm } from '../../../../../../hook/useValidateForm';
-import useStore from '../../../../../../hook/useStore';
 import Modal from '../../../../components/Modal';
 import Body from './Body';
 import Bottom from './Bottom';
 import playlistApi from '../../../../../../api/playlistApi';
-import { addToastMessage } from '../../../../../../store/actions';
+import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import styles from './Form.module.css';
 function Form({ modal, dataForm, setDataForm, handleCloseModal, fetchPlaylist }) {
     const validates = [
@@ -20,7 +20,7 @@ function Form({ modal, dataForm, setDataForm, handleCloseModal, fetchPlaylist })
         },
     ];
     const [isLoading, setLoading] = useState(false);
-    const [, distpatch] = useStore();
+    const distpatch = useDispatch();
     const addPlaylist = async () => {
         setLoading(true);
         const params = new FormData();

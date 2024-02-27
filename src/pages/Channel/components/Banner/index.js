@@ -1,14 +1,15 @@
 import { AiFillCamera, AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import userApi from '../../../../api/userApi';
 import Tooltip from '../../../../components/Tooltip';
-import { addToastMessage, changeUserInfo } from '../../../../store/actions';
-import useStore from '../../../../hook/useStore';
+import { addToastMessage } from '../../../../store/actions/toastMessage';
 import styles from './Banner.module.css';
 function Banner({ user, setUser }) {
     const [isLoading, setIsLoading] = useState(false);
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
     const handleChangeFile = async (e) => {
         const file = e.target.files[0];
         if (!file || isLoading) {
@@ -39,7 +40,7 @@ function Banner({ user, setUser }) {
     };
     return (
         <div className={clsx(styles.wrapper)}>
-            {state.isLogin && state.user?.user_id && state.user?.user_id === user.user_id && (
+            {auth.isLogin && auth.user?.user_id && auth.user?.user_id === user.user_id && (
                 <label
                     className={clsx(styles.selectFile, { [styles.loading]: isLoading })}
                     htmlFor="select-file"

@@ -1,10 +1,9 @@
 import clsx from 'clsx';
 import TitlePage from '../components/TitlePage';
-import VideoPerformance from './VideoPerformance';
 import ChannelAnalytics from './ChannelAnalytics';
 import Wellcome from './Wellcome';
 import Bottom from './Bottom';
-import UploadVideo from './UploadVideo';
+import VideoAnalytics from './VideoAnalytics';
 import styles from './OverView.module.css';
 function OverView() {
     return (
@@ -12,8 +11,7 @@ function OverView() {
             <TitlePage text={'Trang tổng quan của kênh'} />
             <div className={clsx(styles.body)}>
                 <div className={clsx(styles.card)}>
-                    {/* <VideoPerformance /> */}
-                    <UploadVideo />
+                    <VideoAnalytics />
                 </div>
                 <div className={clsx(styles.card)}>
                     <ChannelAnalytics />

@@ -1,9 +1,9 @@
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
-import useStore from '../../../hook/useStore';
 import styles from './Right.module.css';
 function Right({ isMobile, children }) {
-    const [state] = useStore();
-    const { isToggleNavbar, isHiddenHeader } = state;
+    const isHiddenHeader = useSelector((state) => state.hiddenHeader.isHiddenHeader);
+    const isToggleNavbar = useSelector((state) => state.toggleNavbar.isToggleNavbar);
     return (
         <div
             className={clsx(styles.wrapper, {

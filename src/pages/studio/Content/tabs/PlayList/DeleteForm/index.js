@@ -1,15 +1,15 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import Modal from '../../../../components/Modal';
 import playlistApi from '../../../../../../api/playlistApi';
-import useStore from '../../../../../../hook/useStore';
-import { addToastMessage } from '../../../../../../store/actions';
+import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import NoThumbnail from '../../../../../../assets/img/no_thumbnail.jpg';
 import styles from './DeleteForm.module.css';
 function DeleteForm({ dataForm, handleCloseModal, fetchPlaylist }) {
     const [isCheckBox, setIsCheckBox] = useState(false);
     const [isLoading, setIsloading] = useState(false);
-    const [, distpatch] = useStore();
+    const distpatch = useDispatch();
     const modalStyle = {
         width: 'calc(100vw - 20px)',
         maxWidth: '480px',

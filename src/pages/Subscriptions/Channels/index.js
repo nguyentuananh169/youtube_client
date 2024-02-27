@@ -1,14 +1,15 @@
 import clsx from 'clsx';
-import styles from './Channels.module.css';
+import { useDispatch } from 'react-redux';
 import Loading from './Loading';
 import NoResult from '../../../components/NoResult';
 import subscriptionApi from '../../../api/subscriptionApi';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Item from './Item';
-import useStore from '../../../hook/useStore';
 import LoadingHasMore from '../../../components/LoadingHasMore';
-import { addToastMessage, deleteSubscription } from '../../../store/actions';
+import { addToastMessage } from '../../../store/actions/toastMessage';
+import { deleteSubscription } from '../../../store/actions/subscription';
+import styles from './Channels.module.css';
 function Channels() {
     const [isLoadingFirst, setIsLoadingFirst] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +20,7 @@ function Channels() {
         totalPage: 1,
     });
     const [subList, setSubList] = useState([]);
-    const [, dispatch] = useStore();
+    const dispatch = useDispatch();
 
     const fetchSubList = async () => {
         setIsLoading(true);

@@ -8,28 +8,16 @@ import FilterList from './FilterList';
 import DropdownMenu from './DropdownMenu';
 import useClickOutSide from '../../../../hook/useClickOutSide';
 import styles from './Filter.module.css';
-function Filter({ initMenu, isLoading = false, handleSearch = () => {} }) {
-    const initFilterData = {
-        copyright: false,
-        visibility: [],
-        mfk_restrictions: [],
-        age_restricted: '',
-        description: '',
-        views: [],
-        title: '',
-    };
-    const initFilterText = {
-        copyright: false,
-        visibility: [],
-        mfk_restrictions: [],
-        age_restricted: '',
-        description: '',
-        views: [],
-        title: '',
-    };
+function Filter({
+    initMenu,
+    initFilterData,
+    initFilterText,
+    isLoading = false,
+    handleSearch = () => {},
+}) {
     const [filterMenu, setFilterMenu] = useState([...initMenu]);
-    const [filterData, setFilterData] = useState(initFilterData);
-    const [filterText, setFilterText] = useState(initFilterText);
+    const [filterData, setFilterData] = useState({ ...initFilterData });
+    const [filterText, setFilterText] = useState({ ...initFilterText });
     const [filterList, setFilterList] = useState([]);
     const [elementRef, isShow, setShow] = useClickOutSide();
     const codeRef = useRef(null);
@@ -46,14 +34,14 @@ function Filter({ initMenu, isLoading = false, handleSearch = () => {} }) {
     const handleSetCodeRef = (code) => {
         codeRef.current = code;
     };
-    const handleSetFilterData = (code, valueText = '', valueCode = '') => {
+    const handleSetFilterData = (code, valueText = '', valueCode = '', valueType) => {
         let itemData = filterData[code];
         let itemFilterText = filterText[code];
-        if (code === 'copyright') {
+        if (valueType === 'boolean') {
             itemData = !filterData[code];
             itemFilterText = !filterText[code];
-            handleSubmit({ ...filterData, copyright: itemData });
-        } else if (code === 'views') {
+            handleSubmit({ ...filterData, [code]: itemData });
+        } else if (code === 'views' || code === 'sub_count') {
             itemData = valueText;
             itemFilterText = valueText;
         } else if (Array.isArray(itemData)) {
@@ -89,8 +77,14 @@ function Filter({ initMenu, isLoading = false, handleSearch = () => {} }) {
         fetchApi(objFilterData);
     };
     const handleClickRemoveAll = () => {
+        const arr = initMenu;
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].isHidden) {
+                arr[i].isHidden = false;
+            }
+        }
         setFilterList([]);
-        setFilterMenu(initMenu);
+        setFilterMenu(arr);
         setFilterData(initFilterData);
         setFilterText(initFilterText);
         handleSetCodeRef(null);
@@ -118,6 +112,7 @@ function Filter({ initMenu, isLoading = false, handleSearch = () => {} }) {
                     code: itemFilter[0].code,
                     title: itemFilter[0].title,
                     valueText: filterText[code],
+                    valueType: itemFilter[0].valueType || '',
                 };
                 arr2.push(objFilter);
                 setFilterList(arr2);

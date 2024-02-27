@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import VideoCard from '../../../../../components/VideoCard';
 import VideoCardLoading from '../../../../../components/VideoCard/Loading';
 import videoApi from '../../../../../api/videoApi';
 import LoadingHasMore from '../../../../../components/LoadingHasMore';
 import NoData from '../components/NoData';
-import useStore from '../../../../../hook/useStore';
 import styles from './Videos.module.css';
 function Videos() {
     const [btnType, setBtnType] = useState(true);
@@ -24,7 +24,7 @@ function Videos() {
     const listContainerRef = useRef(null);
     const isResetVideoList = useRef(false);
     const { id, page } = useParams();
-    const [state] = useStore();
+    const auth = useSelector((state) => state.auth);
 
     const fetchVideoList = async (pageValue, objParams = {}) => {
         setIsLoading(true);
@@ -151,7 +151,7 @@ function Videos() {
                             link="/studio/videos/upload?type=upload_video"
                             textBottom="Tìm hiểu thêm về"
                             linkBottom="cách bắt đầu"
-                            isBtn={state.isLogin && state.user?.user_id === id}
+                            isBtn={auth.isLogin && auth.user?.user_id === id}
                             textSpan="Kênh này chưa có video nào."
                         />
                     )}

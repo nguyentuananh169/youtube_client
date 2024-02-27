@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import queryString from 'query-string';
 import NoData from '../../../components/NoData';
@@ -9,14 +10,13 @@ import Form from './Form';
 import Table from '../components/Table';
 import TableTop from './TableTop';
 import playlistApi from '../../../../../api/playlistApi';
-import useStore from '../../../../../hook/useStore';
-import { addToastMessage } from '../../../../../store/actions';
+import { addToastMessage } from '../../../../../store/actions/toastMessage';
 import Loading from './Loading';
 import Item from './Item';
 import TableBottom from './TableBottom';
-import styles from './PlayList.module.css';
 import DeleteForm from './DeleteForm';
 import Videos from './Videos';
+import styles from './PlayList.module.css';
 function PlayList({ tab }) {
     const initFilterData = {
         title: '',
@@ -30,6 +30,7 @@ function PlayList({ tab }) {
             title: 'Tiêu đề',
             code: 'title',
             isHidden: false,
+            valueType: 'text',
             children: {
                 code: 'title',
                 title: 'Tiêu đề',
@@ -56,7 +57,7 @@ function PlayList({ tab }) {
     });
     const { search } = useLocation();
     const navigate = useNavigate();
-    const [, distpatch] = useStore();
+    const distpatch = useDispatch();
     const handleResetDataForm = () => {
         setDataForm({
             id: '',

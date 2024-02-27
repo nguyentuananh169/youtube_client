@@ -56,7 +56,7 @@
 .menu .item.mgt {
     border-top: 1px solid#d8d8d8;
 }
-@media only screen and (max-width: 415px) {
+@media only screen and (max-width: 768px) {
     .overlay {
         display: block;
     }

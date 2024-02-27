@@ -41,6 +41,7 @@ function Watch() {
                         ownerId={videoData.user_id}
                         ownerName={videoData.user_name}
                         ownerAvatar={videoData.user_avatar}
+                        hostUserId={videoData.user_id}
                     />
                 </div>
             )}

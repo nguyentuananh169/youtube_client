@@ -9,9 +9,9 @@ import { FiMoreVertical } from 'react-icons/fi';
 
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
-import useStore from '../../../../hook/useStore';
 import styles from './MainMenu.module.css';
-import { setIsToggleNavBar2 } from '../../../../store/actions';
+import { setIsToggleNavBar2 } from '../../../../store/actions/toggleNavbar';
+import { useDispatch, useSelector } from 'react-redux';
 function MainMenu() {
     const menuList = [
         {
@@ -65,8 +65,8 @@ function MainMenu() {
             isHiddenOnMobile: true,
         },
     ];
-    const [state, dispatch] = useStore();
-    const { isToggleNavbar2 } = state;
+    const dispatch = useDispatch();
+    const isToggleNavbar2 = useSelector((state) => state.toggleNavbar.isToggleNavbar2);
     return (
         <div className={clsx(styles.wrapper, { [styles.toggleNavbar]: isToggleNavbar2 })}>
             <ul>

@@ -1,0 +1,62 @@
+.wrapper {
+    width: 100%;
+    margin-top: 20px;
+}
+.item {
+    width: 100%;
+    margin-top: 24px;
+    display: flex;
+    position: relative;
+}
+.item a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+}
+.avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.body {
+    flex: 1;
+    margin-left: 16px;
+}
+.userName span {
+    font-size: 1.3rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.totalSubscribers {
+    margin-top: 7px;
+}
+.totalSubscribers span {
+    font-size: 1.2rem;
+    color: #606060;
+}
+.item:hover .userName span,
+.item:hover .totalSubscribers span {
+    color: #065fd4;
+}
+.btn {
+    width: 100%;
+}
+.btn a {
+    display: inline-block;
+    margin-top: 32px;
+    color: #065fd4;
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}

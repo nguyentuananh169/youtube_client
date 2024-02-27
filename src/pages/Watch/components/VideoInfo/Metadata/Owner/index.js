@@ -1,25 +1,23 @@
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Button from '../../../../../../components/Button';
 import Tooltip from '../../../../../../components/Tooltip';
-import useStore from '../../../../../../hook/useStore';
 import NoAvatar from '../../../../../../components/NoAvatar';
 import subscriptionApi from '../../../../../../api/subscriptionApi';
-import {
-    addSubscription,
-    addToastMessage,
-    deleteSubscription,
-} from '../../../../../../store/actions';
+import { addSubscription, deleteSubscription } from '../../../../../../store/actions/subscription';
+import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import useNumberConversion from '../../../../../../hook/useNumberConversion';
 import styles from './Owner.module.css';
 function Owner({ id, avatar, name, subscriber, isOfficial = false }) {
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
     const [isSubscribed, setIsSubscribed] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        if (state.isLogin && state.user?.user_id && state.user?.user_id !== id) {
+        if (auth.isLogin && auth.user?.user_id && auth.user?.user_id !== id) {
             const checkSubscribe = async () => {
                 setIsLoading(true);
                 const formData = {
@@ -46,7 +44,7 @@ function Owner({ id, avatar, name, subscriber, isOfficial = false }) {
             dispatch(addToastMessage('success', 'Thành công', response[0].message));
             dispatch(
                 addSubscription({
-                    subscriber_id: state.user.user_id,
+                    subscriber_id: auth.user.user_id,
                     user_avatar: avatar,
                     user_name: name,
                     user_id: id,
@@ -117,9 +115,9 @@ function Owner({ id, avatar, name, subscriber, isOfficial = false }) {
                 </div>
             </div>
 
-            {state.isLogin && (
+            {auth.isLogin && (
                 <div className={clsx(styles.subscribeButton, { [styles.loading]: isLoading })}>
-                    {id === state.user?.user_id ? (
+                    {id === auth.user?.user_id ? (
                         <>
                             <Link
                                 to={`/channel/${id}/home`}

@@ -2,13 +2,13 @@ import { RiPlayList2Line } from 'react-icons/ri';
 import { ImPlay3 } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import useStore from '../../../../../hook/useStore';
-import { addToastMessage } from '../../../../../store/actions';
+import { useDispatch } from 'react-redux';
+import { addToastMessage } from '../../../../../store/actions/toastMessage';
 import useTimeConversion from '../../../../../hook/useTimeConversion';
 import styles from './PlayList.module.css';
 import noImg from '../../../../../assets/img/no_thumbnail.jpg';
 function Card({ item }) {
-    const [, dispatch] = useStore();
+    const dispatch = useDispatch();
     const handleAlert = () => {
         dispatch(addToastMessage('warning', '', 'Danh sách này không có video nào'));
     };

@@ -2,20 +2,13 @@ import clsx from 'clsx';
 import Logo from './Logo';
 import SearchBox from './SearchBox';
 import Actions from './Actions';
-import Loading from './Loading';
-import useStore from '../../../hook/useStore';
 import styles from './Header.module.css';
 function Header({ headerRef }) {
-    const [state] = useStore();
     return (
-        <div
-            ref={headerRef}
-            className={clsx(styles.wrapper, { [styles.hidden]: state.isHiddenHeader2 })}
-        >
+        <div ref={headerRef} className={clsx(styles.wrapper)}>
             <Logo />
             <SearchBox />
             <Actions />
-            {/* <Loading /> */}
         </div>
     );
 }

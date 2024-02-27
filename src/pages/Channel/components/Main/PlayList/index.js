@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Card from './Card';
 import playlistApi from '../../../../../api/playlistApi';
 import LoadingHasMore from '../../../../../components/LoadingHasMore';
 import Loading from './Loading';
 import NoData from '../components/NoData';
-import useStore from '../../../../../hook/useStore';
 import styles from './PlayList.module.css';
 function PlayList() {
     const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +19,7 @@ function PlayList() {
     });
     const { id, page } = useParams();
     const isResetPlaylist = useRef(false);
-    const [state] = useStore();
+    const auth = useSelector((state) => state.auth);
     const fetchPlaylist = async () => {
         setIsLoading(true);
         const formData = {
@@ -88,7 +88,7 @@ function PlayList() {
                     link="/studio/videos/playlist?type=add_playlist"
                     textBottom="Tìm hiểu thêm về"
                     linkBottom="cách bắt đầu"
-                    isBtn={state.isLogin && state.user?.user_id === id}
+                    isBtn={auth.isLogin && auth.user?.user_id === id}
                     textSpan="Kênh này chưa có danh sách phát nào."
                 />
             )}

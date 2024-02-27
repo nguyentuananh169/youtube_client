@@ -1,13 +1,11 @@
-import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai';
-import { RiShareForwardLine } from 'react-icons/ri';
-import { TfiDownload } from 'react-icons/tfi';
+import { ThumbsUp, ThumbsDown, Download, Share2 } from 'react-feather';
 
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Tooltip from '../../../../../../components/Tooltip';
 import videoVotesApi from '../../../../../../api/videoVotesApi';
-import useStore from '../../../../../../hook/useStore';
-import { addToastMessage } from '../../../../../../store/actions';
+import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import useNumberConversion from '../../../../../../hook/useNumberConversion';
 import styles from './Actions.module.css';
 function Actions({ videoId, like, dislike }) {
@@ -17,7 +15,8 @@ function Actions({ videoId, like, dislike }) {
         like: 0,
         dislike: 0,
     });
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
     const numberConversion = useNumberConversion;
     useEffect(() => {
         setNumber({
@@ -26,7 +25,7 @@ function Actions({ videoId, like, dislike }) {
         });
     }, [videoId]);
     useEffect(() => {
-        if (videoId && state.isLogin && state.user?.user_id) {
+        if (videoId && auth.isLogin && auth.user?.user_id) {
             const checkVote = async () => {
                 setIsLoading(true);
                 const params = {
@@ -98,7 +97,7 @@ function Actions({ videoId, like, dislike }) {
         setVoteType('');
     };
     const handleClickVoteBtn = (actionTpye, valueType) => {
-        if (isLoading || !videoId || !state.isLogin || !state.user?.user_id) {
+        if (isLoading || !videoId || !auth.isLogin || !auth.user?.user_id) {
             return;
         }
         switch (actionTpye) {
@@ -137,7 +136,12 @@ function Actions({ videoId, like, dislike }) {
                             display: isLoading && 'none',
                         }}
                     />
-                    {voteType === 'like' ? <AiFillLike /> : <AiOutlineLike />}
+                    {voteType === 'like' ? (
+                        <ThumbsUp color="#fff" fill="#333" size={20} strokeWidth={0.7} />
+                    ) : (
+                        <ThumbsUp size={20} strokeWidth={1} />
+                    )}
+
                     {+like + number.like > 0 && (
                         <span>{numberConversion(+like + number.like, 'compression')}</span>
                     )}
@@ -152,7 +156,12 @@ function Actions({ videoId, like, dislike }) {
                             display: isLoading && 'none',
                         }}
                     />
-                    {voteType === 'dislike' ? <AiFillDislike /> : <AiOutlineDislike />}
+
+                    {voteType === 'dislike' ? (
+                        <ThumbsDown color="#fff" fill="#333" size={20} strokeWidth={0.7} />
+                    ) : (
+                        <ThumbsDown size={20} strokeWidth={1} />
+                    )}
                     {+dislike + number.dislike > 0 && (
                         <span>{numberConversion(+dislike + number.dislike, 'compression')}</span>
                     )}
@@ -167,7 +176,7 @@ function Actions({ videoId, like, dislike }) {
                             whiteSpace: 'nowrap',
                         }}
                     />
-                    <RiShareForwardLine />
+                    <Share2 strokeWidth={1} size={20} />
                     <span>Chia sẻ</span>
                 </button>
             </div>
@@ -180,7 +189,7 @@ function Actions({ videoId, like, dislike }) {
                             whiteSpace: 'nowrap',
                         }}
                     />
-                    <TfiDownload />
+                    <Download strokeWidth={1} size={20} />
                     <span>Tải xuống</span>
                 </button>
             </div>

@@ -1,24 +1,23 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Header from './Header';
 import Left from './Left';
 import Right from './Right';
-
+import { setIsToggleNavBar } from '../../store/actions/toggleNavbar';
 import styles from './DefaultLayout.module.css';
-import useStore from '../../hook/useStore';
-import { setIsToggleNavBar } from '../../store/actions';
-import { useLocation } from 'react-router-dom';
 
 function DefaultLayout({ isMobile = false, children }) {
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const isToggleNavbar = useSelector((state) => state.toggleNavbar.isToggleNavbar);
     const { pathname } = useLocation();
     useEffect(() => {
         const screenWidth = window.innerWidth;
-        if (state.isToggleNavbar && (isMobile || screenWidth <= 1330)) {
+        if (isToggleNavbar && (isMobile || screenWidth <= 1330)) {
             dispatch(setIsToggleNavBar(false));
         }
     }, [pathname]);
-
     return (
         <>
             <Header />

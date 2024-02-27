@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
-import useStore from '../../../../hook/useStore';
 import FilterSlider from '../../../../components/FilterSlider';
 import categoryApi from '../../../../api/categoryApi';
 import styles from './Category.module.css';
@@ -31,7 +31,8 @@ function Category({ setCategoryId }) {
     }, []);
     const [width, setWidth] = useState(null);
     const wrapperRef = useRef(null);
-    const [state] = useStore();
+    const isHiddenHeader = useSelector((state) => state.hiddenHeader.isHiddenHeader);
+    const isToggleNavbar = useSelector((state) => state.toggleNavbar.isToggleNavbar);
     useEffect(() => {
         const handleResize = () => {
             const wrapperEl = wrapperRef.current;
@@ -43,13 +44,13 @@ function Category({ setCategoryId }) {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [state.isToggleNavbar, categoryList]);
+    }, [isToggleNavbar, categoryList]);
     const hanleClickCategory = (id) => {
         setCategoryId(id);
     };
     return (
         <div ref={wrapperRef} className={clsx(styles.wrapper)}>
-            <div className={clsx(styles.category, { [styles.hidden]: state.isHiddenHeader })}>
+            <div className={clsx(styles.category, { [styles.hidden]: isHiddenHeader })}>
                 <FilterSlider
                     itemList={categoryList}
                     width={width}

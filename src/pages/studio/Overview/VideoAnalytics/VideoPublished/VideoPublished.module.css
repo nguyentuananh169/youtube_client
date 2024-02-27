@@ -1,0 +1,122 @@
+.wrapper {
+    width: 100%;
+    margin-top: 24px;
+}
+.item {
+    display: flex;
+    align-items: start;
+    padding: 10px 0;
+    margin-top: 4px;
+    margin-left: -10px;
+}
+.item.mgt10 {
+    margin-top: 10px;
+}
+.item:hover {
+    background-color: #f8f8f8;
+}
+.img {
+    width: 56px;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    margin-left: 10px;
+}
+.img::before {
+    content: '';
+    padding-top: 56.25%;
+    display: block;
+}
+.img .aspectRatio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+.img .aspectRatio img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.body {
+    flex: 1;
+    margin-left: 10px;
+    position: relative;
+}
+.title {
+    width: 100%;
+    font-size: 1.3rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.videoMetrics {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+}
+.metrics {
+    width: 33.333%;
+    display: flex;
+    align-items: center;
+}
+.metrics span {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.item:hover .actions {
+    display: flex;
+}
+.actions {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #f8f8f8;
+    display: none;
+    align-items: center;
+}
+.actions .action {
+    max-width: 25%;
+    min-width: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.actions .action [data-class='tooltip'] {
+    display: none;
+}
+.actions .action:hover [data-class='tooltip'] {
+    display: block;
+}
+.actions .action a {
+    width: 30px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.linkBtn {
+    width: 100%;
+}
+.linkBtn p {
+    margin-top: 32px;
+}
+.linkBtn p + p {
+    margin-top: 22px;
+}
+.linkBtn p a {
+    color: #065fd4;
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}

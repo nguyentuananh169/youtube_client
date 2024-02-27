@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import VideoCard from '../../../../../../components/VideoCard';
-import useStore from '../../../../../../hook/useStore';
 import styles from './VideoList.module.css';
 import { useParams } from 'react-router-dom';
 function VideoList({ itemList = [] }) {
@@ -12,7 +12,7 @@ function VideoList({ itemList = [] }) {
     const [itemNumberOnPage, setItemNumberOnPage] = useState(5);
     const wrapperRef = useRef(null);
     const listRef = useRef(null);
-    const [state] = useStore();
+    const isToggleNavbar = useSelector((state) => state.toggleNavbar.isToggleNavbar);
     const { page } = useParams();
     useEffect(() => {
         setListWidth(listRef.current.scrollWidth - 12);
@@ -39,7 +39,7 @@ function VideoList({ itemList = [] }) {
         if (page === 'home') {
             handleResize();
         }
-    }, [state.isToggleNavbar, state.navbarType, page, itemList]);
+    }, [isToggleNavbar, page, itemList]);
     useEffect(() => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);

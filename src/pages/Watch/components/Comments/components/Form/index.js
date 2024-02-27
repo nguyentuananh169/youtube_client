@@ -1,16 +1,17 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
-import useStore from '../../../../../../hook/useStore';
 import NoAvatar from '../../../../../../components/NoAvatar';
 import queryString from 'query-string';
 import commentApi from '../../../../../../api/commentApi';
 import postCommentApi from '../../../../../../api/postCommentApi';
-import { addToastMessage } from '../../../../../../store/actions';
+import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import LoadingHasMore from '../../../../../../components/LoadingHasMore';
 import styles from './Form.module.css';
 function Form({
     isPostsPage,
+    hostUserId = '',
     isHiddenAvatar = false,
     isFocusTextare = false,
     lv2 = false,
@@ -21,7 +22,8 @@ function Form({
     handleCloseForm,
     customStyles = {},
 }) {
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
     const [isFocus, setFocus] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isShowBottom, setShowBottom] = useState(false);
@@ -51,8 +53,8 @@ function Form({
             params.append('_post_id', urlParams.id);
         } else {
             params.append('_video_id', urlParams.id);
+            params.append('_host_user_id', hostUserId);
         }
-
         params.append('_parent_id', parentId);
         params.append('_content', content);
         const response = isPostsPage
@@ -64,10 +66,10 @@ function Form({
         }
         setValueForm('');
         const data = response[0].data;
-        data.user_id = state.user?.user_id;
-        data.user_name = state.user?.user_name;
-        data.user_avatar = state.user?.user_avatar;
-        data.user_tag = state.user?.user_tag;
+        data.user_id = auth.user?.user_id;
+        data.user_name = auth.user?.user_name;
+        data.user_avatar = auth.user?.user_avatar;
+        data.user_tag = auth.user?.user_tag;
         data.reply = [];
         data.type = 'add';
         handleAddCommentSuccess(data);
@@ -88,7 +90,7 @@ function Form({
     };
     return (
         <>
-            {state.isLogin && state.user?.user_id && (
+            {auth.isLogin && auth.user?.user_id && (
                 <div
                     className={clsx(styles.formContainer, { [styles.lv2]: lv2 })}
                     style={customStyles}
@@ -96,11 +98,11 @@ function Form({
                     <div className={clsx(styles.form)}>
                         {!isHiddenAvatar && (
                             <div className={clsx(styles.avatar)}>
-                                {state.user?.user_avatar ? (
-                                    <img src={state.user.user_avatar} />
+                                {auth.user?.user_avatar ? (
+                                    <img src={auth.user.user_avatar} />
                                 ) : (
                                     <div className={clsx(styles.noAvatar)}>
-                                        <NoAvatar userName={state.user?.user_name} />
+                                        <NoAvatar userName={auth.user?.user_name} />
                                     </div>
                                 )}
                             </div>
@@ -144,7 +146,7 @@ function Form({
                     </div>
                 </div>
             )}
-            {!state.isLogin && !state.user?.user_id && lv2 && (
+            {!auth.isLogin && !auth.user?.user_id && lv2 && (
                 <Link className={clsx(styles.textLogin)} to={'/login'}>
                     Vui lòng đăng nhập để tiếp tục
                 </Link>

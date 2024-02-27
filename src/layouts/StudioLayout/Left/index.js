@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Image from './Image';
 import MainMenu from './MainMenu';
 import BottomSection from './BottomSection';
-import useStore from '../../../hook/useStore';
-import { setIsToggleNavBar2 } from '../../../store/actions';
+import { setIsToggleNavBar2 } from '../../../store/actions/toggleNavbar';
 import styles from './Left.module.css';
 function Left() {
-    const [state, dispatch] = useStore();
-    const { isToggleNavbar2 } = state;
+    const dispatch = useDispatch();
+    const isToggleNavbar2 = useSelector((state) => state.toggleNavbar.isToggleNavbar2);
     const location = useLocation();
     useEffect(() => {
         const screenWidth = window.innerWidth;

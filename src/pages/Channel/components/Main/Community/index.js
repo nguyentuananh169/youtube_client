@@ -1,16 +1,17 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Card from './Card';
 import NoData from '../components/NoData';
 import Form from './Form';
-import useStore from '../../../../../hook/useStore';
 import postsApi from '../../../../../api/postsApi';
 import LoadingHasMore from '../../../../../components/LoadingHasMore';
-import { addToastMessage } from '../../../../../store/actions';
+import { addToastMessage } from '../../../../../store/actions/toastMessage';
 import styles from './Community.module.css';
 function Community({ user }) {
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
     const [postsList, setPostsList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingFirst, setIsLoadingFirst] = useState(true);
@@ -114,7 +115,7 @@ function Community({ user }) {
             ref={wrapperRef}
             className={clsx(styles.wrapper, styles.noData, { [styles.loading]: isLoading })}
         >
-            {state.isLogin && user.user_id === state.user?.user_id && (
+            {auth.isLogin && user.user_id === auth.user?.user_id && (
                 <Form user={user} handleFetchPost={handleFetchPost} />
             )}
             {!isLoading && postsList.length === 0 && (
@@ -126,7 +127,7 @@ function Community({ user }) {
                         key={item.post_id}
                         item={item}
                         index={index}
-                        isActiveMenu={state.user?.user_id === item.user_id}
+                        isActiveMenu={auth.user?.user_id === item.user_id}
                         handleDelete={handleDelete}
                     />
                 ))}

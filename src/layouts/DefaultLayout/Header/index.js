@@ -1,20 +1,20 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Actions from './components/Actions';
 import Menu from './components/Menu';
 import SearchBox from './components/SeachBox';
 import styles from './Header.module.css';
-import useStore from '../../../hook/useStore';
-import { setIsHiddenHeader } from '../../../store/actions';
+import { setIsHiddenHeader } from '../../../store/actions/hiddenHeader';
 function Header({ handleToggleGuide }) {
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const isHiddenHeader = useSelector((state) => state.hiddenHeader.isHiddenHeader);
     const { pathname } = useLocation();
     useEffect(() => {
         if (pathname === '/watch') {
-            return dispatch(setIsHiddenHeader(false));
-        }
-        if (window.innerWidth <= 768) {
+            dispatch(setIsHiddenHeader(false));
+        } else if (window.innerWidth <= 768) {
             let prevScrollPos = window.pageYOffset;
             const handleScroll = () => {
                 const currentScrollPos = window.pageYOffset;
@@ -32,7 +32,7 @@ function Header({ handleToggleGuide }) {
         }
     }, [pathname]);
     return (
-        <div className={clsx(styles.header, { [styles.hidden]: state.isHiddenHeader })}>
+        <div className={clsx(styles.header, { [styles.hidden]: isHiddenHeader })}>
             <Menu handleToggleGuide={handleToggleGuide} />
             <SearchBox />
             <Actions />

@@ -1,16 +1,16 @@
 import { BsCardImage } from 'react-icons/bs';
 import { GiFilmStrip } from 'react-icons/gi';
 
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import NoAvatar from '../../../../../../components/NoAvatar';
-import { useState } from 'react';
 import TabImage from './TabImage';
 import EditorComp from './EditorComp';
 import { useValidateForm } from '../../../../../../hook/useValidateForm';
 import TabVideo from './TabVideo';
 import postsApi from '../../../../../../api/postsApi';
-import useStore from '../../../../../../hook/useStore';
-import { addToastMessage } from '../../../../../../store/actions';
+import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import LoadingHasMore from '../../../../../../components/LoadingHasMore';
 import styles from './Form.module.css';
 function Form({ user, handleFetchPost }) {
@@ -24,7 +24,7 @@ function Form({ user, handleFetchPost }) {
     });
     const [isSubmit, setSubmit] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [, dispatch] = useStore();
+    const dispatch = useDispatch();
     const validates = [
         {
             name: 'contentText',

@@ -29,12 +29,14 @@ function Live({ tab }) {
             code: 'copyright',
             valueText: 'Bản quyền',
             isHidden: false,
+            valueType: 'boolean',
         },
         {
             id: '2',
             title: 'Chế độ hiển thị',
             code: 'visibility',
             isHidden: false,
+            valueType: 'array_to_string_with_commas',
             children: {
                 code: 'visibility',
                 title: 'Chế độ hiển thị',
@@ -83,6 +85,7 @@ function Live({ tab }) {
             title: 'Dành cho trẻ em',
             code: 'mfk_restrictions',
             isHidden: false,
+            valueType: 'array_to_string_with_commas',
             children: {
                 code: 'mfk_restrictions',
                 title: 'Dành cho trẻ em',
@@ -126,6 +129,7 @@ function Live({ tab }) {
             title: 'Giới hạn về độ tuổi',
             code: 'age_restricted',
             isHidden: false,
+            valueType: 'text',
             children: {
                 code: 'age_restricted',
                 title: 'Giới hạn về độ tuổi',
@@ -153,6 +157,7 @@ function Live({ tab }) {
             title: 'Mô tả',
             code: 'description',
             isHidden: false,
+            valueType: 'text',
             children: {
                 code: 'description',
                 title: 'Mô tả',
@@ -165,12 +170,14 @@ function Live({ tab }) {
             title: 'Số lượt xem',
             code: 'views',
             isHidden: false,
+            valueType: 'array_to_string_with_out_commas',
             children: {
                 code: 'views',
                 title: 'Số lượt xem',
                 validates: { isRequired: true, isInteger: true },
                 isComp: true,
                 isSelector: true,
+                compLv: 2,
             },
         },
         {
@@ -178,6 +185,7 @@ function Live({ tab }) {
             title: 'Tiêu đề',
             code: 'title',
             isHidden: false,
+            valueType: 'text',
             children: {
                 code: 'title',
                 title: 'Tiêu đề',

@@ -17,5 +17,9 @@ const subscriptionApi = {
         const url = '/subscription/show_subscribed.php';
         return axiosClient.get(url, { params });
     },
+    showSubscriber: (params) => {
+        const url = '/subscription/show_subscriber.php';
+        return axiosClient.get(url, { params });
+    },
 };
 export default subscriptionApi;

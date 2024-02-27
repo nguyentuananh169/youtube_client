@@ -13,6 +13,7 @@ function EditorComp({ initialValue, handleChange, invalid }) {
     return (
         <div className="editor-component">
             <Editor
+                apiKey="4cl0shbdz2qjljsrfyabz1phq9587m8kc0sruiyh5zwrtwzx"
                 initialValue={initialValue}
                 onInit={(event, editor) => (editorRef.current = editor)}
                 init={{

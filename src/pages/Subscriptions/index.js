@@ -1,13 +1,13 @@
-import useStore from '../../hook/useStore';
+import { useSelector } from 'react-redux';
 import Channels from './Channels';
 import Unavailable from '../../components/Unavailable';
 import img from '../../assets/img/subscriptions.png';
 
 function Subscriptions() {
-    const [state] = useStore();
+    const auth = useSelector((state) => state.auth);
     return (
         <>
-            {!state.isLogin && !state.user?.user_id ? (
+            {!auth.isLogin && !auth.user?.user_id ? (
                 <Unavailable
                     img={img}
                     title={'Đừng bỏ lỡ video mới'}

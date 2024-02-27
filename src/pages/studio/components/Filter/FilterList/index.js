@@ -4,22 +4,32 @@ import Tooltip from '../../../../../components/Tooltip';
 import styles from './FilterList.module.css';
 function FilterList({ item, handleRemoveFilterList }) {
     let text = item.title;
-    if (item.code === 'copyright') {
-    } else if (item.code === 'views') {
-        text = `${text} ${item.valueText[0]} ${item.valueText[1]}`;
-    } else if (Array.isArray(item.valueText)) {
-        const arr = item.valueText;
-        if (arr.length >= 3) {
-            const slicedArray = arr.slice(0, 2);
-            const arrToString = slicedArray.join(', ');
-            text = `${text}: ${arrToString}, +${arr.length - 2} lựa chọn khác`;
-        } else {
-            const arrToString = item.valueText.join(', ');
-            text = `${text}: ${arrToString}`;
-        }
-    } else {
-        text = `${text} "${item.valueText}"`;
+    const valueType = item.valueType;
+    switch (valueType) {
+        case 'boolean':
+            break;
+        case 'text':
+            text = `${text} "${item.valueText}"`;
+            break;
+        case 'array_to_string_with_commas':
+            const arr = item.valueText;
+            if (arr.length >= 3) {
+                const slicedArray = arr.slice(0, 2);
+                const arrToString = slicedArray.join(', ');
+                text = `${text}: ${arrToString}, +${arr.length - 2} lựa chọn khác`;
+            } else {
+                const arrToString = item.valueText.join(', ');
+                text = `${text}: ${arrToString}`;
+            }
+            break;
+        case 'array_to_string_with_out_commas':
+            text = `${text} ${item.valueText[0]} ${item.valueText[1]}`;
+            break;
+
+        default:
+            break;
     }
+
     return (
         <button className={clsx(styles.itemBtn)}>
             <div className={clsx(styles.text)}>

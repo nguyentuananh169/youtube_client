@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import videoApi from '../../../../../api/videoApi';
-import useStore from '../../../../../hook/useStore';
 import Item from './Item';
-import styles from './Body.module.css';
-import { nextVideoInfo } from '../../../../../store/actions';
+import { nextVideoInfo } from '../../../../../store/actions/nextVideoInfo';
 import ItemLoading from './Item/Loading';
+import styles from './Body.module.css';
 function Body({ urlParams, isCollapse, loadingPage }) {
     const [isLoading, setIsLoading] = useState(true);
     const [videoList, setVideoList] = useState([]);
-    const [, dispatch] = useStore();
+    const dispatch = useDispatch();
     useEffect(() => {
         if (urlParams.list) {
             const fetchVideoList = async () => {

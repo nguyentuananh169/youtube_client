@@ -1,13 +1,13 @@
-import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai';
 import { SlBubbles } from 'react-icons/sl';
+import { ThumbsDown, ThumbsUp } from 'react-feather';
 
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Tooltip from '../../../../../components/Tooltip';
 import postVotesApi from '../../../../../api/postVotesApi';
-import useStore from '../../../../../hook/useStore';
-import { addToastMessage } from '../../../../../store/actions';
+import { addToastMessage } from '../../../../../store/actions/toastMessage';
 import useNumberConversion from '../../../../../hook/useNumberConversion';
 import styles from './Community.module.css';
 function Actions({ item, pathname }) {
@@ -17,7 +17,8 @@ function Actions({ item, pathname }) {
         like: 0,
         dislike: 0,
     });
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
     useEffect(() => {
         setNumber({
             like: 0,
@@ -76,7 +77,7 @@ function Actions({ item, pathname }) {
         setVoteType('');
     };
     const handleClickVoteBtn = (actionTpye, valueType) => {
-        if (isLoading || !item.post_id || !state.isLogin || !state.user?.user_id) {
+        if (isLoading || !item.post_id || !auth.isLogin || !auth.user?.user_id) {
             return;
         }
         switch (actionTpye) {
@@ -114,9 +115,9 @@ function Actions({ item, pathname }) {
                     }}
                 />
                 {voteType === 'like' ? (
-                    <AiFillLike size={21} color="#606060" />
+                    <ThumbsUp strokeWidth={0.7} color="#fff" fill="#000" size={20} />
                 ) : (
-                    <AiOutlineLike size={21} color="#606060" />
+                    <ThumbsUp strokeWidth={1} size={20} />
                 )}
             </button>
 
@@ -135,9 +136,9 @@ function Actions({ item, pathname }) {
                     }}
                 />
                 {voteType === 'dislike' ? (
-                    <AiFillDislike size={21} color="#606060" />
+                    <ThumbsDown strokeWidth={0.7} color="#fff" fill="#000" size={19} />
                 ) : (
-                    <AiOutlineDislike size={21} color="#606060" />
+                    <ThumbsDown strokeWidth={1} size={20} />
                 )}
             </button>
 
@@ -159,7 +160,7 @@ function Actions({ item, pathname }) {
                                 lef: '0',
                             }}
                         />
-                        <SlBubbles size={21} color="#606060" />
+                        <SlBubbles size={21} color="#333" strokeWidth={1} />
                     </Link>
                     <span className={clsx(styles.count)}>
                         {item.count_cmt > 0 && numberConversion(item.count_cmt, 'compression')}

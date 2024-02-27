@@ -21,6 +21,10 @@ const commentApi = {
         const url = '/comments/show.php';
         return axiosClient.get(url, { params });
     },
+    getByHostUser: (params) => {
+        const url = '/comments/show-by-host-user.php';
+        return axiosClient.get(url, { params });
+    },
     delete: (params) => {
         const url = '/comments/delete.php';
         return axiosClient.get(url, { params });

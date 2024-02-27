@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import VideoCard from '../../../../components/VideoCard';
 import VideoCardLoading from '../../../../components/VideoCard/Loading';
@@ -6,9 +7,8 @@ import FilterSlider from '../../../../components/FilterSlider';
 import SkeletonLoading from '../../../../components/SkeletonLoading';
 import videoApi from '../../../../api/videoApi';
 import LoadingHasMore from '../../../../components/LoadingHasMore';
-import useStore from '../../../../hook/useStore';
+import { nextVideoInfo } from '../../../../store/actions/nextVideoInfo';
 import styles from './VideoList.module.css';
-import { nextVideoInfo } from '../../../../store/actions';
 function VideoList({ urlParams, loadingPage, userId, userName }) {
     const filterData = [
         { id: 'category_id', name: 'Tất cả' },
@@ -32,7 +32,7 @@ function VideoList({ urlParams, loadingPage, userId, userName }) {
     });
     const isResetVideoList = useRef(false);
     const wrapperRef = useRef(null);
-    const [, dispatch] = useStore();
+    const dispatch = useDispatch();
     const fetchVideoList = async (obj = {}) => {
         setIsLoading(true);
         const formData = {

@@ -1,15 +1,14 @@
-import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { Heart, ThumbsDown, ThumbsUp } from 'react-feather';
 import { useState } from 'react';
 import clsx from 'clsx';
-import useStore from '../../../../../../hook/useStore';
 import NoAvatar from '../../../../../../components/NoAvatar';
 import commentApi from '../../../../../../api/commentApi';
 import commentVotesApi from '../../../../../../api/commentVotesApi';
 import postCommentApi from '../../../../../../api/postCommentApi';
 import postCommentVotesApi from '../../../../../../api/postCommentVotesApi';
-import { addToastMessage } from '../../../../../../store/actions';
+import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import styles from './Item.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 function Actions({
     isPostsPage,
     item,
@@ -19,7 +18,8 @@ function Actions({
     isShowForm,
     setIsShowForm,
 }) {
-    const [state, dispatch] = useStore();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
     const [isHeart, setIsHeart] = useState(item.cmt_heart);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoadingHeart, setIsLoadingHeart] = useState(false);
@@ -30,7 +30,7 @@ function Actions({
     });
 
     const handleClickHeart = async () => {
-        if (isLoadingHeart || state.user?.user_id !== ownerId) {
+        if (isLoadingHeart || auth.user?.user_id !== ownerId) {
             return;
         }
         setIsLoadingHeart(true);
@@ -117,7 +117,7 @@ function Actions({
         setVoteType('');
     };
     const handleClickVoteBtn = (actionTpye, valueType) => {
-        if (isLoading || !state.isLogin || !state.user?.user_id) {
+        if (isLoading || !auth.isLogin || !auth.user?.user_id) {
             return;
         }
         switch (actionTpye) {
@@ -150,7 +150,11 @@ function Actions({
                 onClick={() => handleClickVoteBtn('like', 0)}
             >
                 <button>
-                    {voteType === 'like' ? <AiFillLike /> : <AiOutlineLike />}
+                    {voteType === 'like' ? (
+                        <ThumbsUp strokeWidth={0.7} color="#fff" fill="#000" size={19} />
+                    ) : (
+                        <ThumbsUp strokeWidth={1} size={19} />
+                    )}
                     {isLoading && <div className={clsx(styles.loading)}></div>}
                 </button>
                 {(item.count_like > 0 || number.like > 0) && (
@@ -162,17 +166,21 @@ function Actions({
                 onClick={() => handleClickVoteBtn('dislike', 1)}
             >
                 <button>
-                    {voteType === 'dislike' ? <AiFillDislike /> : <AiOutlineDislike />}
+                    {voteType === 'dislike' ? (
+                        <ThumbsDown strokeWidth={0.7} color="#fff" fill="#000" size={19} />
+                    ) : (
+                        <ThumbsDown strokeWidth={1} size={19} />
+                    )}
                     {isLoading && <div className={clsx(styles.loading)}></div>}
                 </button>
                 {(item.count_dislike > 0 || number.dislike > 0) && (
                     <span>{+item.count_dislike + number.dislike}</span>
                 )}
             </div>
-            {state.user?.user_id === ownerId && !isHeart && (
+            {auth.user?.user_id === ownerId && !isHeart && (
                 <div className={clsx(styles.btn)} onClick={handleClickHeart}>
                     <button>
-                        <AiOutlineHeart />
+                        <Heart size={19} strokeWidth={1} />
                     </button>
                 </div>
             )}
@@ -185,11 +193,11 @@ function Actions({
                             <NoAvatar userName={ownerName} />
                         )}
 
-                        <AiFillHeart color="red" />
+                        <Heart color="red" fill="red" size={12} />
                     </div>
                 </div>
             )}
-            {state.isLogin && state.user?.user_id && (
+            {auth.isLogin && auth.user?.user_id && (
                 <div
                     className={clsx(styles.btn, styles.reply, { [styles.active]: isShowForm })}
                     onClick={() => setIsShowForm(!isShowForm)}

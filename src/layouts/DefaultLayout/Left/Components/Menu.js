@@ -1,13 +1,13 @@
 import { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import useStore from '../../../../hook/useStore';
 import DotMenu from '../../../../components/DotMenu';
-import { setIsToggleNavBar } from '../../../../store/actions';
+import { setIsToggleNavBar } from '../../../../store/actions/toggleNavbar';
 import NoAvatar from '../../../../components/NoAvatar';
 import styles from './Menu.module.css';
 function Menu({ isMobile, isToggleNavbar, data }) {
-    const [, dispatch] = useStore();
+    const dispatch = useDispatch();
     return (
         <div
             className={clsx(styles.wrapper, {
@@ -43,7 +43,10 @@ function Menu({ isMobile, isToggleNavbar, data }) {
                                                 />
                                             ) : (
                                                 <div className={clsx(styles.noAvatar)}>
-                                                    <NoAvatar userName={item2.text} />
+                                                    <NoAvatar
+                                                        userName={item2.text}
+                                                        customStyles={{ fontSize: '1.4rem' }}
+                                                    />
                                                 </div>
                                             )
                                         ) : (
