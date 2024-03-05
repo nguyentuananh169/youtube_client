@@ -126,6 +126,7 @@
     font-size: 1.2rem;
     margin-top: 5px;
     color: #606060;
+    text-align: center;
 }
 .inputFile {
     width: 0;

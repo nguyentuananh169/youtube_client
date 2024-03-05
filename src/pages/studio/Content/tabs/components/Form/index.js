@@ -8,7 +8,6 @@ import { useValidateForm } from '../../../../../../hook/useValidateForm';
 import categoryApi from '../../../../../../api/categoryApi';
 import playlistApi from '../../../../../../api/playlistApi';
 import videoApi from '../../../../../../api/videoApi';
-import cloudinaryApi from '../../../../../../api/cloudinaryApi';
 import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import Error from './Error';
 import styles from './Form.module.css';
@@ -48,28 +47,20 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
     const distpatch = useDispatch();
     const handleAddVideo = async () => {
         setIsLoadingSubmit(true);
-        try {
-            const response1 = await cloudinaryApi.upload(values.videoFile);
-            const link = response1.url;
-            const duration = response1.duration;
-            const params = new FormData();
-            params.append('_category', values.categoryId);
-            params.append('_playlist', values.playlistId);
-            params.append('_link_video', link);
-            params.append('_poster', values.posterFile[0]);
-            params.append('_title', values.title);
-            params.append('_des', values.des);
-            params.append('_duration', duration);
-            const response2 = await videoApi.add(params);
-            if (response2[0].error) {
-                distpatch(addToastMessage('error', 'Thất bại', response2[0].message));
-            } else {
-                distpatch(addToastMessage('success', 'Thành công', response2[0].message));
-                handleCloseModal();
-                getVideoApi();
-            }
-        } catch (error) {
-            distpatch(addToastMessage('error', 'Thất bại', 'Video tải lên thất bại'));
+        const params = new FormData();
+        params.append('_category', values.categoryId);
+        params.append('_playlist', values.playlistId);
+        params.append('_video_file', values.videoFile);
+        params.append('_poster', values.posterFile[0]);
+        params.append('_title', values.title);
+        params.append('_des', values.des);
+        const response = await videoApi.add(params);
+        if (response[0].error) {
+            distpatch(addToastMessage('error', 'Thất bại', response[0].message));
+        } else {
+            distpatch(addToastMessage('success', 'Thành công', response[0].message));
+            handleCloseModal();
+            getVideoApi();
         }
         setIsLoadingSubmit(false);
     };

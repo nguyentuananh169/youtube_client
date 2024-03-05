@@ -24,7 +24,10 @@ function DeleteForm({ dataForm, handleResetDataForm, setModal, getVideoApi }) {
             return;
         }
         setIsloading(true);
-        const params = { _id: dataForm.id };
+        const params = {
+            _id: dataForm.id,
+            _public_id: dataForm.public_id,
+        };
         const response = await videoApi.delete(params);
         setIsloading(false);
         if (response[0].error) {

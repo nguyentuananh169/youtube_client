@@ -301,6 +301,7 @@ function Upload({ tab }) {
         setDataForm({
             ...dataForm,
             id: item.video_id,
+            public_id: item.video_public_id,
             posterLink: item.video_poster,
             title: item.video_title,
             created_at: item.video_created_at,
