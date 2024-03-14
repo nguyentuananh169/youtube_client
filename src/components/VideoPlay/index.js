@@ -32,6 +32,7 @@ function VideoPlay({
     isMuteVoLumePreview,
     handleChangeVolumePreview,
     handleEndedVideo = () => {},
+    createImageVideo = () => {},
     ...attributes
 }) {
     const menu = [
@@ -509,6 +510,10 @@ function VideoPlay({
             }
         };
     }, []);
+    const handleCreateImageVideo = () => {
+        if (videoRef.current) {
+        }
+    };
     return (
         <div
             ref={wrapperRef}
@@ -643,7 +648,10 @@ function VideoPlay({
                     }}
                     onLoadedMetadata={handleLoadMeatdata}
                     onTimeUpdate={handleTimeUpdate}
-                    onLoadedData={() => handleSetLoading('loading', false)}
+                    onLoadedData={() => {
+                        handleSetLoading('loading', false);
+                        handleCreateImageVideo();
+                    }}
                     onWaiting={() => handleSetLoading('waiting', true)}
                     onPlaying={() => handleSetLoading('playing', false)}
                     onEnded={handleNextVideo}

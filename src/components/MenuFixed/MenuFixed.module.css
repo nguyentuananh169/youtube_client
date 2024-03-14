@@ -11,7 +11,7 @@
 .wrapper {
     position: fixed;
     animation: op 0.2s ease;
-    z-index: 999;
+    z-index: 9999;
     min-width: 267px;
 }
 @keyframes op {

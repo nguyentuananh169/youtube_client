@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
@@ -40,6 +40,7 @@ function PlayList({ tab }) {
         },
     ];
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingFirst, setIsLoadingFirst] = useState(true);
     const [playlist, setPlaylist] = useState([]);
     const [modal, setModal] = useState({
         isShow: false,
@@ -79,6 +80,7 @@ function PlayList({ tab }) {
         };
         const response = await playlistApi.get(obj);
         setIsLoading(false);
+        setIsLoadingFirst(false);
         if (response[0]?.error) {
             distpatch(addToastMessage('error', 'Thất bại', response[0].message));
         } else {
@@ -125,8 +127,10 @@ function PlayList({ tab }) {
         fetchPlaylist(null, value);
     };
     useEffect(() => {
-        fetchPlaylist();
-    }, []);
+        if (tab === 'playlist' && isLoadingFirst) {
+            fetchPlaylist();
+        }
+    }, [tab, isLoadingFirst]);
     useEffect(() => {
         const { type } = queryString.parse(search);
         switch (type) {

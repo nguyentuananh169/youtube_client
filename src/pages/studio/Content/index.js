@@ -6,6 +6,7 @@ import Upload from './tabs/Upload';
 import Live from './tabs/Live';
 import PlayList from './tabs/PlayList';
 import Podcast from './tabs/Podcast';
+import Shorts from './tabs/Shorts';
 import styles from './Content.module.css';
 function Content() {
     const tabs = [
@@ -13,6 +14,11 @@ function Content() {
             text: 'Video',
             path: '/studio/videos/upload',
             tab: 'upload',
+        },
+        {
+            text: 'Video ngắn',
+            path: '/studio/videos/shorts',
+            tab: 'shorts',
         },
         {
             text: 'Trực tiếp',
@@ -72,6 +78,9 @@ function Content() {
             <div className={clsx(styles.main)}>
                 <div className={clsx(styles.tab, { [styles.show]: tab === 'upload' })}>
                     <Upload tab={tab} />
+                </div>
+                <div className={clsx(styles.tab, { [styles.show]: tab === 'shorts' })}>
+                    <Shorts tab={tab} />
                 </div>
                 <div className={clsx(styles.tab, { [styles.show]: tab === 'live' })}>
                     <Live tab={tab} />

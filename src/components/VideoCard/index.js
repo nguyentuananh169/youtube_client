@@ -19,6 +19,7 @@ function VideoCard({
     item,
     url = '',
     width,
+    isAspectRatioShort = false,
     row = false,
     rowOwner = false,
     hidenOwner = false,
@@ -98,7 +99,11 @@ function VideoCard({
                 to={url || `/watch?category=${item.category_id}&id=${item.video_id}`}
             ></Link>
             <div
-                className={clsx(styles.img, { [styles.preview]: isPlayVideo })}
+                className={clsx(styles.img, {
+                    [styles.preview]: isPlayVideo,
+                    [styles.short]: item.video_type === '1',
+                    [styles.aspectRatioShort]: isAspectRatioShort,
+                })}
                 style={{ width }}
                 onMouseOver={handleMouseOver}
                 onMouseLeave={handleMouseLeave}

@@ -37,6 +37,7 @@ import { BsFileMusic, BsFileMusicFill, BsTrophy, BsTrophyFill } from 'react-icon
 import { RiGamepadLine, RiGamepadFill, RiNewspaperLine, RiNewspaperFill } from 'react-icons/ri';
 import { ImPlay } from 'react-icons/im';
 
+import { useLocation } from 'react-router-dom';
 import HeaderMenu from '../Header/components/Menu';
 import Menu from './Components/Menu';
 import { addSubscriptionList } from '../../../store/actions/subscription';
@@ -46,6 +47,7 @@ import subscriptionApi from '../../../api/subscriptionApi';
 import styles from './Left.module.css';
 
 function Left({ isMobile }) {
+    const { pathname } = useLocation();
     const dispatch = useDispatch();
     const isToggleNavbar = useSelector((state) => state.toggleNavbar.isToggleNavbar);
     const isLogin = useSelector((state) => state.auth.isLogin);
@@ -280,6 +282,7 @@ function Left({ isMobile }) {
                 className={clsx(styles.wrapper, {
                     [styles.toggle]: isToggleNavbar,
                     [styles.mobile]: isMobile,
+                    [styles.pageShorts]: pathname === '/shorts',
                 })}
             >
                 <div className={clsx(styles.main)}>

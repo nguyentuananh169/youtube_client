@@ -21,9 +21,5 @@ const videoApi = {
         const url = '/video/delete.php';
         return axiosClient.get(url, { params });
     },
-    test: (params) => {
-        const url = '/test.php';
-        return axiosClient.post(url, params);
-    },
 };
 export default videoApi;

@@ -8,6 +8,7 @@ import NoAvatar from '../../../../components/NoAvatar';
 import styles from './Menu.module.css';
 function Menu({ isMobile, isToggleNavbar, data }) {
     const dispatch = useDispatch();
+
     return (
         <div
             className={clsx(styles.wrapper, {

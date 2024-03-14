@@ -32,7 +32,15 @@
     .wrapper {
         margin-bottom: 70px;
     }
-    /* .wrapper.hiddenHeader {
+    .wrapper.pageShorts {
         margin-top: 0;
-    } */
+        margin-bottom: 0;
+        background-color: #000;
+    }
+    .wrapper.pageShorts .container {
+        padding: 0;
+    }
 }
+/* @media only screen and (max-width: 480px) {
+    
+} */

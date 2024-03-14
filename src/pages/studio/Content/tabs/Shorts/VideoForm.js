@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import SelectFile from './SelectFile';
-import Form from '../../components/Form';
+import SelectFile from '../components/SelectFile';
+import Form from '../components/Form';
 function VideoForm({ dataForm, setDataForm, modal, setModal, getVideoApi, handleResetDataForm }) {
     const navigate = useNavigate();
     const handleCloseModal = () => {
         handleResetDataForm();
         setModal({ isShow: false, type: '' });
-        navigate('/studio/videos/upload');
+        navigate('/studio/videos/shorts');
     };
     const handleSetDataForm = (objData) => {
         setDataForm(objData);

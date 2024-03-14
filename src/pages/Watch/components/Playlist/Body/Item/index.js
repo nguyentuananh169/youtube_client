@@ -11,7 +11,7 @@ function Item({ item, count, active }) {
             <div className={clsx(styles.count)}>
                 <span>{active ? <BsPlayFill size={16} /> : count}</span>
             </div>
-            <div className={clsx(styles.img)}>
+            <div className={clsx(styles.img, { [styles.short]: item.video_type === '1' })}>
                 <div className={clsx(styles.aspectRatio)}>
                     <img src={item.video_poster} />
                 </div>

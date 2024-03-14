@@ -24,7 +24,7 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
         },
         {
             name: 'posterFile',
-            rules: { isRequired: true, isFileImg: true },
+            rules: { isRequired: dataForm.videoType === 0, isFileImg: true },
         },
         {
             name: 'categoryId',
@@ -45,13 +45,19 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
     const [categoryList, setCategoryList] = useState([]);
     const [playlist, setPlaylist] = useState([]);
     const distpatch = useDispatch();
+
     const handleAddVideo = async () => {
         setIsLoadingSubmit(true);
         const params = new FormData();
         params.append('_category', values.categoryId);
         params.append('_playlist', values.playlistId);
         params.append('_video_file', values.videoFile);
-        params.append('_poster', values.posterFile[0]);
+        params.append('_video_type', values.videoType);
+        if (values.videoType > 0) {
+            params.append('_poster_link', values.posterLink);
+        } else {
+            params.append('_poster', values.posterFile[0]);
+        }
         params.append('_title', values.title);
         params.append('_des', values.des);
         const response = await videoApi.add(params);

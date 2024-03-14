@@ -38,13 +38,12 @@
     height: 100%;
     display: flex;
     align-items: center;
-    text-transform: uppercase;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 500;
     color: #606060;
     cursor: pointer;
     white-space: nowrap;
-    padding: 0 22px;
+    padding: 0 6px;
 }
 .tab + .tab {
     margin-left: 24px;

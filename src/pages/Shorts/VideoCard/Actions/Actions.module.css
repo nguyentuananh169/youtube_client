@@ -1,0 +1,119 @@
+.wrapper {
+    position: absolute;
+    left: 100%;
+    z-index: 3;
+    bottom: 0;
+    padding: 12px 12px 0 12px;
+}
+.wrapper.mobile {
+    left: auto;
+    right: 0;
+    bottom: 65px;
+}
+.wrapper.mobile .item .btn {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.wrapper.mobile .item .btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+.wrapper.mobile .item.active .btn {
+    background-color: #fff;
+}
+.wrapper.mobile .item .btn > svg {
+    color: #fff;
+}
+.wrapper.mobile .item.active .btn > svg {
+    color: #fff;
+    fill: #000;
+    stroke-width: 1;
+}
+.wrapper.mobile .item p {
+    color: #fff;
+}
+.wrapper.mobile .item [data-class='tooltip'] {
+    right: 100% !important;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+    user-select: none;
+}
+.item:first-child {
+    margin-top: 0;
+}
+.item [data-class='tooltip'] {
+    display: none;
+}
+.item:hover [data-class='tooltip'] {
+    display: block;
+}
+.item .btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.item .btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.item.active .btn {
+    background-color: #000;
+}
+.item .btn > svg {
+    color: #000;
+}
+.item.active .btn > svg {
+    color: #000;
+    fill: #fff;
+    stroke-width: 1;
+}
+.item .btn.loading {
+    cursor: no-drop;
+}
+.item p {
+    max-width: 55px;
+    font-size: 1.3rem;
+    margin-top: 5px;
+    color: #0f0f0f;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        left: auto;
+        right: 0;
+        bottom: 65px;
+    }
+    .item .btn {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    .item .btn:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+    .item.active .btn {
+        background-color: #fff;
+    }
+    .item .btn > svg {
+        color: #fff;
+    }
+    .item.active .btn > svg {
+        color: #fff;
+        fill: #000;
+        stroke-width: 1;
+    }
+    .item p {
+        color: #fff;
+    }
+    .item [data-class='tooltip'] {
+        right: 100% !important;
+    }
+}

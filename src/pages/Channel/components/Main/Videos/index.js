@@ -29,6 +29,7 @@ function Videos() {
     const fetchVideoList = async (pageValue, objParams = {}) => {
         setIsLoading(true);
         const formData = {
+            video_type: 0,
             type: 'user_id',
             id: id,
             page: pageValue || params.page,

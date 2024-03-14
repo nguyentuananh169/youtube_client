@@ -12,6 +12,7 @@ import styles from './Form.module.css';
 function Form({
     isPostsPage,
     hostUserId = '',
+    videoId = '',
     isHiddenAvatar = false,
     isFocusTextare = false,
     lv2 = false,
@@ -52,7 +53,7 @@ function Form({
         if (isPostsPage) {
             params.append('_post_id', urlParams.id);
         } else {
-            params.append('_video_id', urlParams.id);
+            params.append('_video_id', videoId || urlParams.id);
             params.append('_host_user_id', hostUserId);
         }
         params.append('_parent_id', parentId);

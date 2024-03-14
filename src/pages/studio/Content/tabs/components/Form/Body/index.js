@@ -7,6 +7,7 @@ import VideoPlay from '../../../../../../../components/VideoPlay';
 import EditorComp from './EditorComp';
 import styles from './Body.module.css';
 import Tooltip from '../../../../../../../components/Tooltip';
+import { AlertCircle } from 'react-feather';
 function Body({
     isLoadingCate,
     isLoadingPlaylist,
@@ -22,7 +23,7 @@ function Body({
 
     useEffect(() => {
         const file = values.posterFile[0];
-        if (file) {
+        if (file && values.videoType === 0) {
             if (
                 file.type === 'image/png' ||
                 file.type === 'image/jpeg' ||
@@ -37,7 +38,7 @@ function Body({
         return () => {
             values.posterLink && URL.revokeObjectURL(values.posterLink);
         };
-    }, [values.posterFile]);
+    }, [values.posterFile, values.videoType]);
     useEffect(() => {
         return () => {
             values.videoLink && URL.revokeObjectURL(values.videoLink);
@@ -50,6 +51,7 @@ function Body({
     const handleFakeImg = () => {
         inputImgRef.current.focus();
     };
+    const createImageVideo = () => {};
     return (
         <div className={clsx(styles.wrapper)}>
             <div className={clsx(styles.left)}>
@@ -96,37 +98,49 @@ function Body({
                 </div>
                 <div className={clsx(styles.inputContainer)}>
                     <label className={clsx(styles.label)}>Hình thu nhỏ</label>
-                    <p className={clsx(styles.sublabel)}>
-                        Chọn hoặc tải một hình ảnh lên để thể hiện nội dung trong video của bạn.
-                        Hình thu nhỏ hấp dẫn sẽ làm nổi bật video của bạn và thu hút người xem.
-                        <Link to={'#'}>Tìm hiểu thêm</Link>
-                    </p>
-                    <div className={clsx(styles.imgContainer)}>
-                        <label
-                            htmlFor="input-img"
-                            className={clsx(styles.inputImg, { [styles.error]: errors.posterFile })}
-                            onClick={handleFakeImg}
-                        >
-                            <RiImageAddLine size={16} color="#0d0d0d" />
-                            <p className={clsx(styles.text)}>Tải hình thu nhỏ lên</p>
-                        </label>
-                        {values.posterLink && (
-                            <label className={clsx(styles.img)}>
-                                <img src={values.posterLink} />
-                            </label>
-                        )}
-                        <input
-                            ref={inputImgRef}
-                            name="posterFile"
-                            id="input-img"
-                            className={clsx(styles.inputFile)}
-                            type="file"
-                            onChange={(e) => handleChange('posterFile', e.target.files)}
-                            onBlur={(e) => invalid('posterFile', e.target.files)}
-                        />
-                    </div>
-                    {errors.posterFile && (
-                        <p className={clsx(styles.errorMessage)}>{errors.posterFile}</p>
+                    {values.videoType > 0 ? (
+                        <div className={clsx(styles.alert)}>
+                            <AlertCircle size={18} />
+                            <span>Hiện tại, bạn chưa thể thay đổi hình thu nhỏ của video ngắn</span>
+                        </div>
+                    ) : (
+                        <>
+                            <p className={clsx(styles.sublabel)}>
+                                Chọn hoặc tải một hình ảnh lên để thể hiện nội dung trong video của
+                                bạn. Hình thu nhỏ hấp dẫn sẽ làm nổi bật video của bạn và thu hút
+                                người xem.
+                                <Link to={'#'}>Tìm hiểu thêm</Link>
+                            </p>
+                            <div className={clsx(styles.imgContainer)}>
+                                <label
+                                    htmlFor="input-img"
+                                    className={clsx(styles.inputImg, {
+                                        [styles.error]: errors.posterFile,
+                                    })}
+                                    onClick={handleFakeImg}
+                                >
+                                    <RiImageAddLine size={16} color="#0d0d0d" />
+                                    <p className={clsx(styles.text)}>Tải hình thu nhỏ lên</p>
+                                </label>
+                                {values.posterLink && (
+                                    <label className={clsx(styles.img)}>
+                                        <img src={values.posterLink} />
+                                    </label>
+                                )}
+                                <input
+                                    ref={inputImgRef}
+                                    name="posterFile"
+                                    id="input-img"
+                                    className={clsx(styles.inputFile)}
+                                    type="file"
+                                    onChange={(e) => handleChange('posterFile', e.target.files)}
+                                    onBlur={(e) => invalid('posterFile', e.target.files)}
+                                />
+                            </div>
+                            {errors.posterFile && (
+                                <p className={clsx(styles.errorMessage)}>{errors.posterFile}</p>
+                            )}
+                        </>
                     )}
                 </div>
                 <div className={clsx(styles.inputContainer)}>
@@ -189,7 +203,11 @@ function Body({
                 </div>
             </div>
             <div className={clsx(styles.right)}>
-                <VideoPlay maxSize="medium" videoLink={values.videoLink} />
+                <VideoPlay
+                    maxSize="medium"
+                    videoLink={values.videoLink}
+                    createImageVideo={createImageVideo}
+                />
                 <div className={clsx(styles.videoInfo)}>
                     {values.videoFile ? (
                         <>

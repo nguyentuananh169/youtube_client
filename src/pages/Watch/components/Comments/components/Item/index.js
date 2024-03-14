@@ -26,6 +26,7 @@ function Item({
     item = {},
     index,
     ownerId,
+    videoId = '',
     ownerName,
     ownerAvatar,
     handleAddSuccess,
@@ -125,6 +126,9 @@ function Item({
         },
     ];
     const handleEdit = async (value) => {
+        if (isLoading) {
+            return;
+        }
         setIsLoading(true);
         const params = new FormData();
         if (isPostsPage) {
@@ -193,6 +197,8 @@ function Item({
                         {isEdit ? (
                             <Form
                                 isPostsPage={isPostsPage}
+                                hostUserId={ownerId}
+                                videoId={videoId}
                                 isFocusTextare
                                 lv2={isLv2}
                                 initValueForm={item.cmt_content}
@@ -218,7 +224,9 @@ function Item({
                         <Form
                             isPostsPage={isPostsPage}
                             isFocusTextare
+                            videoId={videoId}
                             lv2
+                            hostUserId={ownerId}
                             parentId={item.cmt_parent_id > 0 ? item.cmt_parent_id : item.cmt_id}
                             handleAddCommentSuccess={handleAddCommentSuccess}
                         />

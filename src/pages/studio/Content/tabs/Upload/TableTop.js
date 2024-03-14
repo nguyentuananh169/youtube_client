@@ -1,9 +1,10 @@
 import { TfiArrowDown } from 'react-icons/tfi';
+import { RefreshCw } from 'react-feather';
 
 import clsx from 'clsx';
 import Tooltip from '../components/Tooltip';
 import styles from './Upload.module.css';
-function TableTop({ tab }) {
+function TableTop({ tab, handleRefresh }) {
     return (
         <tr data-class="no-hover">
             <th data-textalign="center">
@@ -18,6 +19,9 @@ function TableTop({ tab }) {
                     />
                 )}
                 <span>Video</span>
+                <button className={clsx(styles.btnRefresh)} onClick={() => handleRefresh()}>
+                    <RefreshCw size={15} strokeWidth={1} />
+                </button>
             </th>
             <th>
                 {tab === 'upload' && (

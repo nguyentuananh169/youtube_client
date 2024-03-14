@@ -1,14 +1,34 @@
 .img {
     width: 100%;
-    aspect-ratio: 16/9;
+    border-radius: 10px;
     margin-top: 16px;
     position: relative;
+}
+.img.short {
+    background-color: #000;
+}
+.img::before {
+    content: '';
+    padding-top: 56.25%;
+    display: block;
+}
+.aspectRatio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 .img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
+}
+.img.short img {
+    width: auto;
+    display: block;
+    margin: 0 auto;
 }
 .img .videoName {
     position: absolute;

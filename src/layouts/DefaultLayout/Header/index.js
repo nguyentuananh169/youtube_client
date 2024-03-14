@@ -32,7 +32,12 @@ function Header({ handleToggleGuide }) {
         }
     }, [pathname]);
     return (
-        <div className={clsx(styles.header, { [styles.hidden]: isHiddenHeader })}>
+        <div
+            className={clsx(styles.header, {
+                [styles.hidden]: isHiddenHeader,
+                [styles.pageShorts]: pathname === '/shorts',
+            })}
+        >
             <Menu handleToggleGuide={handleToggleGuide} />
             <SearchBox />
             <Actions />

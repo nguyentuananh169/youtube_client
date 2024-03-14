@@ -24,7 +24,7 @@ function Item({ item }) {
                     <span>{item.cmt_content}</span>
                 </div>
             </div>
-            <div className={clsx(styles.thumbnail)}>
+            <div className={clsx(styles.thumbnail, { [styles.short]: item.video_type === '1' })}>
                 <div className={clsx(styles.aspectRatio)}>
                     <img src={item.video_poster} />
                 </div>

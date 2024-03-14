@@ -12,14 +12,34 @@
     background-color: #f1f1f1;
 }
 .img {
+    display: block;
     width: 120px;
-    aspect-ratio: 16/9;
+    position: relative;
+}
+.img.short {
+    background-color: #000;
+}
+.img::before {
+    content: '';
+    padding-top: 56.25%;
+    display: block;
+}
+.img .aspectRatio {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
 }
 .img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    overflow: hidden;
+}
+.img.short img {
+    width: auto;
+    display: block;
+    margin: 0 auto;
 }
 .info {
     flex: 1;

@@ -19,3 +19,8 @@
         top: -60px;
     }
 }
+@media only screen and (max-width: 768px) {
+    .header.pageShorts {
+        display: none;
+    }
+}

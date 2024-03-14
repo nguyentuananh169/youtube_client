@@ -7,9 +7,9 @@
 .loading .spinner {
     width: 20px;
     height: 20px;
-    border: 2px solid #999;
+    border: 2px solid;
+    border-color: #999;
     border-radius: 50%;
-    border-top-color: transparent;
     animation: spin 0.8s infinite linear;
 }
 @keyframes spin {

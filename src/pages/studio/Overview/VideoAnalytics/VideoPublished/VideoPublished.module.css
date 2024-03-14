@@ -22,6 +22,9 @@
     position: relative;
     margin-left: 10px;
 }
+.img.short {
+    background-color: #000;
+}
 .img::before {
     content: '';
     padding-top: 56.25%;
@@ -38,6 +41,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.img.short .aspectRatio img {
+    width: auto;
+    display: block;
+    margin: 0 auto;
 }
 .body {
     flex: 1;

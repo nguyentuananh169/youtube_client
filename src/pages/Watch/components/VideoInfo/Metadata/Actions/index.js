@@ -8,9 +8,9 @@ import videoVotesApi from '../../../../../../api/videoVotesApi';
 import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import useNumberConversion from '../../../../../../hook/useNumberConversion';
 import styles from './Actions.module.css';
-function Actions({ videoId, like, dislike }) {
+function Actions({ videoId, like, dislike, vote }) {
     const [isLoading, setIsLoading] = useState(false);
-    const [voteType, setVoteType] = useState('');
+    const [voteType, setVoteType] = useState(vote);
     const [number, setNumber] = useState({
         like: 0,
         dislike: 0,
@@ -23,25 +23,7 @@ function Actions({ videoId, like, dislike }) {
             like: 0,
             dislike: 0,
         });
-    }, [videoId]);
-    useEffect(() => {
-        if (videoId && auth.isLogin && auth.user?.user_id) {
-            const checkVote = async () => {
-                setIsLoading(true);
-                const params = {
-                    _video_id: videoId,
-                };
-                const response = await videoVotesApi.checkVote(params);
-
-                if (response[0]?.error) {
-                    dispatch(addToastMessage('error', 'Có lỗi', response[0].message));
-                } else {
-                    setVoteType(response[0].vote_type);
-                }
-                setIsLoading(false);
-            };
-            checkVote();
-        }
+        setVoteType(vote);
     }, [videoId]);
     const handleVote = async (valueType) => {
         setIsLoading(true);

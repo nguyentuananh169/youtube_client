@@ -87,6 +87,13 @@
     border: none;
     white-space: nowrap;
 }
+.subscribeButton .btn.link {
+    background-color: #065fd4;
+    color: #fff;
+}
+.subscribeButton .btn.link:hover {
+    background-color: #064ca8;
+}
 .subscribeButton.loading .btn:not(.link) {
     background-color: rgba(0, 0, 0, 0.1);
     color: #bab8b8;
@@ -96,7 +103,7 @@
     background-color: rgba(0, 0, 0, 1);
     color: #fff;
 }
-.subscribeButton:not(.loading) .btn:hover {
+.subscribeButton:not(.loading) .btn:hover:not(.link) {
     background-color: #dcdbdb;
 }
 .subscribeButton:not(.loading) .btn.subscriber:hover {

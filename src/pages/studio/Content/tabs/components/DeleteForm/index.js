@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import Modal from '../../../../../components/Modal';
-import videoApi from '../../../../../../../api/videoApi';
-import { addToastMessage } from '../../../../../../../store/actions/toastMessage';
+import Modal from '../../../../components/Modal';
+import videoApi from '../../../../../../api/videoApi';
+import { addToastMessage } from '../../../../../../store/actions/toastMessage';
+import numberConversion from '../../../../../../hook/useNumberConversion';
 import styles from './DeleteForm.module.css';
 function DeleteForm({ dataForm, handleResetDataForm, setModal, getVideoApi }) {
     const [isCheckBox, setIsCheckBox] = useState(false);
@@ -46,13 +47,19 @@ function DeleteForm({ dataForm, handleResetDataForm, setModal, getVideoApi }) {
             <div className={clsx(styles.wrapper)}>
                 <div className={clsx(styles.videoInforCn)}>
                     <div className={clsx(styles.videoInfor)}>
-                        <div className={clsx(styles.img)}>
-                            <img src={dataForm.posterLink} />
+                        <div
+                            className={clsx(styles.img, {
+                                [styles.short]: dataForm.videoType === '1',
+                            })}
+                        >
+                            <div className={clsx(styles.aspectRatio)}>
+                                <img src={dataForm.posterLink} />
+                            </div>
                         </div>
                         <div className={clsx(styles.info)}>
                             <strong>{dataForm.title}</strong>
                             <p>{`Ngày tải lên: ${dataForm.created_at}`}</p>
-                            <p>{`${dataForm.views} lượt xem`}</p>
+                            <p>{`${numberConversion(dataForm.views, 'commas')} lượt xem`}</p>
                         </div>
                     </div>
                 </div>

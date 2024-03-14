@@ -52,6 +52,9 @@
     position: relative;
     margin-left: 10px;
 }
+.thumbnail.short {
+    background-color: #000;
+}
 .thumbnail::before {
     content: '';
     padding-top: 56.25%;
@@ -68,6 +71,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.thumbnail .aspectRatio img {
+    width: auto;
+    display: block;
+    margin: 0 auto;
 }
 .linkBtn {
     width: 100%;

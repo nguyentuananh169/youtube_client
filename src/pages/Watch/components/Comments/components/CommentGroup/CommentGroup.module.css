@@ -2,7 +2,10 @@
 .comment {
     width: 100%;
 }
-.comment:not(.children) {
+/* .comment:not(.children) {
+    margin-top: 20px;
+} */
+.wrapper + .wrapper .comment {
     margin-top: 20px;
 }
 .children {

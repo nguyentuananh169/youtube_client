@@ -144,6 +144,23 @@
 .inputContainer select.error {
     border: 1px solid #c00;
 }
+.inputContainer .alert {
+    width: 100%;
+    padding: 12px;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.inputContainer .alert svg {
+    margin-right: 5px;
+    color: #606060;
+}
+.inputContainer .alert span {
+    font-size: 1.2rem;
+    color: #606060;
+}
 /* right */
 .right {
     width: 310px;

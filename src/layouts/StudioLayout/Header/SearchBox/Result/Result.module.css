@@ -29,6 +29,14 @@
     height: 100%;
     object-fit: cover;
 }
+.img.short {
+    background-color: #000;
+}
+.img.short img {
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}
 .duration {
     display: inline-block;
     position: absolute;

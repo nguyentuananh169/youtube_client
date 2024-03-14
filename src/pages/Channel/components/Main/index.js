@@ -7,6 +7,7 @@ import PlayList from './PlayList';
 import Community from './Community';
 import Channels from './Channels';
 import About from './About';
+import Shorts from './Shorts';
 
 function Main({ user }) {
     const { page } = useParams();
@@ -19,6 +20,9 @@ function Main({ user }) {
                     </div>
                     <div className={clsx(styles.group, { [styles.show]: page === 'videos' })}>
                         <Videos />
+                    </div>
+                    <div className={clsx(styles.group, { [styles.show]: page === 'shorts' })}>
+                        <Shorts />
                     </div>
                     <div className={clsx(styles.group, { [styles.show]: page === 'playlist' })}>
                         <PlayList />

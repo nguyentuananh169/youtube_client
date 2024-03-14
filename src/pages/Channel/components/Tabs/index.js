@@ -15,6 +15,10 @@ function Tabs() {
             page: 'videos',
         },
         {
+            text: 'Shorts',
+            page: 'shorts',
+        },
+        {
             text: 'Danh sách phát',
             page: 'playlist',
         },

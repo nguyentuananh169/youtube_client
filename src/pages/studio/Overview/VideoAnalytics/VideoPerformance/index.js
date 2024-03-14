@@ -40,8 +40,10 @@ function VideoPerformance({ video }) {
     }, [isCollapse]);
     return (
         <Card title={'Hiệu suất của video mới nhất'}>
-            <div className={clsx(styles.img)}>
-                <img src={video.video_poster} />
+            <div className={clsx(styles.img, { [styles.short]: video.video_type === '1' })}>
+                <div className={clsx(styles.aspectRatio)}>
+                    <img src={video.video_poster} />
+                </div>
                 <div className={clsx(styles.videoName)}>
                     <span>{video.video_title}</span>
                 </div>

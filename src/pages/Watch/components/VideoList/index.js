@@ -41,6 +41,7 @@ function VideoList({ urlParams, loadingPage, userId, userName }) {
             black_list_name: urlParams.list ? 'playlist_id' : 'video_id',
             black_list_value: urlParams.list ? urlParams.list : urlParams.id,
             page: isResetVideoList.current ? 1 : params.page,
+            video_type: 0,
         };
         const response = await videoApi.get(formData);
         if (isResetVideoList.current) {

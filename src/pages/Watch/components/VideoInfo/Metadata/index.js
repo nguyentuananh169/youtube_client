@@ -16,11 +16,13 @@ function Metadata({ videoData }) {
                         id={videoData.user_id}
                         subscriber={videoData.user_total_subscribe}
                         isOfficial
+                        subscribed={videoData.is_subscribed}
                     />
                     <Actions
                         videoId={videoData.video_id}
                         like={videoData.video_like}
                         dislike={videoData.video_dislike}
+                        vote={videoData.vote_type}
                     />
                 </div>
                 <div className={clsx(styles.bottomRow)}>

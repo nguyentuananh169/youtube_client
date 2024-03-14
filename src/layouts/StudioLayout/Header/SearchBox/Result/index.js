@@ -10,7 +10,7 @@ function Result({ item }) {
             to={`/watch?category=${item.category_id}&id=${item.video_id}`}
             className={clsx(styles.item)}
         >
-            <div className={clsx(styles.img)}>
+            <div className={clsx(styles.img, { [styles.short]: item.video_type === '1' })}>
                 <div className={clsx(styles.aspectRatio)}>
                     <img src={item.video_poster} />
                     <span className={clsx(styles.duration)}>

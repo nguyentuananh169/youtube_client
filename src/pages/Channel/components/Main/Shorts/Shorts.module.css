@@ -1,0 +1,70 @@
+.wrapper {
+    width: 100%;
+    position: relative;
+}
+.wrapper.loading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+}
+.category {
+    width: 100%;
+    margin-top: 20px;
+}
+.category button {
+    outline: none;
+    border: 0;
+    border-radius: 7px;
+    padding: 8px 12px;
+    background-color: #e5e5e5;
+    color: #000;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+.category button + button {
+    margin-left: 10px;
+}
+.category button.active {
+    background-color: #000;
+    color: #fff;
+}
+.listContainer {
+    width: 100%;
+    margin-top: 20px;
+}
+.list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: -16px;
+}
+.videoCard {
+    width: 0;
+    margin-left: 16px;
+    margin-bottom: 34px;
+}
+@media only screen and (min-width: 930px) {
+    .videoCard {
+        width: calc(25% - 16px);
+    }
+}
+@media only screen and (min-width: 660px) and (max-width: 930px) {
+    .videoCard {
+        width: calc(33.333% - 16px);
+    }
+}
+@media only screen and (min-width: 440px) and (max-width: 660px) {
+    .videoCard {
+        width: calc(50% - 16px);
+    }
+}
+@media only screen and (max-width: 440px) {
+    .videoCard {
+        width: calc(100% - 16px);
+    }
+}

@@ -12,7 +12,7 @@ import queryString from 'query-string';
 import videoApi from '../../../../../api/videoApi';
 import Loading from './Loading';
 import Item from './Item';
-import DeleteForm from './VideoForm/DeleteForm';
+import DeleteForm from '../components/DeleteForm';
 import styles from './Upload.module.css';
 function Upload({ tab }) {
     const initFilterData = {
@@ -206,6 +206,7 @@ function Upload({ tab }) {
         },
     ];
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingFirst, setIsLoadingFirst] = useState(true);
     const [modal, setModal] = useState({
         isShow: false,
         type: '',
@@ -213,6 +214,7 @@ function Upload({ tab }) {
     const [videoList, setVideoList] = useState([]);
     const [params, setParams] = useState({
         type: 'get_by_token',
+        videoType: 0,
         page: 1,
         totalPage: 1,
         limit: 10,
@@ -223,6 +225,7 @@ function Upload({ tab }) {
         title: '',
         desText: '',
         videoFile: '',
+        videoType: '0',
         videoLink: '',
         posterFile: '',
         posterLink: '',
@@ -235,24 +238,29 @@ function Upload({ tab }) {
     const { search } = useLocation();
     const navigate = useNavigate();
     useEffect(() => {
-        const { type } = queryString.parse(search);
-        switch (type) {
-            case 'upload_video':
-                setModal({ isShow: true, type: 'upload_video' });
-                break;
-            case 'update_video':
-                setModal({ isShow: true, type: 'update_video' });
-                break;
-            default:
-                break;
+        if (tab === 'upload') {
+            const { type } = queryString.parse(search);
+            switch (type) {
+                case 'upload_video':
+                    setModal({ isShow: true, type: 'upload_video' });
+                    break;
+                case 'update_video':
+                    setModal({ isShow: true, type: 'update_video' });
+                    break;
+                default:
+                    break;
+            }
         }
-    }, [search]);
+    }, [search, tab]);
     useEffect(() => {
-        getVideoApi();
-    }, []);
+        if (tab === 'upload' && isLoadingFirst) {
+            getVideoApi();
+        }
+    }, [tab, isLoadingFirst]);
     const getVideoApi = async (valuePage, valueLimit, objParams) => {
         setIsLoading(true);
         const obj = {
+            video_type: params.videoType,
             type: params.type,
             page: valuePage || params.page,
             limit: valueLimit || params.limit,
@@ -266,6 +274,7 @@ function Upload({ tab }) {
         });
         setVideoList(response.videoList);
         setIsLoading(false);
+        setIsLoadingFirst(false);
     };
     const handleResetDataForm = () => {
         setDataForm({
@@ -275,6 +284,7 @@ function Upload({ tab }) {
             desText: '',
             videoFile: '',
             videoLink: '',
+            videoType: '0',
             posterFile: '',
             posterLink: '',
             playlistId: '',
@@ -351,7 +361,7 @@ function Upload({ tab }) {
             <div className={clsx(styles.body)}>
                 {(videoList.length || isLoading) && (
                     <Table>
-                        <TableTop tab={tab} />
+                        <TableTop tab={tab} handleRefresh={getVideoApi} />
                         {isLoading && <Loading count={5} />}
                         {!isLoading &&
                             videoList.map((item) => (

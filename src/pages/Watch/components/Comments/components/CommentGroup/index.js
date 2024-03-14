@@ -96,6 +96,7 @@ function CommentGroup({
                     handleResetComments={handleResetComments}
                     handleUpdateCommentSuccess={handleUpdateCommentSuccess}
                     commentRef={commentRef}
+                    videoId={videoId}
                 />
             </div>
 
@@ -126,6 +127,7 @@ function CommentGroup({
                         isPostsPage={isPostsPage}
                         isLv2
                         item={item}
+                        videoId={videoId}
                         index={index}
                         ownerId={ownerId}
                         ownerName={ownerName}

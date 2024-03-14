@@ -74,6 +74,9 @@
     width: 120px;
     position: relative;
 }
+.poster.short {
+    background-color: #000;
+}
 .poster::before {
     content: '';
     padding-top: 56.25%;
@@ -90,6 +93,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.poster.short img {
+    width: auto;
+    display: block;
+    margin: 0 auto;
 }
 .title {
     width: 168px;

@@ -11,24 +11,13 @@ import { addSubscription, deleteSubscription } from '../../../../../../store/act
 import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import useNumberConversion from '../../../../../../hook/useNumberConversion';
 import styles from './Owner.module.css';
-function Owner({ id, avatar, name, subscriber, isOfficial = false }) {
+function Owner({ id, avatar, name, subscriber, subscribed, isOfficial = false }) {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
-    const [isSubscribed, setIsSubscribed] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isSubscribed, setIsSubscribed] = useState(subscribed);
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
-        if (auth.isLogin && auth.user?.user_id && auth.user?.user_id !== id) {
-            const checkSubscribe = async () => {
-                setIsLoading(true);
-                const formData = {
-                    _id: id,
-                };
-                const response = await subscriptionApi.checkSubscribe(formData);
-                setIsSubscribed(response[0].is_subscribed);
-                setIsLoading(false);
-            };
-            checkSubscribe();
-        }
+        setIsSubscribed(subscribed);
     }, [id]);
     const handleClickSubscribe = async () => {
         if (isLoading) {
@@ -117,7 +106,7 @@ function Owner({ id, avatar, name, subscriber, isOfficial = false }) {
 
             {auth.isLogin && (
                 <div className={clsx(styles.subscribeButton, { [styles.loading]: isLoading })}>
-                    {id === auth.user?.user_id ? (
+                    {id === auth.user?.user_id && (
                         <>
                             <Link
                                 to={`/channel/${id}/home`}
@@ -126,17 +115,25 @@ function Owner({ id, avatar, name, subscriber, isOfficial = false }) {
                                 Truy cập kênh
                             </Link>
                         </>
-                    ) : isSubscribed ? (
-                        <Button onClick={handleClickUnsubscribe} className={clsx(styles.btn)}>
-                            Hủy đăng ký
-                        </Button>
-                    ) : (
-                        <Button
-                            className={clsx(styles.btn, styles.subscriber)}
-                            onClick={handleClickSubscribe}
-                        >
-                            Đăng ký
-                        </Button>
+                    )}
+                    {id !== auth.user?.user_id && (
+                        <>
+                            {isSubscribed ? (
+                                <Button
+                                    onClick={handleClickUnsubscribe}
+                                    className={clsx(styles.btn)}
+                                >
+                                    Hủy đăng ký
+                                </Button>
+                            ) : (
+                                <Button
+                                    className={clsx(styles.btn, styles.subscriber)}
+                                    onClick={handleClickSubscribe}
+                                >
+                                    Đăng ký
+                                </Button>
+                            )}
+                        </>
                     )}
                 </div>
             )}

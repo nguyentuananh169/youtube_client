@@ -17,6 +17,7 @@ function ListVideo({ categoryId, isLoadingHome, setIsLoadingHome }) {
     const fetchVideos = async () => {
         setIsLoading(true);
         const obj = {
+            video_type: '0',
             type: 'category_id',
             id: categoryId,
             page: isChangeCategory.current ? 1 : page,

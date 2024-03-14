@@ -101,7 +101,11 @@ function Item({
                             <Link
                                 to={`/watch?category=${item.category_id}&id=${item.video_id}`}
                             ></Link>
-                            <div className={clsx(styles.poster)}>
+                            <div
+                                className={clsx(styles.poster, {
+                                    [styles.short]: item.video_type === '1',
+                                })}
+                            >
                                 <div className={clsx(styles.aspectRatio)}>
                                     <img src={item.video_poster} />
                                 </div>

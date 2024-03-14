@@ -13,6 +13,7 @@ import Library from '../pages/Library';
 import History from '../pages/History';
 import WatchLater from '../pages/WatchLater';
 import Liked from '../pages/Liked';
+import Shorts from '../pages/Shorts';
 
 const defaultRoutes = [
     { path: '/', component: Home, layout: DefaultLayout },
@@ -30,6 +31,7 @@ const defaultRoutes = [
     { path: '/history', component: History, layout: DefaultLayout },
     { path: '/watch-later', component: WatchLater, layout: DefaultLayout },
     { path: '/liked', component: Liked, layout: DefaultLayout },
+    { path: '/shorts', component: Shorts, layout: DefaultLayout },
     { path: '/login/', component: Login, layout: null },
     { path: '/register/', component: Register, layout: null },
     { path: '/logout/', component: Logout, layout: null },

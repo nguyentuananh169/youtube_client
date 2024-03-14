@@ -1,6 +1,16 @@
 .body {
     width: 100%;
 }
+.body table th .btnRefresh {
+    cursor: pointer;
+    outline: none;
+    padding: 0 5px;
+    margin-left: 10px;
+    border: none;
+}
+.body table th .btnRefresh svg {
+    margin-bottom: -3px;
+}
 .body table th [data-class='tooltip'] {
     visibility: hidden;
 }

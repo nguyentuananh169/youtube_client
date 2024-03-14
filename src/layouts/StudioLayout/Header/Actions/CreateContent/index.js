@@ -1,14 +1,18 @@
 import { RiVideoAddLine, RiPlayListAddLine } from 'react-icons/ri';
 import { TfiUpload } from 'react-icons/tfi';
 import { MdOutlinePodcasts, MdOutlineStream } from 'react-icons/md';
-import { BsNewspaper } from 'react-icons/bs';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import useClickOutSide from '../../../../../hook/useClickOutSide';
 import styles from './CreateContent.module.css';
 function CreateContent() {
     const [elementRef, isShow, setShow] = useClickOutSide(false);
+    const { pathname } = useLocation();
+    const uploadVideoUrl =
+        pathname === '/studio/videos/shorts'
+            ? '/studio/videos/shorts?type=upload_video'
+            : '/studio/videos/upload?type=upload_video';
     return (
         <div ref={elementRef} className={clsx(styles.wrapper)}>
             <button onClick={() => setShow(!isShow)}>
@@ -18,7 +22,7 @@ function CreateContent() {
             {isShow && (
                 <ul className={clsx(styles.dropdownMenu)}>
                     <li>
-                        <Link to={'/studio/videos/upload?type=upload_video'}>
+                        <Link to={uploadVideoUrl}>
                             <TfiUpload size={19} color="#606060" />
                             <span>Tải video lên</span>
                         </Link>
