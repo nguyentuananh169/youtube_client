@@ -149,7 +149,7 @@ function Shorts() {
                             text="Bắt đầu chia sẻ câu chuyện của bạn và kết nối với người xem. Các video mà bạn tải
                     lên sẽ xuất hiện ở đây."
                             textLink="Tải video lên"
-                            link="/studio/videos/upload?type=upload_video"
+                            link="/studio/videos/shorts?type=upload_video"
                             textBottom="Tìm hiểu thêm về"
                             linkBottom="cách bắt đầu"
                             isBtn={auth.isLogin && auth.user?.user_id === id}
