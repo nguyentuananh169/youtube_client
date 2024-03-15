@@ -22,7 +22,7 @@ function Body({
     const baseUrl = window.location.origin;
     useEffect(() => {
         const file = values.posterFile[0];
-        if (file && values.videoType === 0) {
+        if (file && values.videoType === '0') {
             if (
                 file.type === 'image/png' ||
                 file.type === 'image/jpeg' ||
@@ -97,7 +97,7 @@ function Body({
                 </div>
                 <div className={clsx(styles.inputContainer)}>
                     <label className={clsx(styles.label)}>Hình thu nhỏ</label>
-                    {values.videoType > 0 ? (
+                    {values.videoType === '1' ? (
                         <div className={clsx(styles.alert)}>
                             <AlertCircle size={18} />
                             <span>Hiện tại, bạn chưa thể thay đổi hình thu nhỏ của video ngắn</span>
@@ -169,7 +169,7 @@ function Body({
                         ))}
                     </select>
                 </div>
-                {values.videoType === 0 && (
+                {values.videoType === '0' && (
                     <div className={clsx(styles.inputContainer)}>
                         <label className={clsx(styles.label)}>Danh mục video (bắt buộc)</label>
                         <p className={clsx(styles.sublabel)}>

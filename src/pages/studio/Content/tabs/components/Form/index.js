@@ -25,11 +25,11 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
         },
         {
             name: 'posterFile',
-            rules: { isRequired: dataForm.videoType === 0, isFileImg: true },
+            rules: { isRequired: dataForm.videoType === '0', isFileImg: true },
         },
         {
             name: 'categoryId',
-            rules: { isRequired: dataForm.videoType === 0 },
+            rules: { isRequired: dataForm.videoType === '0' },
         },
     ];
     if (modal.type === 'update_video') {
@@ -114,10 +114,12 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
     const { formSubmit, ...objValidateForm } = useValidateForm(validates, handleSubmit);
     useEffect(() => {
         const getAllCategory = async () => {
-            setIsLoadingCate(true);
-            const response = await categoryApi.get();
-            setIsLoadingCate(false);
-            setCategoryList(response);
+            if (dataForm.videoType === '0') {
+                setIsLoadingCate(true);
+                const response = await categoryApi.get();
+                setIsLoadingCate(false);
+                setCategoryList(response);
+            }
         };
         const getAllPlaylist = async () => {
             setIsLoadingPlaylist(true);

@@ -50,12 +50,12 @@ function SelectFile({ dataForm, handleSetDataForm, handleCloseModal }) {
                     handleSetDataForm({
                         ...dataForm,
                         ...data,
-                        videoType: 1,
+                        videoType: '1',
                         posterLink: imageDataURL,
                     });
                 };
             } else {
-                handleSetDataForm({ ...dataForm, ...data, videoType: 0 });
+                handleSetDataForm({ ...dataForm, ...data, videoType: '0' });
             }
         }
     };
