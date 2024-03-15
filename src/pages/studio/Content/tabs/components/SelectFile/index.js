@@ -17,8 +17,8 @@ function SelectFile({ dataForm, handleSetDataForm, handleCloseModal }) {
         if (file.type !== 'video/mp4') {
             return setError('Chỉ được chọn file MP4');
         }
-        if (file.size > 26214400) {
-            return setError('Kích thước file phải nhỏ hơn 25MB');
+        if (file.size > 31457280) {
+            return setError('Kích thước file phải nhỏ hơn 30MB');
         }
         setIsLoading(true);
         const title = file.name.slice(0, -4);
@@ -36,25 +36,27 @@ function SelectFile({ dataForm, handleSetDataForm, handleCloseModal }) {
             canvasRef.current.width = width;
             canvasRef.current.height = height;
             const aspectRatio = width / height;
-            // Thời điểm bạn muốn chụp ảnh, tính theo giây
-            const timeInSeconds = 0;
-            // Đặt thời điểm của video đến thời điểm mong muốn
-            videoEl.currentTime = timeInSeconds;
-            // Khi video seek đến thời điểm mong muốn, chụp ảnh
-            videoEl.onseeked = () => {
-                // Vẽ frame hiện tại lên canvas
-                context.drawImage(videoEl, 0, 0, width, height);
-                // Chuyển đổi canvas thành URL dữ liệu (data URL)
-                const imageDataURL = canvasEl.toDataURL('image/jpeg');
-                aspectRatio < 1
-                    ? handleSetDataForm({
-                          ...dataForm,
-                          ...data,
-                          videoType: 1,
-                          posterLink: imageDataURL,
-                      })
-                    : handleSetDataForm({ ...dataForm, ...data, videoType: 0 });
-            };
+            if (aspectRatio < 1) {
+                // Thời điểm bạn muốn chụp ảnh, tính theo giây
+                const timeInSeconds = 0;
+                // Đặt thời điểm của video đến thời điểm mong muốn
+                videoEl.currentTime = timeInSeconds;
+                // Khi video seek đến thời điểm mong muốn, chụp ảnh
+                videoEl.onseeked = () => {
+                    // Vẽ frame hiện tại lên canvas
+                    context.drawImage(videoEl, 0, 0, width, height);
+                    // Chuyển đổi canvas thành URL dữ liệu (data URL)
+                    const imageDataURL = canvasEl.toDataURL('image/jpeg');
+                    handleSetDataForm({
+                        ...dataForm,
+                        ...data,
+                        videoType: 1,
+                        posterLink: imageDataURL,
+                    });
+                };
+            } else {
+                handleSetDataForm({ ...dataForm, ...data, videoType: 0 });
+            }
         }
     };
     return (

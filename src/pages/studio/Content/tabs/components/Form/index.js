@@ -11,6 +11,7 @@ import videoApi from '../../../../../../api/videoApi';
 import { addToastMessage } from '../../../../../../store/actions/toastMessage';
 import Error from './Error';
 import styles from './Form.module.css';
+import cloudinaryApi from '../../../../../../api/cloudinaryApi';
 
 function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
     const validates = [
@@ -28,7 +29,7 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
         },
         {
             name: 'categoryId',
-            rules: { isRequired: true },
+            rules: { isRequired: dataForm.videoType === 0 },
         },
     ];
     if (modal.type === 'update_video') {
@@ -46,12 +47,13 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
     const [playlist, setPlaylist] = useState([]);
     const distpatch = useDispatch();
 
-    const handleAddVideo = async () => {
-        setIsLoadingSubmit(true);
+    const handleAddVideo = async (url, publicId, duration) => {
         const params = new FormData();
         params.append('_category', values.categoryId);
         params.append('_playlist', values.playlistId);
-        params.append('_video_file', values.videoFile);
+        params.append('_video_link', url);
+        params.append('_video_public_id', publicId);
+        params.append('_video_duration', duration);
         params.append('_video_type', values.videoType);
         if (values.videoType > 0) {
             params.append('_poster_link', values.posterLink);
@@ -89,12 +91,22 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
         }
         setIsLoadingSubmit(false);
     };
+    const handleUploadCloudinary = async () => {
+        setIsLoadingSubmit(true);
+        const response = await cloudinaryApi.uploadVideo(values.videoFile);
+        if (response.url && response.public_id && response.duration) {
+            handleAddVideo(response.url, response.public_id, response.duration);
+        } else {
+            distpatch(addToastMessage('error', 'Thất bại', 'Tải video thất bại'));
+            setIsLoadingSubmit(false);
+        }
+    };
     const handleSubmit = () => {
         if (isLoadingSubmit) {
             return;
         }
         if (modal.type === 'upload_video') {
-            handleAddVideo();
+            handleUploadCloudinary();
         } else if (modal.type === 'update_video') {
             handleUpdateVideo();
         }
@@ -142,7 +154,7 @@ function Form({ modal, dataForm, handleCloseModal, getVideoApi }) {
                 <div className={clsx(styles.bottom)}>
                     {isLoadingSubmit && (
                         <span className={clsx(styles.text)}>
-                            Sẽ mất chút thời gian. Vui lòng đợi ...
+                            Sẽ mất chút thời gian, có thể vài phút. Vui lòng đợi ...
                         </span>
                     )}
                     {modal.type === 'update_video' && !values.id ? (

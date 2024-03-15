@@ -20,7 +20,6 @@ function Body({
     const inputImgRef = useRef(null);
     const { errors, invalid, removeError } = objValidateForm;
     const baseUrl = window.location.origin;
-
     useEffect(() => {
         const file = values.posterFile[0];
         if (file && values.videoType === 0) {
@@ -170,37 +169,39 @@ function Body({
                         ))}
                     </select>
                 </div>
-                <div className={clsx(styles.inputContainer)}>
-                    <label className={clsx(styles.label)}>Danh mục video (bắt buộc)</label>
-                    <p className={clsx(styles.sublabel)}>
-                        Thêm video của bạn vào một danh mục video. Danh mục video có thể giúp người
-                        xem nhanh chóng khám phá nội dung của bạn.
-                        <Link to={'#'}>Tìm hiểu thêm</Link>
-                    </p>
-                    <select
-                        className={clsx({ [styles.error]: errors.categoryId })}
-                        name="categoryId"
-                        value={values.categoryId}
-                        onChange={(e) =>
-                            handleChange(
-                                'categoryId',
-                                e.target.options[e.target.options.selectedIndex].value,
-                            )
-                        }
-                    >
-                        <option value={''}>
-                            {isLoadingCate ? '-- Đang tải dữ liệu --' : 'Chọn'}
-                        </option>
-                        {categoryList.map((item) => (
-                            <option key={item.id} value={item.id}>
-                                {item.name}
+                {values.videoType === 0 && (
+                    <div className={clsx(styles.inputContainer)}>
+                        <label className={clsx(styles.label)}>Danh mục video (bắt buộc)</label>
+                        <p className={clsx(styles.sublabel)}>
+                            Thêm video của bạn vào một danh mục video. Danh mục video có thể giúp
+                            người xem nhanh chóng khám phá nội dung của bạn.
+                            <Link to={'#'}>Tìm hiểu thêm</Link>
+                        </p>
+                        <select
+                            className={clsx({ [styles.error]: errors.categoryId })}
+                            name="categoryId"
+                            value={values.categoryId}
+                            onChange={(e) =>
+                                handleChange(
+                                    'categoryId',
+                                    e.target.options[e.target.options.selectedIndex].value,
+                                )
+                            }
+                        >
+                            <option value={''}>
+                                {isLoadingCate ? '-- Đang tải dữ liệu --' : 'Chọn'}
                             </option>
-                        ))}
-                    </select>
-                    {errors.categoryId && (
-                        <p className={clsx(styles.errorMessage)}>{errors.categoryId}</p>
-                    )}
-                </div>
+                            {categoryList.map((item) => (
+                                <option key={item.id} value={item.id}>
+                                    {item.name}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.categoryId && (
+                            <p className={clsx(styles.errorMessage)}>{errors.categoryId}</p>
+                        )}
+                    </div>
+                )}
             </div>
             <div className={clsx(styles.right)}>
                 <VideoPlay

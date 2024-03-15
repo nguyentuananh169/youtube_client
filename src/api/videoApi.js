@@ -10,7 +10,7 @@ const videoApi = {
         return axiosClient.post(url, params);
     },
     updateView: (params) => {
-        const url = '/video/update_view.php';
+        const url = '/video/update_views.php';
         return axiosClient.post(url, params);
     },
     get: (params) => {

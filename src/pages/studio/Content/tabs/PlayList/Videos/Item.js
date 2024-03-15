@@ -8,7 +8,7 @@ function Item({ item, stt }) {
         <div className={clsx(styles.item)}>
             <div className={clsx(styles.poster)}>
                 <div className={clsx(styles.number)}>{stt}</div>
-                <div className={clsx(styles.img)}>
+                <div className={clsx(styles.img, { [styles.short]: item.video_type === '1' })}>
                     <div className={clsx(styles.aspectRatio)}>
                         <img src={item.video_poster} />
                         <Link

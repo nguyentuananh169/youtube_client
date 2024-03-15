@@ -116,6 +116,7 @@
     margin-left: 12px;
     padding: 5px 0;
     position: relative;
+    overflow: hidden;
 }
 .info .title {
     color: #0d0d0d;
