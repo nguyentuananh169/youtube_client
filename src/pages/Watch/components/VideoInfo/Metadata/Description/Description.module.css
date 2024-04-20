@@ -6,13 +6,6 @@
 }
 .des {
     width: 100%;
-    max-height: 100px;
-    overflow: hidden;
-}
-.des.more {
-    height: auto;
-    max-height: none;
-    overflow: auto;
 }
 .heading {
     width: 100%;
@@ -82,6 +75,16 @@
 .info2 {
     font-size: 1.4rem;
 }
+.text.collapse {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.text p {
+    margin-top: 5px;
+}
 .text p,
 .text a,
 .text span {
@@ -91,9 +94,6 @@
 .text a {
     text-decoration: none;
     color: #065fd4;
-}
-.text p {
-    padding: 5px 0;
 }
 .more button {
     font-size: 1.4rem;
@@ -108,9 +108,6 @@
     color: #606060;
 }
 @media only screen and (max-width: 768px) {
-    .des {
-        max-height: 20px;
-    }
     .des.more {
         position: fixed;
         bottom: 0;
@@ -136,6 +133,9 @@
     }
     .des.more .content .info2 {
         display: none;
+    }
+    .text.collapse {
+        -webkit-line-clamp: 1;
     }
     .text p,
     .text a,

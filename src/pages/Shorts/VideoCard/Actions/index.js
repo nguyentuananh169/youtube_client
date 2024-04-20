@@ -20,7 +20,14 @@ import LoadingHasMore from '../../../../components/LoadingHasMore';
 import { addToastMessage } from '../../../../store/actions/toastMessage';
 import styles from './Actions.module.css';
 
-function Actions({ item, handleSetShowComment, isShowComment, handleSetShowDes, isShowDes }) {
+function Actions({
+    item,
+    handleSetShowComment,
+    isShowComment,
+    handleSetShowDes,
+    handleStopPropagation,
+    isShowDes,
+}) {
     const dataMenuFixed = [
         {
             icon: <TfiAlignLeft />,
@@ -142,7 +149,12 @@ function Actions({ item, handleSetShowComment, isShowComment, handleSetShowDes, 
         }
     };
     return (
-        <div className={clsx(styles.wrapper, { [styles.mobile]: isShowComment || isShowDes })}>
+        <div
+            className={clsx(styles.wrapper, { [styles.mobile]: isShowComment || isShowDes })}
+            onTouchStart={handleStopPropagation}
+            onTouchMove={handleStopPropagation}
+            onTouchEnd={handleStopPropagation}
+        >
             <div className={clsx(styles.item, { [styles.active]: voteType === 'like' })}>
                 <div
                     className={clsx(styles.btn, { [styles.loading]: isLoading })}

@@ -10,6 +10,7 @@ function Description({ item, handleSetShowDes }) {
     const views = useNumberConversion(item.video_views, 'compression');
     return (
         <div className={clsx(styles.wrapper)}>
+            <div className={clsx(styles.overlay)} onClick={handleSetShowDes}></div>
             <div className={clsx(styles.heading)}>
                 <h3>Nội dung mô tả</h3>
                 <div className={clsx(styles.close)} onClick={handleSetShowDes}>

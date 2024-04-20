@@ -87,7 +87,7 @@ function Description({ videoData }) {
                     </div>
                     {videoData.video_des ? (
                         <div
-                            className={clsx(styles.text)}
+                            className={clsx(styles.text, { [styles.collapse]: !isMore })}
                             dangerouslySetInnerHTML={{ __html: videoData.video_des }}
                         ></div>
                     ) : (
@@ -97,7 +97,7 @@ function Description({ videoData }) {
             </div>
             {videoData.video_des && (
                 <div className={clsx(styles.more)}>
-                    <Button onClick={handleToggleMore}>{isMore ? 'ẩn bớt' : '...thêm'}</Button>
+                    <Button onClick={handleToggleMore}>{isMore ? 'Ẩn bớt' : 'Xem thêm'}</Button>
                 </div>
             )}
         </div>

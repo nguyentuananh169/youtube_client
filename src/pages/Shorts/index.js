@@ -10,336 +10,16 @@ import LoadingHasMore from '../../components/LoadingHasMore';
 import NoResult from '../../components/NoResult';
 import styles from './Shorts.module.css';
 function Shorts() {
-    const itemList = [
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '1',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709874947/videos/SnapTik_App_7342492988217642248-HD_nlt0fn.mov',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '2',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885586/videos/Download_13_iwywwq.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '3',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885589/videos/Download_8_p81p9p.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '4',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885590/videos/Download_12_i3tx5r.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '5',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885590/videos/Download_6_zti58f.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '6',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885591/videos/Download_5_crjujz.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '7',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885591/videos/Download_7_bjih76.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '8',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885591/videos/Download_10_cftbar.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '9',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885595/videos/Download_1_hd6ntn.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '10',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885600/videos/Download_9_fvmvzb.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '11',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885601/videos/Download_2_bleris.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '12',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885610/videos/Download_3_fqryd1.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-
-        {
-            category_id: '6',
-            playlist_id: '0',
-            playlist_update_time: '',
-            user_avatar:
-                'https://tuannguyen.click/images/user/1709802786364632151_1497634937737162_7119376630577859435_n.jpg',
-            user_id: '51',
-            user_name: 'Trương Văn Thành',
-            user_tag: '@TruongVanThanh',
-            user_total_subscribe: '1',
-            video_cmt: '0',
-            video_created_at: '2024-03-08 11:08:21',
-            video_des: '',
-            video_dislike: '0',
-            video_duration: '60.1',
-            video_id: '13',
-            video_like: '0',
-            video_link:
-                'https://res.cloudinary.com/dm4utvg9k/video/upload/v1709885612/videos/Download_4_u8enjp.mp4',
-            video_public_id: 'videos/vl9pxkc4wfgtruvjp6st',
-            video_title:
-                'Cận cảnh màn rượt đuổi quá kịch tính giữa ĐT nữ Tây Ban Nha - Thụy Điển I Bán kết World Cup 2023',
-            video_updated_at: '2024-03-08 11:08:21',
-            video_views: '10021456',
-        },
-    ];
     const wrapperRef = useRef(null);
+    const timeoutRef = useRef(null);
+    const videoRef = useRef(null);
+    const videoListRef = useRef(null);
     const isReset = useRef(true);
+    const isDragging = useRef(false);
+    const isSetIndexActive = useRef(false);
+    const startY = useRef(0);
+    const offsetY = useRef(0);
+    const prevOffsetY = useRef(0);
     const [isMute, setIsMute] = useState(false);
     const [isLoadingFirst, setIsLoadingFirst] = useState(true);
     const [isHasMore, setIsHasMore] = useState(false);
@@ -348,8 +28,13 @@ function Shorts() {
         limit: 10,
         totalPage: 1,
     });
+    const [indexActive, setIndexActive] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [scrollTop, setScrollTop] = useState(0);
     const [videoList, setVideoList] = useState([]);
+    const [screenWidthMobile, setScreenWidthMobile] = useState(window.innerWidth <= 768);
+    const isTouchDevice =
+        'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
     const handleSetMute = () => {
         setIsMute(!isMute);
     };
@@ -380,8 +65,10 @@ function Shorts() {
     useEffect(() => {
         fetchVideoList();
     }, []);
-    const handleInfiniteScroll = async () => {
+
+    const handleInfiniteScroll = () => {
         if (wrapperRef.current) {
+            videoRef.current && videoRef.current.pause();
             const wrapperEl = wrapperRef.current;
             const scroll = document.body.scrollTop || document.documentElement.scrollTop;
             const screenHeight = window.innerHeight;
@@ -392,34 +79,147 @@ function Shorts() {
             if (scrollHeight + screenHeight >= clientHeight) {
                 setIsHasMore(true);
             }
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+            timeoutRef.current = setTimeout(() => {
+                setScrollTop(scroll);
+            }, 300);
         }
     };
+    const handleResize = () => {
+        const wrapperEl = wrapperRef.current;
+        const height = window.innerHeight;
+        wrapperEl.style.setProperty('--screenHeight', `${height.toFixed(3)}px`);
+        setScreenWidthMobile(window.innerWidth <= 768);
+    };
+    const handleTouchmove = (e) => {
+        if (!isDragging.current || !videoListRef.current) {
+            return;
+        }
+        const wrapperEl = wrapperRef.current;
+        const wrapperHeight = wrapperEl.clientHeight;
+        const videoListEl = videoListRef.current;
+        const videoListHeight = videoListEl.clientHeight;
+        const currentY = e.clientY || e.touches[0].clientY;
+        const delta = startY.current - currentY;
+        if (
+            prevOffsetY.current + delta > 0 &&
+            prevOffsetY.current + delta + wrapperHeight <= videoListHeight
+        ) {
+            isSetIndexActive.current = true;
+            offsetY.current = delta;
+            const offsetTop = prevOffsetY.current + offsetY.current;
+            videoListEl.style.top = `-${offsetTop}px`;
+        } else {
+            isSetIndexActive.current = false;
+        }
+    };
+    const handleTouchend = () => {
+        isDragging.current = false;
+        if (isSetIndexActive.current) {
+            const videoListEl = videoListRef.current;
+            const screenHeight = window.innerHeight;
+            if (offsetY.current > 0) {
+                setIndexActive((state) => {
+                    const newIndex = state + 1;
+                    const offsetTop = newIndex * screenHeight;
+                    videoListEl.style.top = `-${offsetTop}px`;
+                    prevOffsetY.current = offsetTop;
+                    return newIndex;
+                });
+            } else if (offsetY.current < 0) {
+                setIndexActive((state) => {
+                    const newIndex = state - 1;
+                    const offsetTop = newIndex * screenHeight;
+                    videoListEl.style.top = `-${offsetTop}px`;
+                    prevOffsetY.current = offsetTop;
+                    return newIndex;
+                });
+            }
+            offsetY.current = 0;
+        }
+    };
+    useEffect(() => {
+        if (videoListRef.current && wrapperRef.current && isTouchDevice && screenWidthMobile) {
+            const videoListEl = videoListRef.current;
+            const videoListHeight = videoListEl.clientHeight;
+            const screenHeight = window.innerHeight;
+            const offsetTop = indexActive * screenHeight;
+            if (offsetTop + screenHeight >= videoListHeight) {
+                setIsHasMore(true);
+            }
+        }
+    }, [isTouchDevice, screenWidthMobile, indexActive]);
     useEffect(() => {
         if (isHasMore && !isLoading && !isLoadingFirst && params.page <= params.totalPage) {
             fetchVideoList();
         }
     }, [isHasMore]);
     useEffect(() => {
-        window.addEventListener('scroll', handleInfiniteScroll);
+        handleResize();
+        window.addEventListener('resize', handleResize);
         return () => {
-            window.removeEventListener('scroll', handleInfiniteScroll);
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
+    useEffect(() => {
+        if (!isTouchDevice || !screenWidthMobile) {
+            window.addEventListener('scroll', handleInfiniteScroll);
+            return () => {
+                window.removeEventListener('scroll', handleInfiniteScroll);
+            };
+        }
+    }, [isTouchDevice, screenWidthMobile]);
+    useEffect(() => {
+        if (isTouchDevice && screenWidthMobile) {
+            const handleTouchstart = (e) => {
+                isDragging.current = true;
+                startY.current = e.clientY || e.touches[0].clientY;
+            };
+            document.addEventListener('touchstart', handleTouchstart);
+            document.addEventListener('touchmove', handleTouchmove);
+            return () => {
+                document.removeEventListener('touchstart', handleTouchstart);
+                document.removeEventListener('touchmove', handleTouchmove);
+            };
+        }
+    }, [isTouchDevice, screenWidthMobile]);
+    useEffect(() => {
+        if (isTouchDevice && screenWidthMobile) {
+            document.addEventListener('touchend', handleTouchend);
+            return () => {
+                document.removeEventListener('touchend', handleTouchend);
+            };
+        }
+    }, [isTouchDevice, screenWidthMobile]);
 
     return (
-        <div className={clsx(styles.wrapper)} ref={wrapperRef}>
+        <div
+            className={clsx(styles.wrapper, {
+                [styles.touchDevice]: isTouchDevice && screenWidthMobile,
+            })}
+            ref={wrapperRef}
+        >
             <Link to={'/'} className={clsx(styles.goHome)}>
                 <ArrowLeft size={20} color="#fff" />
             </Link>
             {isLoading && isLoadingFirst && <Loading />}
-            {videoList.map((item) => (
-                <VideoCard
-                    key={item.video_id}
-                    item={item}
-                    handleSetMute={handleSetMute}
-                    isMute={isMute}
-                />
-            ))}
+            <div className={clsx(styles.videoList)} ref={videoListRef}>
+                {videoList.map((item, index) => (
+                    <VideoCard
+                        key={item.video_id}
+                        scrollTop={scrollTop}
+                        item={item}
+                        isMute={isMute}
+                        videoRef={videoRef}
+                        isTouchDevice={isTouchDevice}
+                        isActive={indexActive === index}
+                        screenWidthMobile={screenWidthMobile}
+                        handleSetMute={handleSetMute}
+                    />
+                ))}
+            </div>
             {isLoading && !isLoadingFirst && isHasMore && (
                 <LoadingHasMore customStyle={{ marginTop: '10px', paddingBottom: '10px' }} />
             )}

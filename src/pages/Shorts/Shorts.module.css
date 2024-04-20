@@ -2,6 +2,9 @@
     width: 100%;
     padding: 10px;
 }
+.videoList {
+    width: 100%;
+}
 .goHome {
     display: none;
     position: fixed;
@@ -12,6 +15,23 @@
 @media only screen and (max-width: 768px) {
     .wrapper {
         padding: 0;
+        user-select: none;
+    }
+    .wrapper.touchDevice {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    .wrapper.touchDevice .videoList {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        left: 0;
+        top: 0;
+        overflow: hidden;
+        background-color: #000;
     }
     .goHome {
         display: block;

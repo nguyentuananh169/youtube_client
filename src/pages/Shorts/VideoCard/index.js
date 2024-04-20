@@ -12,10 +12,17 @@ import Comments from './Comments';
 import Description from './Description';
 import { addToastMessage } from '../../../store/actions/toastMessage';
 import styles from './VideoCard.module.css';
-function VideoCard({ item, handleSetMute, isMute }) {
-    const videoRef = useRef(null);
+function VideoCard({
+    item,
+    isMute,
+    handleSetMute,
+    scrollTop,
+    videoRef,
+    isTouchDevice,
+    screenWidthMobile,
+    isActive = false,
+}) {
     const posterRef = useRef(null);
-    const timeoutRef = useRef(null);
     const [isSubscribed, setIsSubscribed] = useState(item.is_subscribed);
     const [isLoading, setIsLoading] = useState(false);
     const [isMore, setIsMore] = useState(false);
@@ -24,43 +31,29 @@ function VideoCard({ item, handleSetMute, isMute }) {
     const [isShowDes, setIsShowDes] = useState(false);
     const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-
     useEffect(() => {
-        if (posterRef.current) {
-            const handleScroll = () => {
-                videoRef.current && videoRef.current.pause();
-                const isMobile = window.innerWidth <= 768;
-                const pageYOffset = isMobile ? window.pageYOffset : window.pageYOffset - 72;
-                const posterEl = posterRef.current;
-                const top = posterEl.getBoundingClientRect().top + pageYOffset;
-                const bottom = posterEl.getBoundingClientRect().bottom + pageYOffset;
-                const height = posterEl.getBoundingClientRect().height;
-                const scrollTop = isMobile
-                    ? document.body.scrollTop || document.documentElement.scrollTop
-                    : (document.body.scrollTop || document.documentElement.scrollTop) + 72;
-
-                const h = height / 2;
-                const t = isMobile ? top : top - 20;
-
-                if (timeoutRef.current) {
-                    clearTimeout(timeoutRef.current);
-                }
-                timeoutRef.current = setTimeout(() => {
-                    if (scrollTop >= t - h && scrollTop <= bottom - h) {
-                        handleScrollTop(top);
-                        setIsVisible(true);
-                    } else {
-                        setIsVisible(false);
-                    }
-                }, 300);
-            };
-            handleScroll();
-            window.addEventListener('scroll', handleScroll);
-            return () => {
-                window.removeEventListener('scroll', handleScroll);
-            };
+        if (isTouchDevice && screenWidthMobile) {
+            setIsVisible(isActive);
         }
-    }, []);
+    }, [isActive, isTouchDevice, screenWidthMobile]);
+    useEffect(() => {
+        if (!isTouchDevice || !screenWidthMobile) {
+            const pageYOffset = screenWidthMobile ? window.pageYOffset : window.pageYOffset - 72;
+            const posterEl = posterRef.current;
+            const top = posterEl.getBoundingClientRect().top + pageYOffset;
+            const bottom = posterEl.getBoundingClientRect().bottom + pageYOffset;
+            const height = posterEl.getBoundingClientRect().height;
+            const scroll = screenWidthMobile ? scrollTop : scrollTop + 72;
+            const h = height / 2;
+            const t = screenWidthMobile ? top : top - 20;
+            if (scroll >= t - h && scroll <= bottom - h) {
+                handleScrollTop(top);
+                setIsVisible(true);
+            } else {
+                setIsVisible(false);
+            }
+        }
+    }, [scrollTop, isTouchDevice, screenWidthMobile]);
     useEffect(() => {
         if (isShowComment || isShowDes) {
             document.body.style.overflow = 'hidden';
@@ -101,9 +94,17 @@ function VideoCard({ item, handleSetMute, isMute }) {
         setIsSubscribed(!isSubscribed);
         dispatch(addToastMessage('success', '', response[0].message));
     };
+    const handleStopPropagation = (e) => {
+        e.stopPropagation();
+    };
     return (
         <div className={clsx(styles.wrapper)}>
-            <div className={clsx(styles.comments, { [styles.show]: isShowComment })}>
+            <div
+                className={clsx(styles.comments, { [styles.show]: isShowComment })}
+                onTouchStart={handleStopPropagation}
+                onTouchMove={handleStopPropagation}
+                onTouchEnd={handleStopPropagation}
+            >
                 {isShowComment && (
                     <Comments
                         videoId={item.video_id}
@@ -114,7 +115,12 @@ function VideoCard({ item, handleSetMute, isMute }) {
                     />
                 )}
             </div>
-            <div className={clsx(styles.des, { [styles.show]: isShowDes })}>
+            <div
+                className={clsx(styles.des, { [styles.show]: isShowDes })}
+                onTouchStart={handleStopPropagation}
+                onTouchMove={handleStopPropagation}
+                onTouchEnd={handleStopPropagation}
+            >
                 {isShowDes && <Description item={item} handleSetShowDes={handleSetShowDes} />}
             </div>
             <div
@@ -128,6 +134,7 @@ function VideoCard({ item, handleSetMute, isMute }) {
                     isShowDes={isShowDes}
                     handleSetShowDes={handleSetShowDes}
                     handleSetShowComment={handleSetShowComment}
+                    handleStopPropagation={handleStopPropagation}
                 />
                 <div className={clsx(styles.aspectRatio)}>
                     <div className={clsx(styles.mute)} onClick={handleSetMute}>

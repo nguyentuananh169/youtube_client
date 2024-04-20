@@ -118,6 +118,10 @@ function Comments({ videoId, ownerId, ownerName, ownerAvatar, handleSetShowComme
 
     return (
         <div className={clsx(styles.wrapper)} ref={commentRef}>
+            <div
+                className={clsx(styles.overlay, styles.zIndex)}
+                onClick={handleSetShowComment}
+            ></div>
             <div className={clsx(styles.container)}>
                 <div className={clsx(styles.heading)}>
                     <div className={clsx(styles.left)}>

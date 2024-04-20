@@ -62,6 +62,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+    user-select: none;
 }
 .video {
     max-width: 100%;
@@ -211,6 +212,7 @@ img.hidden {
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.1);
     z-index: 2;
+    border-radius: 10px;
 }
 .spiner {
     width: 20px;
@@ -278,7 +280,7 @@ img.hidden {
 
 @media only screen and (max-width: 768px) {
     .wrapper {
-        height: 100vh;
+        height: var(--screenHeight);
         border-radius: 0;
         max-width: 100%;
     }
@@ -293,6 +295,9 @@ img.hidden {
         margin: 0 auto;
         display: block;
         border-radius: 0;
+    }
+    .mute {
+        display: block;
     }
     .poster {
         width: auto;
