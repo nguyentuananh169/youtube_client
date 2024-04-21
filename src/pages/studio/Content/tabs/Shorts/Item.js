@@ -89,8 +89,8 @@ function Item({ item, tab, handleClickBtnUpdate, handleClickBtnDelete }) {
                 </p>
                 <p>Đã xuất bản</p>
             </td>
-            <td data-textalign="center">{numberConversion(item.video_views, 'compression')}</td>
-            <td data-textalign="center">{numberConversion(item.video_cmt, 'compression')}</td>
+            <td data-textalign="center">{numberConversion(item.video_views, 'commas')}</td>
+            <td data-textalign="center">{numberConversion(item.video_cmt, 'commas')}</td>
             <td data-textalign="center">{precentLike}%</td>
         </tr>
     );

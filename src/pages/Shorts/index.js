@@ -17,6 +17,8 @@ function Shorts() {
     const isReset = useRef(true);
     const isDragging = useRef(false);
     const isSetIndexActive = useRef(false);
+    const timeMove = useRef(0);
+    const intervalRef = useRef(null);
     const startY = useRef(0);
     const offsetY = useRef(0);
     const prevOffsetY = useRef(0);
@@ -65,7 +67,6 @@ function Shorts() {
     useEffect(() => {
         fetchVideoList();
     }, []);
-
     const handleInfiniteScroll = () => {
         if (wrapperRef.current) {
             videoRef.current && videoRef.current.pause();
@@ -97,6 +98,11 @@ function Shorts() {
         if (!isDragging.current || !videoListRef.current) {
             return;
         }
+        if (!intervalRef.current) {
+            intervalRef.current = setInterval(() => {
+                timeMove.current = timeMove.current + 1;
+            }, 1000);
+        }
         const wrapperEl = wrapperRef.current;
         const wrapperHeight = wrapperEl.clientHeight;
         const videoListEl = videoListRef.current;
@@ -115,11 +121,18 @@ function Shorts() {
             isSetIndexActive.current = false;
         }
     };
-    const handleTouchend = () => {
-        isDragging.current = false;
-        if (isSetIndexActive.current) {
-            const videoListEl = videoListRef.current;
-            const screenHeight = window.innerHeight;
+    const handleSetIndexVideo = (key) => {
+        const videoListEl = videoListRef.current;
+        const screenHeight = window.innerHeight;
+        if (key === 'keep') {
+            setIndexActive((state) => {
+                const newIndex = state;
+                const offsetTop = newIndex * screenHeight;
+                videoListEl.style.top = `-${offsetTop}px`;
+                prevOffsetY.current = offsetTop;
+                return newIndex;
+            });
+        } else {
             if (offsetY.current > 0) {
                 setIndexActive((state) => {
                     const newIndex = state + 1;
@@ -137,8 +150,29 @@ function Shorts() {
                     return newIndex;
                 });
             }
-            offsetY.current = 0;
         }
+    };
+    const handleTouchend = () => {
+        isDragging.current = false;
+        let type = '';
+        const h = window.innerHeight / 3;
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+        if (!isSetIndexActive.current) {
+            return;
+        }
+        let temp = offsetY.current;
+        if (temp < 0) {
+            temp *= -1;
+        }
+        if (timeMove.current >= 1 && temp < h) {
+            type = 'keep';
+        }
+        handleSetIndexVideo(type);
+        offsetY.current = 0;
+        timeMove.current = 0;
     };
     useEffect(() => {
         if (videoListRef.current && wrapperRef.current && isTouchDevice && screenWidthMobile) {

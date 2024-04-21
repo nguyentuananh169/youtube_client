@@ -1,5 +1,3 @@
-import { Volume2, VolumeX } from 'react-feather';
-
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -137,9 +135,6 @@ function VideoCard({
                     handleStopPropagation={handleStopPropagation}
                 />
                 <div className={clsx(styles.aspectRatio)}>
-                    <div className={clsx(styles.mute)} onClick={handleSetMute}>
-                        {isMute ? <VolumeX /> : <Volume2 />}
-                    </div>
                     <img className={clsx(styles.poster)} ref={posterRef} src={item.video_poster} />
                     {isVisible && (
                         <VideoPlay
@@ -147,6 +142,7 @@ function VideoCard({
                             videoLink={item.video_link}
                             isMute={isMute}
                             videoRef={videoRef}
+                            handleSetMute={handleSetMute}
                         />
                     )}
                     <div className={clsx(styles.meta)}>

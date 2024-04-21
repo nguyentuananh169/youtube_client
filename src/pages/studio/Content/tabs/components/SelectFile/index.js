@@ -17,8 +17,8 @@ function SelectFile({ dataForm, handleSetDataForm, handleCloseModal }) {
         if (file.type !== 'video/mp4') {
             return setError('Chỉ được chọn file MP4');
         }
-        if (file.size > 31457280) {
-            return setError('Kích thước file phải nhỏ hơn 30MB');
+        if (file.size > 104857600) {
+            return setError('Kích thước file phải nhỏ hơn 100MB');
         }
         setIsLoading(true);
         const title = file.name.slice(0, -4);
@@ -33,11 +33,15 @@ function SelectFile({ dataForm, handleSetDataForm, handleCloseModal }) {
             const context = canvasEl.getContext('2d');
             const width = videoEl.clientWidth;
             const height = videoEl.clientHeight;
+            const duration = videoEl.duration;
             canvasRef.current.width = width;
             canvasRef.current.height = height;
             const aspectRatio = width / height;
-            if (aspectRatio < 1) {
-                // Thời điểm bạn muốn chụp ảnh, tính theo giây
+            if (duration < 5) {
+                setError('Thời lượng video tối thiểu 5 giây');
+                setIsLoading(false);
+            } else if (aspectRatio < 1 && duration <= 60) {
+                // Thời điểm muốn chụp ảnh, tính theo giây
                 const timeInSeconds = 0;
                 // Đặt thời điểm của video đến thời điểm mong muốn
                 videoEl.currentTime = timeInSeconds;
@@ -83,7 +87,7 @@ function SelectFile({ dataForm, handleSetDataForm, handleCloseModal }) {
                         </p>
                         <p>Các video của bạn sẽ ở chế độ riêng tư cho đến khi bạn xuất bản.</p>
                         <p className={clsx(styles.note)}>
-                            Video màn hình dọc mặc định là video ngắn
+                            Video ngắn có màn hình dọc và thời lượng không quá 1 phút
                         </p>
                     </div>
                     <label className={clsx(styles.btn2)} htmlFor="select-file">

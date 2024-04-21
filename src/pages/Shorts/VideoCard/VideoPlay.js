@@ -1,9 +1,11 @@
 import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs';
+import { Volume2, VolumeX } from 'react-feather';
+
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import styles from './VideoCard.module.css';
 import videoApi from '../../../api/videoApi';
-function VideoPlay({ videoId, videoLink, isMute, videoRef }) {
+function VideoPlay({ videoId, videoLink, isMute, videoRef, handleSetMute }) {
     const timeLineRef = useRef(null);
     const animationRef = useRef(null);
     const intervalRef = useRef(null);
@@ -94,6 +96,9 @@ function VideoPlay({ videoId, videoLink, isMute, videoRef }) {
             )}
             <div className={clsx(styles.playVideo)} onClick={handleClickVideo}>
                 {isPlay ? <BsFillPauseFill size={20} /> : <BsFillPlayFill size={20} />}
+            </div>
+            <div className={clsx(styles.mute)} onClick={handleSetMute}>
+                {isMute ? <VolumeX /> : <Volume2 />}
             </div>
 
             <div ref={animationRef} className={clsx(styles.animation)}>
